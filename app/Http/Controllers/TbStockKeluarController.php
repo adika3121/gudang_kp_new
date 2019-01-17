@@ -18,7 +18,7 @@ class TbStockKeluarController extends Controller
   {
     $stock_keluar = tb_stock_keluar::all();
     $tb_outlet = tb_outlet::all();
-    return view('tampil_stock_keluar', compact('stock_keluar', 'tb_outlet'));
+    return view('stock_keluar.tampil_stockKeluar', compact('stock_keluar', 'tb_outlet'));
   }
 
   /**

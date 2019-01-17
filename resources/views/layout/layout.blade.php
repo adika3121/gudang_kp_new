@@ -280,31 +280,31 @@
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
-									<li>
+									<li class="@yield('dashboard')">
 										<a href="index.html">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
 									</li>
-									<li class="nav-active">
-										<a>
+									<li class="@yield('master')">
+										<a href="/master">
 											<i class="fa fa-dropbox" aria-hidden="true"></i>
 											<span>Master Barang</span>
 										</a>
 									</li>
-                  <li class="">
-										<a>
+                  <li class="@yield('transaksi')">
+										<a href="/transaksi">
 											<i class="fa fa-bar-chart-o" aria-hidden="true"></i>
 											<span>Transaksi</span>
 										</a>
 									</li>
-                  <li class="">
-										<a>
+                  <li class="@yield('stock_keluar')">
+										<a href="/stock-keluar">
 											<i class="fa fa-truck" aria-hidden="true"></i>
 											<span>Stock Keluar</span>
 										</a>
 									</li>
-                  <li class="">
+                  <li class="@yield('lainnya')">
 										<a>
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>Lainnya</span>
@@ -427,5 +427,6 @@
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
 
     @yield('script_master')
+    @yield('script_transaksi')
 	</body>
 </html>

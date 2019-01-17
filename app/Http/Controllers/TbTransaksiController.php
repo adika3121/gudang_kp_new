@@ -41,7 +41,7 @@ class TbTransaksiController extends Controller
                     -> get();
     $vendor = tb_vendor::all();
 
-    return view('tambah_transaksi2', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
+    return view('Transaksi.tambah_transaksi', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
   }
 
   public function create(Request $request)
@@ -136,6 +136,15 @@ class TbTransaksiController extends Controller
    {
        $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
        $transaksi->delete();
+
+       $id_master = master::where('kode_master', $request->kode_master)
+                    ->select('tb_master.id_master as id_master')
+                    ->first();
+       $master = master::find($id_master->id_master);
+       $delete_stock = tb_transaksi::where('kode_master', $request->kode_master)
+                     ->count();
+       $master->stock_masuk = $delete_stock;
+       $master->save();
 
        return back();
    }
