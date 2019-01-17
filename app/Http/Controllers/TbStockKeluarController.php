@@ -18,7 +18,7 @@ class TbStockKeluarController extends Controller
   {
     $stock_keluar = tb_stock_keluar::all();
     $tb_outlet = tb_outlet::all();
-    return view('tampil_stock_keluar', compact('stock_keluar', 'tb_outlet'));
+    return view('stock_keluar.tampil_stockKeluar', compact('stock_keluar', 'tb_outlet'));
   }
 
   /**
@@ -31,7 +31,7 @@ class TbStockKeluarController extends Controller
      $nama_barang = master::where('kode_outlet', $nama_outlet)
                    -> select('tb_master.id_master as id_master','tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
                    -> get();
-     return view('tambah_stock_keluar', compact('nama_barang','nama_outlet'));
+     return view('stock_keluar.tambah_stock_keluar', compact('nama_barang','nama_outlet'));
    }
 
    public function tambah_sn_keluar(Request $request){
@@ -42,7 +42,7 @@ class TbStockKeluarController extends Controller
                    ->first();
      $kode_master = $kk_master->kode_master;
      $ket = $request->keterangan;
-     return view('sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
+     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
    }
 
   public function create(Request $request)
@@ -95,7 +95,7 @@ class TbStockKeluarController extends Controller
       $master->stock_keluar = $out_stock;
       $master->save();
 
-      return view('sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
+      return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
   }
 
   /**

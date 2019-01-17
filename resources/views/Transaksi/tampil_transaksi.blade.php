@@ -4,6 +4,10 @@
   Transaksi Barang Masuk
 @endsection
 
+@section('transaksi')
+  nav-active
+@endsection
+
 @section('content')
 <!-- Section Main Content Tempat isinya berada  -->
 <section role="main" class="content-body">
@@ -62,6 +66,7 @@
                       <button class="on-default remove-row"
                       data-toggle="modal"
                       data-target="#deleteTransaksi"
+                      data-kode_master="{{$tp_transaksi->kode_master}}"
                       data-kode_transaksi={{$tp_transaksi->kode_transaksi}}
                       ><i class="fa fa-trash-o"></i></button>
                 </td>
@@ -156,21 +161,22 @@
           </div>
     			<!-- end modal large -->
 
-      <!-- Modal delete master  -->
-      <div class="modal fade" id="deleteMaster" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+      <!-- Modal delete transaksi  -->
+      <div class="modal fade" id="deleteTransaksi" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h5 class="modal-title" id="largeModalLabel">Delete Barang</h5>
+                          <h5 class="modal-title" id="largeModalLabel">Delete Transaksi</h5>
                       </div>
                       <div class="modal-body">
-                          <form action="{{route('master.destroy','test')}}" method="post">
+                          <form action="{{route('transaksi.destroy','test')}}" method="post">
                               {{method_field('delete')}}
                               {{csrf_field()}}
                               <p class="text-center">
-                                  Yakin untuk menghapus barang ini?
+                                  Yakin untuk menghapus transaksi ini?
                               </p>
-                              <input type="hidden" id="id_master" name="id_master" value="">
+                              <input type="hidden" name="kode_master" id="kode_master" value="">
+                              <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="">
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
                                   <button type="submit" class="btn btn-warning">Yes, Delete</button>
@@ -186,4 +192,32 @@
     </section> <!-- section panel-->
   <!-- end: page -->
 </section>
+@endsection
+
+@section('script_transaksi')
+<script>
+  $('#editTransaksi').on('show.bs.modal', function (event) {
+
+              var button = $(event.relatedTarget)
+              var keterangan_transaksi = button.data('keterangan_transaksi')
+              var vendor_transaksi = button.data('vendor_transaksi')
+              var kode_transaksi = button.data('kode_transaksi')
+              var modal = $(this)
+
+              modal.find('.modal-body #keterangan').val(keterangan_transaksi);
+              modal.find('.modal-body #vendor').val(vendor_transaksi);
+              modal.find('.modal-body #kode_transaksi').val(kode_transaksi);
+          })
+
+          $('#deleteTransaksi').on('show.bs.modal', function (event) {
+
+              var button = $(event.relatedTarget)
+              var kode_master = button.data('kode_master')
+              var kode_transaksi = button.data('kode_transaksi')
+              var modal = $(this)
+
+              modal.find('.modal-body #kode_master').val(kode_master);
+              modal.find('.modal-body #kode_transaksi').val(kode_transaksi);
+          })
+</script>
 @endsection

@@ -4,6 +4,10 @@
   Master Barang
 @endsection
 
+@section('master')
+  nav-active
+@endsection
+
 @section('content')
 <!-- Section Main Content Tempat isinya berada  -->
 <section role="main" class="content-body">
