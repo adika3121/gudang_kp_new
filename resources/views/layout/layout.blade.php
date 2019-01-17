@@ -287,7 +287,7 @@
 										</a>
 									</li>
 									<li class="nav-active">
-										<a>
+										<a href="/master">
 											<i class="fa fa-dropbox" aria-hidden="true"></i>
 											<span>Master Barang</span>
 										</a>
@@ -305,7 +305,7 @@
 										</a>
 									</li>
                   <li class="">
-										<a>
+										<a href="/lainnya">
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>Lainnya</span>
 										</a>
