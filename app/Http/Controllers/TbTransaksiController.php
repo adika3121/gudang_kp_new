@@ -24,7 +24,7 @@ class TbTransaksiController extends Controller
       $tb_outlet = tb_outlet::all();
       $vendor=tb_vendor::all();
       // $tampilBRG = DB
-      return view('tampil_transaksi', compact('tampilTransaksi', 'tb_outlet', 'vendor'));
+      return view('Transaksi.tampil_transaksi', compact('tampilTransaksi', 'tb_outlet', 'vendor'));
   }
 
   /**
