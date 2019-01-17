@@ -117,7 +117,7 @@ class TbStockKeluarController extends Controller
    */
   public function edit(tb_vendor $tb_stock_keluar)
   {
-      //
+
   }
 
   /**
@@ -129,7 +129,10 @@ class TbStockKeluarController extends Controller
    */
   public function update(Request $request)
   {
+    $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
+    $stock_keluar->update($request->all());
+    return back();
   }
 
   /**
@@ -140,6 +143,18 @@ class TbStockKeluarController extends Controller
    */
   public function destroy(Request $request)
   {
+      $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
+      $stock_keluar->delete();
 
+      $id_master = master::where('kode_master', $request->kode_master)
+                   ->select('tb_master.id_master as id_master')
+                   ->first();
+      $master = master::find($id_master->id_master);
+      $delete_stock = tb_stock_keluar::where('kode_master', $request->kode_master)
+                    ->count();
+      $master->stock_keluar = $delete_stock;
+      $master->save();
+
+      return back();
   }
 }
