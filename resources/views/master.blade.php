@@ -185,9 +185,9 @@
                           {{method_field('patch')}}
                           {{ csrf_field() }}
                           <div class="form-group">
-                              <label for="keterangan" class=" form-control-label">Catatan</label>
+                              <label for="keterangan" class=" form-control-label">Catatan <span class="required">*</span></label>
                               <input type="hidden" id="id_master" name="id_master" value="">
-                              <input type="text" id="keterangan" name="keterangan" class="form-control">
+                              <input type="text" id="keterangan" name="keterangan" class="form-control" required>
                           </div>
                           <div class="modal-footer">
                               <button type="submit" class="btn btn-primary btn-sm">
@@ -201,8 +201,34 @@
       </div>
 			<!-- end modal Update -->
 
-      </div>
-    </section>
+      <!-- Modal delete master  -->
+      <div class="modal fade" id="deleteMaster" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="largeModalLabel">Delete Barang</h5>
+                      </div>
+                      <div class="modal-body">
+                          <form action="{{route('master.destroy','test')}}" method="post">
+                              {{method_field('delete')}}
+                              {{csrf_field()}}
+                              <p class="text-center">
+                                  Yakin untuk menghapus barang ini?
+                              </p>
+                              <input type="hidden" id="id_master" name="id_master" value="">
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
+                                  <button type="submit" class="btn btn-warning">Yes, Delete</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Modal Delete -->
+
+      </div>  <!-- div panel body -->
+    </section> <!-- section panel-->
   <!-- end: page -->
 </section>
 @endsection
@@ -217,6 +243,15 @@ $('#editMaster').on('show.bs.modal', function (event) {
               var modal = $(this)
 
               modal.find('.modal-body #keterangan').val(keterangan);
+              modal.find('.modal-body #id_master').val(id_master);
+          })
+
+$('#deleteMaster').on('show.bs.modal', function (event) {
+
+              var button = $(event.relatedTarget)
+              var id_master = button.data('id_master')
+              var modal = $(this)
+
               modal.find('.modal-body #id_master').val(id_master);
           })
 </script>
