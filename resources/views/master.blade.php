@@ -222,7 +222,7 @@
                               <input type="hidden" id="id_master" name="id_master" value="">
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                  <button type="submit" class="btn btn-warning">Yes, Delete</button>
+                                  <button type="submit" class="btn btn-danger">Yes, Delete</button>
                               </div>
                           </form>
                       </div>

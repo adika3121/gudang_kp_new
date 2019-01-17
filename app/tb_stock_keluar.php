@@ -12,4 +12,7 @@ class tb_stock_keluar extends Model
     public function master(){
       return $this->belongsTo('App\master', 'kode_master');
     }
+    protected $fillable = [
+      'sn', 'keterangan'
+    ];
 }

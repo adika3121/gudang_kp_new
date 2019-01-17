@@ -428,5 +428,6 @@
 
     @yield('script_master')
     @yield('script_transaksi')
+    @yield('script_stock_keluar')
 	</body>
 </html>

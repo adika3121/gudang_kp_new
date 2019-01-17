@@ -179,7 +179,7 @@
                               <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="">
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                  <button type="submit" class="btn btn-warning">Yes, Delete</button>
+                                  <button type="submit" class="btn btn-danger">Yes, Delete</button>
                               </div>
                           </form>
                       </div>
@@ -187,6 +187,7 @@
               </div>
           </div>
           <!-- Modal Delete -->
+
 
       </div>  <!-- div panel body -->
     </section> <!-- section panel-->

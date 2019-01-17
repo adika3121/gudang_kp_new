@@ -31,7 +31,7 @@
   <!-- start: page -->
     <section class="panel">
       <header class="panel-heading">
-        <h2 class="panel-title">Tabel Stock</h2>
+        <h2 class="panel-title">Tabel Stock Keluar</h2>
       </header>
       <div class="panel-body">
 
@@ -55,11 +55,15 @@
                 <td>{{$stk_kluar->keterangan}}</td>
                 <td><button class="on-default edit-row"
                       data-toggle="modal"
-                      data-target="#editMaster">
+                      data-target="#editStockKeluar"
+                      data-keterangan_keluar="{{$stk_kluar->keterangan}}"
+                      data-kode_keluar={{$stk_kluar->kode_keluar}}>
                         <i class="fa fa-pencil"></i></button>
                     <button class="on-default remove-row"
                         data-toggle="modal"
-                        data-target="#deleteMaster"
+                        data-target="#deleteStockKeluar"
+                        data-kode_master="{{$stk_kluar->kode_master}}"
+                        data-kode_keluar={{$stk_kluar->kode_keluar}}
                         ><i class="fa fa-trash-o"></i></button></td>
             </tr>
             @endforeach
@@ -112,9 +116,90 @@
   			</div>
   			<!-- end modal tambah stock keluar-->
 
+        <!-- modal update -->
+          <div class="modal fade" id="editStockKeluar" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="largeModalLabel">Edit Stock Keluar</h5>
+                      </div>
+                      <div class="modal-body">
+                          <form action="{{route('stock-keluar.update','test')}}" method="post" class="">
+                              {{method_field('patch')}}
+                              {{ csrf_field() }}
+                              <div class="form-group">
+                                  <label for="keterangan" class=" form-control-label">Catatan</label>
+                                  <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
+                                  <input type="text" id="keterangan" name="keterangan" class="form-control">
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="submit" class="btn btn-primary btn-sm">
+                                      <i class="fa fa-dot-circle-o"></i> Simpan
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    			<!-- end modal update -->
+
+        <!-- Modal delete stock Keluar  -->
+        <div class="modal fade" id="deleteStockKeluar" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="largeModalLabel">Delete Transaksi</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('stock-keluar.destroy','test')}}" method="post">
+                                {{method_field('delete')}}
+                                {{csrf_field()}}
+                                <p class="text-center">
+                                    Yakin untuk menghapus stock keluar ini?
+                                </p>
+                                <input type="hidden" name="kode_master" id="kode_master" value="">
+                                <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
+                                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Delete -->
+
 
       </div>  <!-- div panel body -->
     </section> <!-- section panel-->
   <!-- end: page -->
 </section>
+@endsection
+
+@section('script_stock_keluar')
+<script>
+  $('#editStockKeluar').on('show.bs.modal', function (event) {
+
+              var button = $(event.relatedTarget)
+              var keterangan_keluar = button.data('keterangan_keluar')
+              var kode_keluar = button.data('kode_keluar')
+              var modal = $(this)
+
+              modal.find('.modal-body #keterangan').val(keterangan_keluar);
+              modal.find('.modal-body #kode_keluar').val(kode_keluar);
+          })
+
+    $('#deleteStockKeluar').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget)
+        var kode_master = button.data('kode_master')
+        var kode_keluar = button.data('kode_keluar')
+        var modal = $(this)
+
+        modal.find('.modal-body #kode_master').val(kode_master);
+        modal.find('.modal-body #kode_keluar').val(kode_keluar);
+    })
+</script>
 @endsection
