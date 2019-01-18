@@ -143,7 +143,7 @@
 
                     {{-- Vendor --}}
                     <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-striped table-earning"  id="datatable-tabletools">
+                        <table class="table table-borderless table-striped table-earning"  id="datatable-default">
                           <thead>
                               <tr>
                                   <th>Nama Vendor</th>
@@ -458,9 +458,6 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="largeModalLabel">Edit Vendor</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
                                     </div>
                                     <div class="modal-body">
                                         <form action="{{route('datavendor.update','test')}}" method="post" class="">
@@ -501,9 +498,6 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="largeModalLabel">Hapus Vendor</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
                                         </div>
                                         <div class="modal-body">
                                             <form action="{{route('datavendor.destroy','test')}}" method="post">
@@ -569,9 +563,6 @@
                                   <div class="modal-content">
                                       <div class="modal-header">
                                           <h5 class="modal-title" id="largeModalLabel">Edit Outlet</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                          </button>
                                       </div>
                                       <div class="modal-body">
                                           <form action="{{route('outlet.update','test')}}" method="post" class="">
@@ -614,9 +605,6 @@
                                       <div class="modal-content">
                                           <div class="modal-header">
                                               <h5 class="modal-title" id="largeModalLabel">Hapus Outlet</h5>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                              </button>
                                           </div>
                                           <div class="modal-body">
                                               <form action="{{route('outlet.destroy','test')}}" method="post">
