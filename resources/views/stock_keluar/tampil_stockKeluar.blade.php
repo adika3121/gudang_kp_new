@@ -41,7 +41,7 @@
             <tr>
               <th>Kode Master</th>
               <th>SN</th>
-              <th>Tanggal Masuk</th>
+              <th>Tanggal Keluar</th>
               <th>Catatan</th>
               <th>Ket</th>
             </tr>

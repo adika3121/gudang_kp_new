@@ -305,7 +305,7 @@
 										</a>
 									</li>
                   <li class="@yield('lainnya')">
-										<a>
+										<a href="/lainnya">
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>Lainnya</span>
 										</a>
@@ -428,6 +428,160 @@
 
     @yield('script_master')
     @yield('script_transaksi')
-    @yield('script_stock_keluar')
+	@yield('script_stock_keluar')
+	
+	<script>
+        $(function() {
+            $('#outletTable').DataTable({
+                scrollX : true,
+                scrollCollapse : true,
+                "autoWidth": false
+            });
+        });
+	</script>
+	
+	<script>
+          $("#tambahStock").on("submit", function(){
+              return confirm("Data berhasil disimpan. Tambah SN lagi?");
+          });
+      </script>
+
+	<script>
+
+      $('#editMaster').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var keterangan = button.data('keterangan')
+          var id_master = button.data('id_master')
+          var modal = $(this)
+
+          modal.find('.modal-body #keterangan').val(keterangan);
+          modal.find('.modal-body #id_master').val(id_master);
+      })
+
+      $('#deleteMaster').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var id_master = button.data('id_master')
+          var modal = $(this)
+
+          modal.find('.modal-body #id_master').val(id_master);
+      })
+
+      $('#editTransaksi').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var keterangan_transaksi = button.data('keterangan_transaksi')
+          var vendor_transaksi = button.data('vendor_transaksi')
+          var kode_transaksi = button.data('kode_transaksi')
+          var modal = $(this)
+
+          modal.find('.modal-body #keterangan').val(keterangan_transaksi);
+          modal.find('.modal-body #vendor').val(vendor_transaksi);
+          modal.find('.modal-body #kode_transaksi').val(kode_transaksi);
+      })
+
+      $('#deleteTransaksi').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var kode_transaksi = button.data('kode_transaksi')
+          var modal = $(this)
+
+          modal.find('.modal-body #kode_transaksi').val(kode_transaksi);
+      })
+
+      $('#editKategori').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var nama_kategori = button.data('kategori')
+          var kode_kategori = button.data('catid')
+          var modal = $(this)
+
+          modal.find('.modal-body #nama_kategori').val(nama_kategori);
+          modal.find('.modal-body #kode_kategori').val(kode_kategori);
+      })
+
+      $('#deleteKategori').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+
+          var kode_kategori = button.data('catid')
+          var modal = $(this)
+
+          modal.find('.modal-body #kode_kategori').val(kode_kategori);
+      })
+
+      $('#editMerk').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var nama_merek = button.data('merk')
+          var kode_merek = button.data('idmerk')
+          var modal = $(this)
+
+          modal.find('.modal-body #nama_merek').val(nama_merek);
+          modal.find('.modal-body #kode_merek').val(kode_merek);
+      })
+
+      $('#deleteMerk').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+
+          var kode_merek = button.data('idmerk')
+          var modal = $(this)
+
+          modal.find('.modal-body #kode_merek').val(kode_merek);
+      })
+
+      $('#editVendor').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var nama_vendor = button.data('namavendor')
+          var alamat = button.data('alamatvendor')
+          var telp = button.data('telpvendor')
+          var kode_vendor = button.data('idvendor')
+          var modal = $(this)
+
+          modal.find('.modal-body #nama_vendor').val(nama_vendor);
+          modal.find('.modal-body #kode_vendor').val(kode_vendor);
+          modal.find('.modal-body #alamat').val(alamat);
+          modal.find('.modal-body #no_telp').val(telp);
+      })
+
+      $('#deleteVendor').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+
+          var kode_vendor = button.data('idvendor')
+          var modal = $(this)
+
+          modal.find('.modal-body #kode_vendor').val(kode_vendor);
+      })
+
+      $('#editOutlet').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+          var nama_outlet = button.data('namaoutlet')
+          var alamat = button.data('alamatoutlet')
+          var telp = button.data('telpoutlet')
+          var kode_outlet = button.data('idoutlet')
+          var modal = $(this)
+
+          modal.find('.modal-body #nama_outlet').val(nama_outlet);
+          modal.find('.modal-body #kode_outlet').val(kode_outlet);
+          modal.find('.modal-body #alamat').val(alamat);
+          modal.find('.modal-body #no_telp').val(telp);
+      })
+
+      $('#deleteOutlet').on('show.bs.modal', function (event) {
+
+          var button = $(event.relatedTarget)
+
+          var kode_outlet = button.data('idoutlet')
+          var modal = $(this)
+
+          modal.find('.modal-body #kode_outlet').val(kode_outlet);
+      })
+
+    </script>
 	</body>
 </html>

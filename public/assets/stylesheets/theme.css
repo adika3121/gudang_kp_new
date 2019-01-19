@@ -12704,7 +12704,7 @@ html.dark .table .actions-hover a {
 	}
 }
 
-.DTTT_Print,
+/* .DTTT_Print,
 .DTTT_Print .inner-wrapper,
 .DTTT_Print .content-body,
 .DTTT_Print .panel {
@@ -12729,7 +12729,7 @@ html.dark .table .actions-hover a {
 	text-align: center;
 	top: 0;
 	width: 100%;
-}
+} */
 
 /* Dark Fixes */
 html.dark div.DTTT .btn {
