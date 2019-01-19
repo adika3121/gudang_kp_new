@@ -32,4 +32,17 @@ class master extends Model
     protected $fillable = [
        'kode_master', 'kode_outlet', 'kategori', 'kode_pn', 'merek', 'nama_barang', 'stock_masuk', 'stock_keluar', 'sisa_stock', 'keterangan'
     ];
+
+    public static function Rules(){
+         $rules= array(
+           'kode_pn' => 'required',
+           'nama_barang' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messages=array(
+        'kode_pn.required'=>'Masukan Kode PN ',
+        'nama_barang.required'=>'Masukan Nama Barang'
+    );
 }

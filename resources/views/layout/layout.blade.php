@@ -433,6 +433,23 @@
 		@yield('script_merk')
 		@yield('script_vendor')
 		@yield('script_outlet')
+		@yield('script_stock_keluar')
+
+		<script>
+	        $(function() {
+	            $('#outletTable').DataTable({
+	                scrollX : true,
+	                scrollCollapse : true,
+	                "autoWidth": false
+	            });
+	        });
+		</script>
+
+		<script>
+	          $("#tambahStock").on("submit", function(){
+	              return confirm("Data berhasil disimpan. Tambah SN lagi?");
+	          });
+	      </script>
 
 	</body>
 </html>

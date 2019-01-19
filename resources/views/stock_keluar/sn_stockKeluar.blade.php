@@ -29,10 +29,10 @@
   </header>
 
   <!-- start: page -->
-  <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal">
+  <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal" id="tambahStock">
     <section class="panel">
       <header class="panel-heading">
-        <h2 class="panel-title">Tambah Stock Keluar</h2>
+        <h2 class="panel-title">Tambah Stock Keluar - {{$kode_master}}</h2>
       </header>
       <div class="panel-body">
 
@@ -54,7 +54,8 @@
         <div class="row">
 					<div class="col-sm-6">
 						<div class="mb-md">
-							<button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Submit <i class="fa fa-plus"></i></button>
+              <button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Submit <i class="fa fa-plus"></i></button>
+              <a href="/stock-keluar" class="btn btn-warning">Selesai</a>
 						</div>
 					</div>
 				</div>

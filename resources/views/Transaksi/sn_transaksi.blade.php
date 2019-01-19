@@ -29,43 +29,37 @@
   </header>
 
   <!-- start: page -->
-    <form id="form" action="{{action('TbTransaksiController@tambah_transaksi_sn')}}" method="post" class="form-horizontal">
+    <form id="form" action="{{action('TbTransaksiController@store')}}" method="post" class="form-horizontal">
     <section class="panel">
       <header class="panel-heading">
         <h2 class="panel-title">Tambah Transaksi Barang</h2>
       </header>
       <div class="panel-body">
         {{ csrf_field() }}
-        <input type="hidden" id="kode_pn" name="outlet" value="{{$nama_outlet}}"placeholder="Kode PN" class="form-control">
+        <!-- Data dari View sebelumnya di hide -->
+        <input type="hidden" name="nama_outlet" value="{{$nama_outlet}}">
+        <input type="hidden" name="kode_master" value="{{$kode_master}}">
+        <input type="hidden" name="id_master" value="{{$id_master}}">
+        <input type="hidden" name="vendor" value="{{$vendor}}">
+
+        <!-- Form Mengisi Catatn dan SN -->
         <div class="row form-group">
             <div class="col col-md-3">
-                <label for="select" class=" form-control-label">Nama Barang</label>
+                <label for="text-input" class=" form-control-label">Catatan</label>
             </div>
             <div class="col-12 col-md-9">
-                <select name="id_master" id="outlet" class="form-control">
-                    <@if(count($nama_barang->all()) > 0)
-                        @foreach($nama_barang->all() as $brg)
-                            <option value="{{$brg->id_master}}">{{$brg->nama_barang}}</option>
-                        @endforeach
-                @endif
-                </select>
+                <textarea id="kode_pn" name="keterangan" placeholder="..." class="form-control"></textarea>
             </div>
         </div>
         <div class="row form-group">
             <div class="col col-md-3">
-                <label for="select" class=" form-control-label">Nama Vendor</label>
+                <label for="text-input" class=" form-control-label">Kode SN</label>
             </div>
             <div class="col-12 col-md-9">
-                <select name="kode_vendor" id="kategori" class="form-control">
-                <@if(count($vendor->all()) > 0)
-                    @foreach($vendor->all() as $vnd)
-                        <option value="{{$vnd->kode_vendor}}">{{$vnd->nama_vendor}}</option>
-                    @endforeach
-                @endif
-                </select>
+                <input type="text" id="kode_pn" name="sn" placeholder="SN" class="form-control">
             </div>
         </div>
-        <!-- Button Tambah Barang Baru -->
+        <!-- Button Tambah Transaksi SN -->
         <div class="row">
 					<div class="col-sm-6">
 						<div class="mb-md">
