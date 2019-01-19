@@ -616,10 +616,110 @@
                       </div>
                   </div>
               </div>
-
-
-
-
   <!-- end: page -->
 </section>
+@endsection
+
+@section('script_kategori')
+    <script>
+        $('#editKategori').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var nama_kategori = button.data('kategori')
+            var kode_kategori = button.data('catid')
+            var modal = $(this)
+
+            modal.find('.modal-body #nama_kategori').val(nama_kategori);
+            modal.find('.modal-body #kode_kategori').val(kode_kategori);
+        })
+
+        $('#deleteKategori').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var kode_kategori = button.data('catid')
+            var modal = $(this)
+
+            modal.find('.modal-body #kode_kategori').val(kode_kategori);
+        })
+    </script>
+@endsection
+
+@section('script_merk')
+    <script>
+        $('#editMerk').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var nama_merek = button.data('merk')
+            var kode_merek = button.data('idmerk')
+            var modal = $(this)
+
+            modal.find('.modal-body #nama_merek').val(nama_merek);
+            modal.find('.modal-body #kode_merek').val(kode_merek);
+        })
+
+        $('#deleteMerk').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var kode_merek = button.data('idmerk')
+            var modal = $(this)
+
+            modal.find('.modal-body #kode_merek').val(kode_merek);
+        })
+    </script>
+@endsection
+
+@section('script_vendor')
+    <script>
+        $('#editVendor').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var nama_vendor = button.data('namavendor')
+            var alamat = button.data('alamatvendor')
+            var telp = button.data('telpvendor')
+            var kode_vendor = button.data('idvendor')
+            var modal = $(this)
+
+            modal.find('.modal-body #nama_vendor').val(nama_vendor);
+            modal.find('.modal-body #kode_vendor').val(kode_vendor);
+            modal.find('.modal-body #alamat').val(alamat);
+            modal.find('.modal-body #no_telp').val(telp);
+        })
+
+        $('#deleteVendor').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var kode_vendor = button.data('idvendor')
+            var modal = $(this)
+
+            modal.find('.modal-body #kode_vendor').val(kode_vendor);
+        })
+    </script>
+@endsection
+
+@section('script_outlet')
+    <script>
+        $('#editOutlet').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var nama_outlet = button.data('namaoutlet')
+            var alamat = button.data('alamatoutlet')
+            var telp = button.data('telpoutlet')
+            var kode_outlet = button.data('idoutlet')
+            var modal = $(this)
+
+            modal.find('.modal-body #nama_outlet').val(nama_outlet);
+            modal.find('.modal-body #kode_outlet').val(kode_outlet);
+            modal.find('.modal-body #alamat').val(alamat);
+            modal.find('.modal-body #no_telp').val(telp);
+        })
+
+        $('#deleteOutlet').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            var kode_outlet = button.data('idoutlet')
+            var modal = $(this)
+
+            modal.find('.modal-body #kode_outlet').val(kode_outlet);
+        })
+    </script>
 @endsection
