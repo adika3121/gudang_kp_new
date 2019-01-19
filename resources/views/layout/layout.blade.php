@@ -428,8 +428,8 @@
 
     @yield('script_master')
     @yield('script_transaksi')
-	@yield('script_stock_keluar')
-	
+		@yield('script_stock_keluar')
+
 	<script>
         $(function() {
             $('#outletTable').DataTable({
@@ -439,7 +439,7 @@
             });
         });
 	</script>
-	
+
 	<script>
           $("#tambahStock").on("submit", function(){
               return confirm("Data berhasil disimpan. Tambah SN lagi?");

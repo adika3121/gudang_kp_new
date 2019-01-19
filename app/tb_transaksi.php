@@ -21,4 +21,17 @@ class tb_transaksi extends Model
        'kode_transaksi', 'kode_master', 'sn', 'vendor', 'tgl_masuk', 'keterangan'
     ];
 
+    public static function Rules(){
+         $rules= array(
+           'keterangan' => 'required',
+           'sn' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messages=array(
+        'kode_pn.required'=>'Masukan Kode PN ',
+        'nama_barang.required'=>'Masukan Nama Barang'
+    );
+
 }

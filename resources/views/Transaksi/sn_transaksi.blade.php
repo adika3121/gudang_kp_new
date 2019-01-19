@@ -56,7 +56,7 @@
                 <label for="text-input" class=" form-control-label">Kode SN</label>
             </div>
             <div class="col-12 col-md-9">
-                <input type="text" id="kode_pn" name="sn" placeholder="SN" class="form-control">
+                <input type="text" id="sn" name="sn" placeholder="SN" class="form-control">
             </div>
         </div>
         <!-- Button Tambah Transaksi SN -->
