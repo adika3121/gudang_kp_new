@@ -95,7 +95,7 @@ class TbStockKeluarController extends Controller
       $master->stock_keluar = $out_stock;
       $master->save();
 
-      return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
+      return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
   }
 
   /**

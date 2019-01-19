@@ -30,10 +30,12 @@
               <section class="panel">
                 <header class="panel-heading">
                   <div class="panel-actions">
+                    <button class="btn btn-primary"data-toggle="modal" data-target="#ModalKategori">+ Tambah Kategori</button>
                     <a href="#" class="fa fa-caret-down"></a>
                   </div>
 
                   <h2 class="panel-title">Kategori</h2>
+                  
                 </header>
                 <div class="panel-body">
                 {{-- Data Kategori --}}
@@ -68,8 +70,7 @@
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="center">
-                      <button class="btn btn-primary"data-toggle="modal" data-target="#ModalKategori">+ Tambah Kategori
-                      </button>
+                      
                     </div>
                   </div>
                 </footer>
@@ -83,7 +84,8 @@
                 <section class="panel">
                   <header class="panel-heading">
                     <div class="panel-actions">
-                      <a href="#" class="fa fa-caret-down"></a>
+                        <button class="btn btn-primary"data-toggle="modal" data-target="#ModalMerk">+ Tambah Merk</button>
+                        <a href="#" class="fa fa-caret-down"></a>
                     </div>
 
                     <h2 class="panel-title">Merk</h2>
@@ -118,8 +120,7 @@
                   <footer class="panel-footer">
                     <div class="row">
                       <div class="center">
-                        <button class="btn btn-primary"data-toggle="modal" data-target="#ModalMerk">+ Tambah Merk
-                        </button>
+                        
                       </div>
                     </div>
                   </footer>
@@ -134,6 +135,8 @@
                   <section class="panel">
                     <header class="panel-heading">
                       <div class="panel-actions">
+                        <button class="btn btn-primary"data-toggle="modal" data-target="#ModalVendor">+ Tambah Vendor
+                        </button>
                         <a href="#" class="fa fa-caret-down"></a>
                       </div>
                       <h2 class="panel-title">Vendor</h2>
@@ -142,7 +145,7 @@
 
                     {{-- Vendor --}}
                     <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-striped table-earning"  id="datatable-default">
+                        <table class="table table-borderless table-striped table-earning" id="datatable-default">
                           <thead>
                               <tr>
                                   <th>Nama Vendor</th>
@@ -177,8 +180,7 @@
                     <footer class="panel-footer">
                       <div class="row">
                         <div class="center">
-                          <button class="btn btn-primary"data-toggle="modal" data-target="#ModalVendor">+ Tambah Vendor
-                          </button>
+                          
                         </div>
                       </div>
                     </footer>
@@ -193,13 +195,15 @@
               <section class="panel">
                 <header class="panel-heading">
                   <div class="panel-actions">
+                    <button class="btn btn-primary"data-toggle="modal" data-target="#ModalOutlet">+ Tambah Outlet
+                    </button>
                     <a href="#" class="fa fa-caret-down"></a>
                   </div>
                   <h2 class="panel-title">Outlet</h2>
                 </header>
                 <div class="panel-body">
                 <div class="table-responsive table--no-card m-b-30">
-                    <table class="table table-borderless table-striped table-earning"  id="datatable-tabletools">
+                    <table class="table table-borderless table-striped table-earning" id="outletTable">
                       <thead>
                         <tr>
                             <th>Kode Outlet</th>
@@ -228,7 +232,9 @@
                                     <button class="btn btn-danger" data-idoutlet={{$tp_outlet->kode_outlet}} data-toggle="modal" data-target="#deleteOutlet"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
+                            
                             @endforeach
+
                       </tbody>
                     </table>
                 </div>
@@ -236,8 +242,7 @@
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="center">
-                      <button class="btn btn-primary"data-toggle="modal" data-target="#ModalOutlet">+ Tambah Outlet
-                      </button>
+                      
                     </div>
                   </div>
                 </footer>
