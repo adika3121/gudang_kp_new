@@ -187,8 +187,6 @@
               </div>
           </div>
           <!-- Modal Delete -->
-
-
       </div>  <!-- div panel body -->
     </section> <!-- section panel-->
   <!-- end: page -->

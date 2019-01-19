@@ -57,6 +57,13 @@
             </div>
             <div class="col-12 col-md-9">
                 <input type="text" id="sn" name="sn" placeholder="SN" class="form-control">
+                @if ($errors->any())
+                  @if($errors->first('sn'))
+                  <div class="alert alert-warning">
+                    <li>{{ $errors->first('sn') }}</li>
+                  </div>
+                  @endif
+                  @endif
             </div>
         </div>
         <!-- Button Tambah Transaksi SN -->

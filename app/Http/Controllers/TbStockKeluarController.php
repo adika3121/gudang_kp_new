@@ -42,7 +42,7 @@ class TbStockKeluarController extends Controller
                    ->first();
      $kode_master = $kk_master->kode_master;
      $ket = $request->keterangan;
-     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master'));
+     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
    }
 
   public function create(Request $request)

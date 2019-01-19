@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use App\tb_transaksi;
 use App\tb_vendor;
 use App\master;
@@ -75,33 +78,40 @@ class TbTransaksiController extends Controller
    */
   public function store(Request $request)
   {
-      // hasil oper dari view sebelumnya
-      $nama_outlet = $request->nama_outlet;
-      $id_master = $request->id_master;
-      $vendor = $request->vendor;
-      $k_master = master::where('id_master', $id_master)
-                    ->select('tb_master.kode_master as kode_master')
-                    ->first();
-      $kode_master = $k_master->kode_master;
 
-      // Simpan ke db
-      $transaksi = new tb_transaksi();
-      $transaksi->kode_master = $k_master->kode_master;
-      $transaksi->sn = $request->sn;
-      $transaksi->vendor = $vendor;
-      $transaksi->keterangan = $request->keterangan;
-      $transaksi->save();
+      $validator = Validator::make(Input::all(),  tb_transaksi::Rules(), tb_transaksi::$messages);
+      if ($validator->fails())
+           {
+              return Redirect::back()->withErrors($validator)->withInput();
+          }
+      else{
+        // hasil oper dari view sebelumnya
+        $nama_outlet = $request->nama_outlet;
+        $id_master = $request->id_master;
+        $vendor = $request->vendor;
+        $k_master = master::where('id_master', $id_master)
+                      ->select('tb_master.kode_master as kode_master')
+                      ->first();
+        $kode_master = $k_master->kode_master;
 
-      // input stock masuk ke tb_master
-      $master = master::find($id_master);
-      $input_stock = tb_transaksi::where('kode_master', $kode_master)
-                    ->count();
-      $master->stock_masuk = $input_stock;
-      $master->save();
+        // Simpan ke db
+        $transaksi = new tb_transaksi();
+        $transaksi->kode_master = $k_master->kode_master;
+        $transaksi->sn = $request->sn;
+        $transaksi->vendor = $vendor;
+        $transaksi->keterangan = $request->keterangan;
+        $transaksi->save();
 
-      return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
+        // input stock masuk ke tb_master
+        $master = master::find($id_master);
+        $input_stock = tb_transaksi::where('kode_master', $kode_master)
+                      ->count();
+        $master->stock_masuk = $input_stock;
+        $master->save();
 
+        return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
 
+      }
 
   }
 
