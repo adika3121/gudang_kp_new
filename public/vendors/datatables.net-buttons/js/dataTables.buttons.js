@@ -50,9 +50,9 @@ var Buttons = function( dt, config )
 {
 	// If there is no config set it to an empty object
 	if ( typeof( config ) === 'undefined' ) {
-		config = {};	
+		config = {};
 	}
-	
+
 	// Allow a boolean true for defaults
 	if ( config === true ) {
 		config = {};
@@ -199,7 +199,7 @@ $.extend( Buttons.prototype, {
 		// needed). Take a copy as the array is modified by `remove`
 		var buttons = this.s.buttons.slice();
 		var i, ien;
-		
+
 		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 			this.remove( buttons[i].node );
 		}
@@ -542,7 +542,7 @@ $.extend( Buttons.prototype, {
 			config.action.call( dt.button( button ), e, dt, button, config );
 
 			$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
-				dt.button( button ), dt, button, config 
+				dt.button( button ), dt, button, config
 			] );
 		};
 
@@ -904,7 +904,7 @@ $.extend( Buttons.prototype, {
 /**
  * Show / hide a background layer behind a collection
  * @param  {boolean} Flag to indicate if the background should be shown or
- *   hidden 
+ *   hidden
  * @param  {string} Class to assign to the background
  * @static
  */
@@ -985,7 +985,7 @@ Buttons.instanceSelector = function ( group, buttons )
 			ret.push( buttons[ input ].inst );
 		}
 	};
-	
+
 	process( group );
 
 	return ret;
@@ -1223,19 +1223,19 @@ $.extend( _dtButtons, {
 				var tableBottom = tableContainer.offset().top + tableContainer.height();
 				var listBottom = hostPosition.top + host.outerHeight() + config._collection.outerHeight();
 				var bottomOverflow = listBottom - tableBottom;
-				
+
 				// calculate overflow when positioned above
 				var listTop = hostPosition.top - config._collection.outerHeight();
 				var tableTop = tableContainer.offset().top;
 				var topOverflow = tableTop - listTop;
-				
+
 				// if bottom overflow is larger, move to the top because it fits better, or if dropup is requested
 				if (bottomOverflow > topOverflow || config.dropup) {
 					config._collection.css( 'top', hostPosition.top - config._collection.outerHeight() - 5);
 				}
 
 				// Right alignment is enabled on a class, e.g. bootstrap:
-				// $.fn.dataTable.Buttons.defaults.dom.collection.className += " dropdown-menu-right"; 
+				// $.fn.dataTable.Buttons.defaults.dom.collection.className += " dropdown-menu-right";
 				if ( config._collection.hasClass( config.rightAlignClassName ) ) {
 					config._collection.css( 'left', hostPosition.left + host.outerWidth() - config._collection.outerWidth() );
 				}
@@ -1823,7 +1823,7 @@ var _exportData = function ( dt, inOpts )
 			return config.format.footer( el ? el.innerHTML : '', idx, el );
 		} ).toArray() :
 		null;
-	
+
 	// If Select is available on this table, and any rows are selected, limit the export
 	// to the selected rows. If no rows are selected, all rows will be exported. Specify
 	// a `selected` modifier to control directly.
