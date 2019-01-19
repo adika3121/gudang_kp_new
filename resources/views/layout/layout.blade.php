@@ -446,10 +446,18 @@
 		</script>
 
 		<script>
-	          $("#tambahStock").on("submit", function(){
-	              return confirm("Data berhasil disimpan. Tambah SN lagi?");
-	          });
-	      </script>
+			$(".snTransaksi").on("submit", function(){
+				return confirm("Data transaksi berhasil disimpan. Tambah SN lagi?");
+			});
+		</script>
+
+		<script>
+	        $("#tambahStock").on("submit", function(){
+	            return confirm("Data stock keluar berhasil disimpan. Tambah SN lagi?");
+	        });
+		</script>
+		
+		
 
 	</body>
 </html>

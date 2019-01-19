@@ -99,9 +99,7 @@ class TbTransaksiController extends Controller
       $master->stock_masuk = $input_stock;
       $master->save();
 
-      return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
-
-
+      return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
 
   }
 

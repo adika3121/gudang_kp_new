@@ -49,29 +49,31 @@
           <h3 class="panel-title">Tambah Serial Number</h3>
         </header>
         <div class="panel-body">
+          
+            <input type="hidden" id="outlet" name="outlet" value="{{$nama_outlet}}" class="form-control">
+            <input  type="hidden" id="id_master" name="id_master" value="{{$id_master}}" class="form-control">
+            <input  type="hidden" id="kode_master" name="kode_master" value="{{$kode_master}}" class="form-control">
+            <input type="hidden" id="keterangan" name="keterangan" value="{{$ket}}" class="form-control">
 
           {{ csrf_field() }}
           <!-- Form Isi Stock Keluar -->
+          <div class="row form-group">
+              <div class="col col-md-3">
+                  <label for="keterangan" class=" form-control-label">Catatan</label>
+              </div>
+              <div class="col-12 col-md-9">
+                  <textarea type="text" id="keterangan" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
+              </div>
+          </div>
           <div class="row form-group">
               <div class="col col-md-3">
                   <label for="sn" class=" form-control-label">Kode SN</label>
               </div>
               <div class="col-12 col-md-9">
                   <input type="text" id="sn" name="sn" placeholder="Masukan Kode SN" class="form-control">
-                  <input type="hidden" id="outlet" name="outlet" value="{{$nama_outlet}}" class="form-control">
-                  <input  type="hidden" id="id_master" name="id_master" value="{{$id_master}}" class="form-control">
-                  <input  type="hidden" id="kode_master" name="kode_master" value="{{$kode_master}}" class="form-control">
-                  <input type="hidden" id="keterangan" name="keterangan" value="{{$ket}}" class="form-control">
               </div>
           </div>
-          <div class="row form-group">
-              <div class="col col-md-3">
-                  <label for="keterangan" class=" form-control-label">Catatan</label>
-              </div>
-              <div class="col-12 col-md-9">
-                  <textarea type="text" id="kode_pn" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
-              </div>
-          </div>
+          
           {{--  <table class="table table-borderless" id="dynamic_field">
             <tr>
               <td>
