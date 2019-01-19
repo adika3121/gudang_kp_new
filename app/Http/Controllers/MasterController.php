@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use App\master;
 use App\tb_outlet;
 use App\tb_merek;
@@ -51,27 +54,30 @@ class MasterController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'nomor' => 'required',
-        //     'member' => 'required',
-        //     'kasir' => 'required',
-        //     'tanggal'=> 'required'
-        //     ]);
-        $master = new master();
-        $outlet = $request->outlet;
-        $kode_pn = $request->kode_pn;
-        $nama_barang = $request->nama_barang;
-        $kode_master = $outlet . $kode_pn . $nama_barang;
+        $validator = Validator::make(Input::all(),  master::Rules(), master::$messages);
+        if ($validator->fails())
+             {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        else{
+          $master = new master();
+          $outlet = $request->outlet;
+          $kode_pn = $request->kode_pn;
+          $nama_barang = $request->nama_barang;
+          $kode_master = $outlet . $kode_pn . $nama_barang;
 
-        $master->kode_outlet = $request->outlet;
-        $master->kategori = $request->kategori;
-        $master->kode_pn = $request->kode_pn;
-        $master->nama_barang = $request->nama_barang;
-        $master->merek = $request->merk;
-        $master->kode_master = $kode_master;
-        $master->keterangan = $request->keterangan;
-        $master->save();
-        return redirect("/master");
+          $master->kode_outlet = $request->outlet;
+          $master->kategori = $request->kategori;
+          $master->kode_pn = $request->kode_pn;
+          $master->nama_barang = $request->nama_barang;
+          $master->merek = $request->merk;
+          $master->kode_master = $kode_master;
+          $master->keterangan = $request->keterangan;
+          $master->save();
+          return redirect("/master");
+        }
+
+
     }
 
     /**

@@ -44,17 +44,28 @@ class TbTransaksiController extends Controller
     return view('Transaksi.tambah_transaksi', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
   }
 
-  public function create(Request $request)
-  {
+  public function tambah_transaksi_sn(Request $request){
     $nama_outlet = $request->outlet;
-    $outlet = tb_outlet::all();
-    $nama_barang = master::where('kode_outlet', $nama_outlet)
-                    -> select('tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
-                    -> get();
-    $vendor = tb_vendor::all();
-
-    return view('tambah_transaksi', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
+    $id_master = $request->id_master;
+    $vendor = $request->kode_vendor;
+    $kk_master = master::where('id_master', $id_master)
+                  ->select('tb_master.kode_master as kode_master')
+                  ->first();
+    $kode_master = $kk_master->kode_master;
+    return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
   }
+
+  // public function create(Request $request)
+  // {
+  //   $nama_outlet = $request->outlet;
+  //   $outlet = tb_outlet::all();
+  //   $nama_barang = master::where('kode_outlet', $nama_outlet)
+  //                   -> select('tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
+  //                   -> get();
+  //   $vendor = tb_vendor::all();
+  //
+  //   return view('tambah_transaksi', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
+  // }
 
   /**
    * Store a newly created resource in storage.
@@ -64,25 +75,31 @@ class TbTransaksiController extends Controller
    */
   public function store(Request $request)
   {
-
-      $k_master = $request->id_master;
-      $kode_master = master::where('id_master', $k_master)
+      // hasil oper dari view sebelumnya
+      $nama_outlet = $request->nama_outlet;
+      $id_master = $request->id_master;
+      $vendor = $request->vendor;
+      $k_master = master::where('id_master', $id_master)
                     ->select('tb_master.kode_master as kode_master')
                     ->first();
+      $kode_master = $k_master->kode_master;
+
+      // Simpan ke db
       $transaksi = new tb_transaksi();
-      $transaksi->kode_master = $kode_master->kode_master;
+      $transaksi->kode_master = $k_master->kode_master;
       $transaksi->sn = $request->sn;
-      $transaksi->vendor = $request->kode_vendor;
+      $transaksi->vendor = $vendor;
       $transaksi->keterangan = $request->keterangan;
       $transaksi->save();
 
-      $master = master::find($k_master);
-      $input_stock = tb_transaksi::where('kode_master', $kode_master->kode_master)
+      // input stock masuk ke tb_master
+      $master = master::find($id_master);
+      $input_stock = tb_transaksi::where('kode_master', $kode_master)
                     ->count();
       $master->stock_masuk = $input_stock;
       $master->save();
 
-      return redirect("/transaksi");
+      return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
 
 
 
