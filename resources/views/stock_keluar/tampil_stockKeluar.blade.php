@@ -83,13 +83,11 @@
   				<div class="modal-dialog modal-lg" role="document">
   					<div class="modal-content">
   						<div class="modal-header">
-  							<h5 class="modal-title" id="largeModalLabel">Pilih Outlet Terlebih Dahulu</h5>
+  							<h5 class="modal-title" id="largeModalLabel"><strong>Pilih Outlet Terlebih Dahulu</strong></h5>
   						</div>
   						<div class="modal-body">
                 <div class="card" style="center">
-                    <div class="card-header">
-                        <strong>Pilih Outlet</strong>
-                    </div>
+                    
                     <form action="{{action('TbStockKeluarController@tambah_stock_keluar')}}" method="post" class="">
                     <div class="card-body card-block">
                         {{ csrf_field() }}

@@ -53,21 +53,21 @@
                 </select>
             </div>
         </div>
-        <div class="row form-group">
+        {{--  <div class="row form-group">
             <div class="col col-md-3">
                 <label for="keterangan" class=" form-control-label">Catatan</label>
             </div>
             <div class="col-12 col-md-9">
                 <textarea type="text" id="kode_pn" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
             </div>
-        </div>
+        </div>  --}}
         <!-- End input stock Keluar -->
 
         <!-- Button Tambah Barang Baru -->
         <div class="row">
 					<div class="col-sm-6">
 						<div class="mb-md">
-							<button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Tambah SN <i class="fa fa-plus"></i></button>
+							<button type="submit" data-toggle="modal" data-target="#tambahSN" class="btn btn-primary">Tambah SN <i class="fa fa-plus"></i></button>
 						</div>
 					</div>
 				</div>
@@ -79,5 +79,57 @@
       </div>  <!-- div panel body -->
     </section> <!-- section panel-->
   <!-- end: page -->
+  {{--  <!-- modal tambah sn Keluar -->
+  			<div class="modal fade" id="tambahSN" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  				<div class="modal-dialog modal-lg" role="document">
+  					<div class="modal-content">
+  						<div class="modal-header">
+  							<h5 class="modal-title" id="largeModalLabel"><strong>Pilih Outlet Terlebih Dahulu</strong></h5>
+  						</div>
+  						<div class="modal-body">
+                <div class="card" style="center">                  
+                    <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal" id="tambahStock">
+                      {{ csrf_field() }}
+                      <!-- Form Isi Stock Keluar -->
+                      <div class="row form-group">
+                          <div class="col col-md-3">
+                              <label for="sn" class=" form-control-label">Kode SN</label>
+                          </div>
+                          <div class="col-12 col-md-9">
+                              <input type="text" id="sn" name="sn" placeholder="Masukan Kode SN" class="form-control">
+                              <input type="hidden" id="outlet" name="outlet" value="{{$nama_outlet}}" class="form-control">
+                              <input  type="hidden" id="id_master" name="id_master" value="{{$id_master}}" class="form-control">
+                              <input  type="hidden" id="kode_master" name="kode_master" value="{{$kode_master}}" class="form-control">
+                              <input type="hidden" id="keterangan" name="keterangan" value="{{$ket}}" class="form-control">
+                          </div>
+                      </div>
+                      <div class="row form-group">
+                          <div class="col col-md-3">
+                              <label for="keterangan" class=" form-control-label">Catatan</label>
+                          </div>
+                          <div class="col-12 col-md-9">
+                              <textarea type="text" id="kode_pn" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
+                          </div>
+                      </div>
+                      <!-- End input stock Keluar -->
+
+                      <!-- Button Tambah SN Baru -->
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="mb-md">
+                            <button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Submit <i class="fa fa-plus"></i></button>
+                            <a href="/stock-keluar" class="btn btn-warning">Selesai</a>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End button  -->
+
+                    </form>
+                </div>
+  					  </div>
+  				  </div>
+          </div>
+  		  </div>
+  			<!-- end modal tambah stock keluar-->  --}}
 </section>
 @endsection
