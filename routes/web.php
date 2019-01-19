@@ -22,11 +22,17 @@ Route::resource('/outlet', 'TbOutletController');
 Route::resource('/lainnya', 'DataController');
 Route::resource('/master', 'MasterController');
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
-Route::post('/tambah-stock','TbTransaksiController@outlet');
+// Stock Keluar
 Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
 Route::post('/tambah-stock-keluar-sn', 'TbStockKeluarController@tambah_sn_keluar');
 Route::post('/tambah-stock-keluar-sn-simpan', 'TbStockKeluarController@store');
 // Route::get('/transaksi', 'TbTransaksiController@create')->name('transaksi');
+
+// transaksi
+Route::post('/tambah-stock','TbTransaksiController@outlet');
+Route::post('/tambah-stock-sn', 'TbTransaksiController@tambah_transaksi_sn');
+Route::post('/tambah-stock-sn-simpan', 'TbTransaksiController@store');
+
 
 Route::get('/tesTampil', function () {
     return view('master');

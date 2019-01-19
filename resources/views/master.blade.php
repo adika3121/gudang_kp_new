@@ -101,7 +101,7 @@
   						<div class="modal-body">
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="select" class=" form-control-label">Outlet</label>
+                            <label for="select" class=" form-control-label">Outlet <span class="required">*</span></label>
                         </div>
                         <div class="col-12 col-md-9">
                             <select name="outlet" id="outlet" class="form-control">
@@ -116,7 +116,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="select" class=" form-control-label">Kategori</label>
+                            <label for="select" class=" form-control-label">Kategori <span class="required">*</span></label>
                         </div>
                         <div class="col-12 col-md-9">
                             <select name="kategori" id="kategori" class="form-control">
@@ -130,23 +130,35 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">Kode PN</label>
+                            <label for="text-input" class=" form-control-label">Kode PN <span class="required">*</span></label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="text" id="kode_pn" name="kode_pn" placeholder="Kode PN" class="form-control">
+                            @if ($errors->any())
+                              @if($errors->first('kode_pn'))
+                              <div class="alert alert-warning">
+                                <li>{{ $errors->first('kode_pn') }}</li>
+                              </div>
+                              @endif
+                              @endif
                         </div>
                     </div>
                     <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Nama Barang</label>
+                                <label for="text-input" class=" form-control-label">Nama Barang <span class="required">*</span></label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="nama_barang" name="nama_barang" placeholder="Nama Barang" class="form-control">
+                                @if ($errors->first('nama_barang'))
+                                  <div class="alert alert-warning">
+                                    <li>{{ $errors->first('nama_barang') }}</li>
+                                  </div>
+                                  @endif
                             </div>
                         </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="select" class=" form-control-label">Merk</label>
+                            <label for="select" class=" form-control-label">Merk <span class="required">*</span></label>
                         </div>
                         <div class="col-12 col-md-9">
                             <select name="merk" id="merk" class="form-control">
@@ -239,6 +251,10 @@
 
 @section('script_master')
 <script>
+@if (count($errors) > 0)
+    $('#tambahMaster').modal('show');
+@endif
+
 $('#editMaster').on('show.bs.modal', function (event) {
 
               var button = $(event.relatedTarget)

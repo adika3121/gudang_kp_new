@@ -38,7 +38,7 @@
 
         {{ csrf_field() }}
         <!-- Form Isi Stock Keluar -->
-        <input type="hidden" id="kode_pn" name="outlet" value="{{$nama_outlet}}"placeholder="Kode PN" class="form-control">
+        <input type="hidden" id="outlet" name="outlet" value="{{$nama_outlet}}"placeholder="Kode PN" class="form-control">
         <div class="row form-group">
             <div class="col col-md-3">
                 <label for="kode_master" class=" form-control-label">Nama Barang</label>
