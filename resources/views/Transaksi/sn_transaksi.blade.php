@@ -53,7 +53,7 @@
           </div>
           <div class="row form-group">
               <div class="col col-md-3">
-                  <label for="text-input" class=" form-control-label">Kode SN</label>
+                  <label for="text-input" class=" form-control-label">Kode SN <span class="required">*</span></label>
               </div>
               <div class="col-12 col-md-9">
                   <input type="text" id="sn" name="sn" placeholder="SN" class="form-control">

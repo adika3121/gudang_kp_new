@@ -29,7 +29,7 @@
     </header>
 
     <!-- start: page -->
-    <table class="table table-bordered table-striped mb-none">
+    <!-- <table class="table table-bordered table-striped mb-none">
         <thead>
           <tr>
             <th><strong>Kode Master</strong></th>
@@ -42,7 +42,7 @@
               <td>{{$nama_outlet}}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal" id="tambahStock">
       <section class="panel">
         <header class="panel-heading">
@@ -66,7 +66,7 @@
           </div>
           <div class="row form-group">
               <div class="col col-md-3">
-                  <label for="sn" class=" form-control-label">Kode SN</label>
+                  <label for="sn" class=" form-control-label">Kode SN <span class="required">*</span></label>
               </div>
               <div class="col-12 col-md-9">
                   <input type="text" id="sn" name="sn" placeholder="Masukan Kode SN" class="form-control">

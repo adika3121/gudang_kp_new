@@ -129,21 +129,6 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                        <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">Kode PN <span class="required">*</span></label>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <input type="text" id="kode_pn" name="kode_pn" placeholder="Kode PN" class="form-control">
-                            @if ($errors->any())
-                              @if($errors->first('kode_pn'))
-                              <div class="alert alert-warning">
-                                <li>{{ $errors->first('kode_pn') }}</li>
-                              </div>
-                              @endif
-                              @endif
-                        </div>
-                    </div>
-                    <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Nama Barang <span class="required">*</span></label>
                             </div>
@@ -175,7 +160,22 @@
                             <label for="text-input" class=" form-control-label">Catatan</label>
                         </div>
                         <div class="col-12 col-md-9">
-                            <textarea id="kode_pn" name="keterangan" placeholder="..." class="form-control"></textarea>
+                            <textarea id="keterangan" name="keterangan" placeholder="..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label for="text-input" class=" form-control-label">Kode PN <span class="required">*</span></label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="text" id="kode_pn" name="kode_pn" placeholder="Kode PN" class="form-control">
+                            @if ($errors->any())
+                              @if($errors->first('kode_pn'))
+                              <div class="alert alert-warning">
+                                <li>{{ $errors->first('kode_pn') }}</li>
+                              </div>
+                              @endif
+                              @endif
                         </div>
                     </div>
   						</div>

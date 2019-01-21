@@ -21,6 +21,7 @@ Route::resource('/datavendor', 'TbVendorController');
 Route::resource('/outlet', 'TbOutletController');
 Route::resource('/lainnya', 'DataController');
 Route::resource('/master', 'MasterController');
+Route::resource('/', 'dashboardController');
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
 // Stock Keluar
 Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
@@ -33,9 +34,12 @@ Route::post('/tambah-stock','TbTransaksiController@outlet');
 Route::post('/tambah-stock-sn', 'TbTransaksiController@tambah_transaksi_sn');
 Route::post('/tambah-stock-sn-simpan', 'TbTransaksiController@store');
 
+// dashboard
+Route::post('/lihat-stock-outlet', 'dashboardController@lihat_stock_outlet');
+Route::post('/lihat-stock-masuk-dash', 'dashboardController@lihat_stock_masuk_terbaru');
 
 Route::get('/tesTampil', function () {
-    return view('master');
+    return view('dashboard.dashboard');
 });
 
 Auth::routes();

@@ -42,7 +42,7 @@
               <th>Kode Master</th>
               <th>SN</th>
               <th>Vendor</th>
-              <th>Tanggal Masuk</th>
+              <th>Waktu Masuk</th>
               <th>Catatan</th>
               <th>Ket</th>
             </tr>
