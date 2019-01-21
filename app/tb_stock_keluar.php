@@ -15,4 +15,16 @@ class tb_stock_keluar extends Model
     protected $fillable = [
       'sn', 'keterangan'
     ];
+
+    public static function Rules(){
+         $rules= array(
+           'sn' => 'required|exists:tb_transaksi,sn'
+        );
+       return $rules;
+    }
+
+    public static $messages=array(
+        'sn.required'=>'Masukan SN',
+        'sn.exists'=>'Masukan SN yang sudah ada pada transaksi'
+    );
 }

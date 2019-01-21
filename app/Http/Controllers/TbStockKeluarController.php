@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use View;
+use DB;
 use App\tb_stock_keluar;
 use App\tb_outlet;
 use App\master;
@@ -41,8 +46,7 @@ class TbStockKeluarController extends Controller
                    ->select('tb_master.kode_master as kode_master')
                    ->first();
      $kode_master = $kk_master->kode_master;
-     $ket = $request->keterangan;
-     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'id_master'));
    }
 
   public function create(Request $request)
@@ -76,26 +80,69 @@ class TbStockKeluarController extends Controller
 
   public function store(Request $request)
   {
-      $id_master = $request->id_master;
-      $kk_master = master::where('id_master', $id_master)
-                    ->select('tb_master.kode_master as kode_master')
-                    ->first();
-      $nama_outlet = $request->outlet;
-      $kode_master = $request->kode_master;
-      $ket = $request->keterangan;
-      $stock_out = new tb_stock_keluar();
-      $stock_out->sn = $request->sn;
-      $stock_out->kode_master = $request->kode_master;
-      $stock_out->keterangan = $request->keterangan;
-      $stock_out->save();
 
-      $master = master::find($id_master);
-      $out_stock = tb_stock_keluar::where('kode_master', $kode_master)
-                    ->count();
-      $master->stock_keluar = $out_stock;
-      $master->save();
+      $stock_out = [
+        "errors" => null
+      ];
+      $validator = Validator::make(Input::all(),  tb_stock_keluar::Rules(), tb_stock_keluar::$messages);
+      if($validator->passes()){
+        ///// Data dari view sebelumnya
+        $id_master = $request->id_master;
+        $kk_master = master::where('id_master', $id_master)
+                      ->select('tb_master.kode_master as kode_master')
+                      ->first();
+        $nama_outlet = $request->outlet;
+        $kode_master = $request->kode_master;
+        //////////////////////////////////////
 
-      return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+        ///// Simpan ke DB
+        $stock_out = new tb_stock_keluar();
+        $stock_out->sn = Input::get('sn');
+        $stock_out->kode_master = Input::get('kode_master');
+        $stock_out->keterangan = Input::get('keterangan');
+        $stock_out->save();
+        /////////////////////
+
+        ///// Menghitung jumlah stock keluar untuk dimasukan ke tb_master
+        $master = master::find($id_master);
+        $out_stock = tb_stock_keluar::where('kode_master', $kode_master)
+                      ->count();
+        $master->stock_keluar = $out_stock;
+        $master->save();
+        $total_stock = master::where('id_master',$id_master)
+                        ->select(DB::raw('tb_master.stock_masuk - tb_master.stock_keluar as total'))
+                        ->first();
+        $master->sisa_stock = $total_stock->total;
+        $master->save();
+        //////////////////////////////////////
+
+
+
+        return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+
+      }else{
+        ///// Data dari view sebelumnya
+        $id_master = Input::get('id_master');
+        $kk_master = master::where('id_master', $id_master)
+                      ->select('tb_master.kode_master as kode_master')
+                      ->first();
+        $nama_outlet = Input::get('outlet');
+        $kode_master = $kk_master->kode_master;
+        //////////////////////////////////////
+
+        $stock_out = $validator->errors();
+        $data = compact('id_master', 'kk_master', 'nama_outlet', 'kode_master');
+
+        return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors($validator);
+
+      }
+
+
+
+
+
+
+
   }
 
   /**
@@ -146,15 +193,24 @@ class TbStockKeluarController extends Controller
       $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
       $stock_keluar->delete();
 
+      ///////////// Mengupdate nilai di master
       $id_master = master::where('kode_master', $request->kode_master)
                    ->select('tb_master.id_master as id_master')
                    ->first();
+        ////////// Update nilai stock keluar
       $master = master::find($id_master->id_master);
       $delete_stock = tb_stock_keluar::where('kode_master', $request->kode_master)
                     ->count();
       $master->stock_keluar = $delete_stock;
       $master->save();
-
+        ////////////////////////////////////
+        ///////// Update nilai total_stock
+      $total_stock = master::where('id_master',$id_master->id_master)
+                      ->select(DB::raw('tb_master.stock_masuk - tb_master.stock_keluar as total'))
+                      ->first();
+      $master->sisa_stock = $total_stock->total;
+      $master->save();
+      /////////////////////////////////////////////////
       return back();
   }
 }

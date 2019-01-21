@@ -53,14 +53,7 @@
                 </select>
             </div>
         </div>
-        {{--  <div class="row form-group">
-            <div class="col col-md-3">
-                <label for="keterangan" class=" form-control-label">Catatan</label>
-            </div>
-            <div class="col-12 col-md-9">
-                <textarea type="text" id="kode_pn" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
-            </div>
-        </div>  --}}
+        
         <!-- End input stock Keluar -->
 
         <!-- Button Tambah Barang Baru -->
@@ -87,7 +80,7 @@
   							<h5 class="modal-title" id="largeModalLabel"><strong>Pilih Outlet Terlebih Dahulu</strong></h5>
   						</div>
   						<div class="modal-body">
-                <div class="card" style="center">                  
+                <div class="card" style="center">
                     <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal" id="tambahStock">
                       {{ csrf_field() }}
                       <!-- Form Isi Stock Keluar -->

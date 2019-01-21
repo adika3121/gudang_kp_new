@@ -87,7 +87,7 @@
   						</div>
   						<div class="modal-body">
                 <div class="card" style="center">
-                    
+
                     <form action="{{action('TbStockKeluarController@tambah_stock_keluar')}}" method="post" class="">
                     <div class="card-body card-block">
                         {{ csrf_field() }}

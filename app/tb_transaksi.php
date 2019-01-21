@@ -29,7 +29,7 @@ class tb_transaksi extends Model
     }
 
     public static $messages=array(
-        'sn.required'=>'Masukan Nama Barang'
+        'sn.required'=>'Masukan SN '
     );
 
 }
