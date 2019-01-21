@@ -68,14 +68,14 @@
           <footer class="panel-footer">
             <div class="row">
               <div class="center">
-                
+
               </div>
             </div>
           </footer>
         </section>
       </form>
     </div>
-    <!-- end kategori  -->
+    <!-- end stock outlet  -->
 
 
     </div>

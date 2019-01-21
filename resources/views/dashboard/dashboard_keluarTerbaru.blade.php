@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('title')
-  Dashboard Gudang | Stock Masuk {{$nama_outlet->nama}}
+  Dashboard Gudang | Stock Keluar {{$nama_outlet->nama}}
 @endsection
 
 @section('dashboard')
@@ -37,11 +37,11 @@
               <a href="#" class="fa fa-caret-down"></a>
             </div>
 
-            <h2 class="panel-title">Data Stock Masuk {{$nama_outlet->nama}} </h2>
+            <h2 class="panel-title">Data Stock Keluar {{$nama_outlet->nama}} </h2>
 
           </header>
           <div class="panel-body">
-          <!-- Tampilan Stock Masuk Sebuah Outlet -->
+          <!-- Tampilan Stock Keluar Sebuah Outlet -->
             <div class="table-responsive table--no-card m-b-30">
               <table class="table table-borderless table-striped table-earning" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
                 <thead>
@@ -73,7 +73,7 @@
         </section>
       </form>
     </div>
-    <!-- end stock masuk terbaru  -->
+    <!-- end Stock Keluar  -->
 
 
     </div>
