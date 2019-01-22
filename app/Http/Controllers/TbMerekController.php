@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\tb_merek;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class TbMerekController extends Controller
 {
@@ -36,13 +39,19 @@ class TbMerekController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nama_merek'=>'required']);
+      $validator = Validator::make(Input::all(),  tb_merek::Rules(), tb_merek::$messages);
+      if ($validator->fails())
+           {
+              return Redirect::back()->withErrors($validator)->withInput();
+          }
+        else {
+          $merk = new tb_merek();
+          $merk -> nama_merek = $request -> nama_merek;
+          $merk->save();
+          return redirect('/lainnya');
+        }
 
-        $merk = new tb_merek();
-        $merk -> nama_merek = $request -> nama_merek;
-        $merk->save();
-        return redirect('/lainnya');
+
     }
 
     /**
@@ -76,9 +85,18 @@ class TbMerekController extends Controller
      */
     public function update(Request $request)
     {
-        $merk = tb_merek::findOrFail($request->kode_merek);
-        $merk->update($request->all());
-        return back();
+        $validator = Validator::make(Input::all(),  tb_merek::RulesUpdate(), tb_merek::$messagesUpdate);
+        if ($validator->fails())
+             {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        else {
+            $merk = tb_merek::findOrFail($request->kode_merek_update);
+            $merk -> nama_merek = $request -> nama_merek_update;
+            $merk->save();
+            return back();
+        }
+
     }
 
     /**

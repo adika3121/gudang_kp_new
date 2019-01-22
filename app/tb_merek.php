@@ -14,4 +14,26 @@ class tb_merek extends Model
     }
 
     protected $fillable = ['nama_merek'];
+
+    public static function Rules(){
+         $rules= array(
+           'nama_merek' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messages=array(
+        'nama_merek.required'=>'Field Nama Merk Wajib Diisi'
+    );
+
+    public static function RulesUpdate(){
+         $rules= array(
+           'nama_merek_update' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messagesUpdate=array(
+        'nama_merek_update.required'=>'Field Nama Merk Wajib Diisi'
+    );
 }

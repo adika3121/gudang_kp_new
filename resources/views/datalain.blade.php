@@ -4,6 +4,10 @@
   Data Lainnya
 @endsection
 
+@section('lainnya')
+  nav-active
+@endsection
+
 @section('content')
 <!-- Section Main Content Tempat isinya berada  -->
 <section role="main" class="content-body">
@@ -35,7 +39,7 @@
                   </div>
 
                   <h2 class="panel-title">Kategori</h2>
-                  
+
                 </header>
                 <div class="panel-body">
                 {{-- Data Kategori --}}
@@ -70,7 +74,7 @@
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="center">
-                      
+
                     </div>
                   </div>
                 </footer>
@@ -120,7 +124,7 @@
                   <footer class="panel-footer">
                     <div class="row">
                       <div class="center">
-                        
+
                       </div>
                     </div>
                   </footer>
@@ -180,7 +184,7 @@
                     <footer class="panel-footer">
                       <div class="row">
                         <div class="center">
-                          
+
                         </div>
                       </div>
                     </footer>
@@ -232,7 +236,7 @@
                                     <button class="btn btn-danger" data-idoutlet={{$tp_outlet->kode_outlet}} data-toggle="modal" data-target="#deleteOutlet"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
-                            
+
                             @endforeach
 
                       </tbody>
@@ -242,7 +246,7 @@
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="center">
-                      
+
                     </div>
                   </div>
                 </footer>
@@ -251,7 +255,7 @@
           <!-- end vendor  -->
         </div>
 
-        {{-- Modal Kategori --}}
+        {{-- Modal Tambah Kategori --}}
         <div class="modal fade" id="ModalKategori" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -264,6 +268,13 @@
                             <div class="form-group">
                                 <label for="nf-email" class=" form-control-label">Nama Kategori</label>
                                 <input type="text" id="nf-email" name="nama_kategori" placeholder="Masukkan nama kategori.." class="form-control">
+                                @if ($errors->any())
+                                  @if($errors->first('nama_kategori'))
+                                  <div class="alert alert-warning">
+                                    <li>{{ $errors->first('nama_kategori') }}</li>
+                                  </div>
+                                  @endif
+                                  @endif
                             </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
@@ -291,8 +302,15 @@
                               {{ csrf_field() }}
                               <div class="form-group">
                                   <label for="nama_kategori" class=" form-control-label">Nama Kategori</label>
-                                  <input type="hidden" id="kode_kategori" name="kode_kategori" value="">
-                                  <input type="text" id="nama_kategori" name="nama_kategori" class="form-control">
+                                  <input type="hidden" id="kode_kategori_update" name="kode_kategori_update" value="">
+                                  <input type="text" id="nama_kategori_update" name="nama_kategori_update" class="form-control">
+                                  @if ($errors->any())
+                                    @if($errors->first('nama_kategori_update'))
+                                    <div class="alert alert-warning">
+                                      <li>{{ $errors->first('nama_kategori_update') }}</li>
+                                    </div>
+                                    @endif
+                                    @endif
                               </div>
                               <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary btn-sm">
@@ -343,6 +361,13 @@
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Nama Merk</label>
                                       <input type="text" id="nf-email" name="nama_merek" placeholder="Masukkan nama merk.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_merek'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_merek') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                               <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary btn-sm">
@@ -371,8 +396,15 @@
                                   {{ csrf_field() }}
                                   <div class="form-group">
                                       <label for="kode_merek" class=" form-control-label">Nama Merk</label>
-                                      <input type="hidden" id="kode_merek" name="kode_merek" value="">
-                                      <input type="text" id="nama_merek" name="nama_merek" class="form-control">
+                                      <input type="hidden" id="kode_merek_update" name="kode_merek_update" value="">
+                                      <input type="text" id="nama_merek_update" name="nama_merek_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_merek_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_merek_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
@@ -427,14 +459,35 @@
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Nama Vendor</label>
                                       <input type="text" id="nf-email" name="nama_vendor" placeholder="Masukkan nama vendor.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_vendor'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_vendor') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Alamat Vendor</label>
                                       <input type="text" id="nf-email" name="alamat" placeholder="Masukkan alamat.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('alamat'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('alamat') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">No HP</label>
                                       <input type="text" id="nf-email" name="no_telp" placeholder="Masukkan no. telp.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('no_telp'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('no_telp') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
@@ -464,17 +517,38 @@
                                   <div class="form-group">
                                       <label for="kode_vendor" class=" form-control-label">Nama Vendor</label>
                                       <input type="hidden" id="kode_vendor" name="kode_vendor" value="">
-                                      <input type="text" id="nama_vendor" name="nama_vendor" class="form-control">
+                                      <input type="text" id="nama_vendor_update" name="nama_vendor_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_vendor_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_vendor_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="kode_vendor" class=" form-control-label">Alamat</label>
                                       <input type="hidden" id="kode_vendor" name="kode_vendor" value="">
-                                      <input type="text" id="alamat" name="alamat" class="form-control">
+                                      <input type="text" id="alamat_update" name="alamat_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('alamat_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('alamat_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="kode_vendor" class=" form-control-label">No Telp</label>
                                       <input type="hidden" id="kode_vendor" name="kode_vendor" value="">
-                                      <input type="text" id="no_telp" name="no_telp" class="form-control">
+                                      <input type="text" id="no_telp_update" name="no_telp_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('no_telp_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('no_telp_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
@@ -528,18 +602,46 @@
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Kode Outlet</label>
                                       <input type="text" id="nf-email" name="kode_outlet" placeholder="Masukkan kode outlet.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('kode_outlet'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('kode_outlet') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Nama Outlet</label>
                                       <input type="text" id="nf-email" name="nama_outlet" placeholder="Masukkan nama outlet.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_outlet'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_outlet') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">Alamat Outlet</label>
-                                      <input type="text" id="nf-email" name="alamat" placeholder="Masukkan alamat.." class="form-control">
+                                      <input type="text" id="nf-email" name="alamat_outlet" placeholder="Masukkan alamat.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('alamat_outlet'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('alamat_outlet') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nf-email" class=" form-control-label">No HP</label>
-                                      <input type="text" id="nf-email" name="no_telp" placeholder="Masukkan no. telp.." class="form-control">
+                                      <input type="text" id="nf-email" name="no_telp_outlet" placeholder="Masukkan no. telp.." class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('no_telp_outlet'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('no_telp_outlet') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
@@ -568,20 +670,48 @@
                                   {{ csrf_field() }}
                                   <div class="form-group">
                                       <label for="kode_outlet" class=" form-control-label">Kode Outlet</label>
-                                      <input type="hidden" id="kode_outlet" name="kode_outlet" value="">
-                                      <input type="text" id="kode_outlet" name="kode_outlet" class="form-control">
+                                      <input type="hidden" id="kode_outlet_update" name="kode_outlet_update" value="">
+                                      <input type="text" id="kode_outlet_update" name="kode_outlet_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('kode_outlet_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('kode_outlet_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="nama_outlet" class=" form-control-label">Nama Outlet</label>
-                                      <input type="text" id="nama_outlet" name="nama_outlet" class="form-control">
+                                      <input type="text" id="nama_outlet_update" name="nama_outlet_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('nama_outlet_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('nama_outlet_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="alamat_outlet" class=" form-control-label">Alamat</label>
-                                      <input type="text" id="alamat" name="alamat" class="form-control">
+                                      <input type="text" id="alamat_outlet_update" name="alamat_outlet_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('alamat_outlet_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('alamat_outlet_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="form-group">
                                       <label for="no_outlet" class=" form-control-label">No Telp</label>
-                                      <input type="text" id="no_telp" name="no_telp" class="form-control">
+                                      <input type="text" id="no_telp_outlet_update" name="no_telp_outlet_update" class="form-control">
+                                      @if ($errors->any())
+                                        @if($errors->first('no_telp_outlet_update'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('no_telp_outlet_update') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
@@ -627,6 +757,22 @@
 
 @section('script_kategori')
     <script>
+    ///////// Tambah Kategori
+    @if ($errors->any())
+      @if($errors->first('nama_kategori'))
+          $('#ModalKategori').modal('show');
+      @endif
+    @endif
+    /////////////////////////////////////////
+
+    ///////// Update Kategori
+    @if ($errors->any())
+      @if($errors->first('nama_kategori_update'))
+          $('#editKategori').modal('show');
+      @endif
+    @endif
+    /////////////////////////////////////////////
+
         $('#editKategori').on('show.bs.modal', function (event) {
 
             var button = $(event.relatedTarget)
@@ -634,8 +780,8 @@
             var kode_kategori = button.data('catid')
             var modal = $(this)
 
-            modal.find('.modal-body #nama_kategori').val(nama_kategori);
-            modal.find('.modal-body #kode_kategori').val(kode_kategori);
+            modal.find('.modal-body #nama_kategori_update').val(nama_kategori);
+            modal.find('.modal-body #kode_kategori_update').val(kode_kategori);
         })
 
         $('#deleteKategori').on('show.bs.modal', function (event) {
@@ -651,6 +797,22 @@
 
 @section('script_merk')
     <script>
+    ////////Tambah merk
+      @if ($errors->any())
+        @if($errors->first('nama_merek'))
+            $('#ModalMerk').modal('show');
+        @endif
+      @endif
+      ////////////////////////
+
+      //////// Update merk
+      @if ($errors->any())
+        @if($errors->first('nama_merek_update'))
+            $('#editMerk').modal('show');
+        @endif
+      @endif
+      ////////////////////////////////////////////
+
         $('#editMerk').on('show.bs.modal', function (event) {
 
             var button = $(event.relatedTarget)
@@ -658,8 +820,8 @@
             var kode_merek = button.data('idmerk')
             var modal = $(this)
 
-            modal.find('.modal-body #nama_merek').val(nama_merek);
-            modal.find('.modal-body #kode_merek').val(kode_merek);
+            modal.find('.modal-body #nama_merek_update').val(nama_merek);
+            modal.find('.modal-body #kode_merek_update').val(kode_merek);
         })
 
         $('#deleteMerk').on('show.bs.modal', function (event) {
@@ -675,6 +837,43 @@
 
 @section('script_vendor')
     <script>
+    /////// tambah vendor
+    @if ($errors->any())
+      @if($errors->first('nama_vendor'))
+        $('#ModalVendor').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('alamat'))
+        $('#ModalVendor').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('no_telp'))
+        $('#ModalVendor').modal('show');
+      @endif
+    @endif
+    ///////////////////////
+
+    ////////Update Vendor
+    @if ($errors->any())
+      @if($errors->first('nama_vendor_update'))
+        $('#editVendor').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('alamat_update'))
+        $('#editVendor').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('no_telp_update'))
+        $('#editVendor').modal('show');
+      @endif
+    @endif
+    /////////////////////////////
+
+
         $('#editVendor').on('show.bs.modal', function (event) {
 
             var button = $(event.relatedTarget)
@@ -684,10 +883,10 @@
             var kode_vendor = button.data('idvendor')
             var modal = $(this)
 
-            modal.find('.modal-body #nama_vendor').val(nama_vendor);
+            modal.find('.modal-body #nama_vendor_update').val(nama_vendor);
             modal.find('.modal-body #kode_vendor').val(kode_vendor);
-            modal.find('.modal-body #alamat').val(alamat);
-            modal.find('.modal-body #no_telp').val(telp);
+            modal.find('.modal-body #alamat_update').val(alamat);
+            modal.find('.modal-body #no_telp_update').val(telp);
         })
 
         $('#deleteVendor').on('show.bs.modal', function (event) {
@@ -703,6 +902,56 @@
 
 @section('script_outlet')
     <script>
+    //////// Tambah Outlet
+    @if ($errors->any())
+      @if($errors->first('kode_outlet'))
+        $('#ModalOutlet').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('nama_outlet'))
+        $('#ModalOutlet').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('alamat_outlet'))
+        $('#ModalOutlet').modal('show');
+      @endif
+    @endif
+    @if ($errors->any())
+      @if($errors->first('no_telp_outlet'))
+        $('#ModalOutlet').modal('show');
+      @endif
+    @endif
+    /////////////////////////
+
+    /////// Update outletTable
+
+    @if ($errors->any())
+      @if($errors->first('kode_outlet_update'))
+        $('#editOutlet').modal('show');
+      @endif
+    @endif
+
+    @if ($errors->any())
+      @if($errors->first('nama_outlet_update'))
+        $('#editOutlet').modal('show');
+      @endif
+    @endif
+
+    @if ($errors->any())
+      @if($errors->first('alamat_outlet_update'))
+        $('#editOutlet').modal('show');
+      @endif
+    @endif
+
+    @if ($errors->any())
+      @if($errors->first('no_telp_outlet_update'))
+        $('#editOutlet').modal('show');
+      @endif
+    @endif
+
+    /////////////////////////////////////////////
         $('#editOutlet').on('show.bs.modal', function (event) {
 
             var button = $(event.relatedTarget)
@@ -712,10 +961,10 @@
             var kode_outlet = button.data('idoutlet')
             var modal = $(this)
 
-            modal.find('.modal-body #nama_outlet').val(nama_outlet);
-            modal.find('.modal-body #kode_outlet').val(kode_outlet);
-            modal.find('.modal-body #alamat').val(alamat);
-            modal.find('.modal-body #no_telp').val(telp);
+            modal.find('.modal-body #nama_outlet_update').val(nama_outlet);
+            modal.find('.modal-body #kode_outlet_update').val(kode_outlet);
+            modal.find('.modal-body #alamat_outlet_update').val(alamat);
+            modal.find('.modal-body #no_telp_outlet_update').val(telp);
         })
 
         $('#deleteOutlet').on('show.bs.modal', function (event) {

@@ -23,13 +23,14 @@ class tb_transaksi extends Model
 
     public static function Rules(){
          $rules= array(
-           'sn' => 'required'
+           'sn' => 'required|unique:tb_transaksi,sn'
         );
        return $rules;
     }
 
     public static $messages=array(
-        'sn.required'=>'Masukan SN '
+        'sn.required'=>'Masukan SN',
+        'sn.unique'=>'Kode SN harus yang belum pernah diinputkan sebelumnya'
     );
 
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\tb_kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class TbKategoriController extends Controller
 {
@@ -36,13 +39,18 @@ class TbKategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nama_kategori'=>'required']);
-
+      $validator = Validator::make(Input::all(),  tb_kategori::Rules(), tb_kategori::$messages);
+      if ($validator->fails())
+           {
+              return Redirect::back()->withErrors($validator)->withInput();
+          }
+      else{
         $kategori = new tb_kategori();
         $kategori -> nama_kategori = $request -> nama_kategori;
         $kategori->save();
         return redirect('/lainnya');
+      }
+
     }
 
     /**
@@ -76,10 +84,18 @@ class TbKategoriController extends Controller
      */
     public function update(Request $request)
     {
-        $kategori = tb_kategori::findOrFail($request->kode_kategori);
+        $validator = Validator::make(Input::all(),  tb_kategori::RulesUpdate(), tb_kategori::$messagesUpdate);
+        if ($validator->fails())
+             {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        else {
+          $kategori = tb_kategori::findOrFail($request->kode_kategori_update);
+          $kategori->nama_kategori = $request->nama_kategori_update;
+          $kategori->save();
+          return back();
+        }
 
-        $kategori->update($request->all());
-        return back();
     }
 
     /**

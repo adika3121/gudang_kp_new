@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\tb_vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class TbVendorController extends Controller
 {
@@ -36,17 +39,19 @@ class TbVendorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nama_vendor'=>'required',
-            'alamat'=>'required',
-            'no_telp'=>'required']);
-
+      $validator = Validator::make(Input::all(),  tb_vendor::Rules(), tb_vendor::$messages);
+      if ($validator->fails())
+           {
+              return Redirect::back()->withErrors($validator)->withInput();
+          }
+      else {
         $vendor = new tb_vendor();
         $vendor -> nama_vendor = $request -> nama_vendor;
         $vendor -> alamat = $request -> alamat;
         $vendor -> no_telp = $request -> no_telp;
         $vendor->save();
         return redirect('/lainnya');
+      }
     }
 
     /**
@@ -80,10 +85,20 @@ class TbVendorController extends Controller
      */
     public function update(Request $request)
     {
-        $vendor = tb_vendor::findOrFail($request->kode_vendor);
+        $validator = Validator::make(Input::all(),  tb_vendor::RulesUpdate(), tb_vendor::$messagesUpdate);
+        if ($validator->fails())
+             {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        else {
+            $vendor = tb_vendor::findOrFail($request->kode_vendor);
+            $vendor -> nama_vendor = $request -> nama_vendor_update;
+            $vendor -> alamat = $request -> alamat_update;
+            $vendor -> no_telp = $request -> no_telp_update;
+            $vendor->save();
+            return back();
+        }
 
-        $vendor->update($request->all());
-        return back();
     }
 
     /**

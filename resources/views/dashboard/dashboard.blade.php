@@ -30,6 +30,49 @@
 
   <!-- start: page -->
 
+  <div class="row">
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          <div class="panel-actions">
+              <a href="#" class="fa fa-caret-down"></a>
+          </div>
+
+          <h2 class="panel-title">Sisa Stock Berdasarkan Kategori</h2>
+        </header>
+        <div class="panel-body">
+        {{-- Data Merk --}}
+        <div class="card" style="center">
+            <div class="card-header">
+            </div>
+            <form action="{{action('dashboardController@lihat_stock_based_type')}}" method="post" class="">
+            <div class="card-body card-block">
+                {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="outlet" class=" form-control-label">Pilih Kategori</label>
+                        <select class="form-control" name="kategori">
+                          <@if(count($tb_kategori->all()) > 0)
+                              @foreach($tb_kategori->all() as $kategori)
+                                  <option value="{{$kategori->kode_kategori}}">{{$kategori->nama_kategori}}</option>
+                              @endforeach
+                          @endif
+                        </select>
+                    </div>
+            </div>
+        </div>
+        </div>
+        <footer class="panel-footer">
+          <div class="row">
+            <div class="center">
+              <button type="submit" class="btn btn-primary">Lanjut</button>
+            </div>
+          </div>
+          </form>
+        </footer>
+      </section>
+    </div>
+  </div>
+
   <!-- div row pertama -->
   <div class="row">
     <!-- Stock Masuk Terbaru Sebuah Outlet -->

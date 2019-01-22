@@ -38,6 +38,7 @@ Route::post('/tambah-stock-sn-simpan', 'TbTransaksiController@store');
 Route::post('/lihat-stock-outlet', 'dashboardController@lihat_stock_outlet');
 Route::post('/lihat-stock-masuk-dash', 'dashboardController@lihat_stock_masuk_terbaru');
 Route::post('/lihat-stock-keluar-dash', 'dashboardController@lihat_stock_keluar_terbaru');
+Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
 
 Route::get('/tesTampil', function () {
     return view('dashboard.dashboard');

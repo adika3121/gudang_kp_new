@@ -21,7 +21,8 @@ class dashboardController extends Controller
     public function index()
     {
       $tb_outlet = tb_outlet::all();
-      return view('dashboard.dashboard', compact('tb_outlet'));
+      $tb_kategori = tb_kategori::all();
+      return view('dashboard.dashboard', compact('tb_outlet','tb_kategori'));
     }
 
     /**
@@ -84,6 +85,29 @@ class dashboardController extends Controller
        return view('dashboard.dashboard_keluarTerbaru', compact('lihat_stock', 'nama_outlet'));
      }
      ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+     ///////////// Melihat Stock Berdasarkan Kategori Barang
+     public function lihat_stock_based_type(Request $request){
+       $nama_kategori = tb_kategori::where('kode_kategori', $request->kategori)
+                        ->select('nama_kategori as nama')
+                        ->first();
+
+        $lihat_stock = master::where('kategori', $request->kategori)
+                        ->join('tb_kategori', 'tb_kategori.kode_kategori', '=', 'tb_master.kategori')
+                        ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                        ->select('tb_kategori.nama_kategori as nama_kategori',
+                                  'tb_outlet.nama_outlet as nama_outlet',
+                                  'tb_master.nama_barang as nama_barang',
+                                  'tb_master.stock_masuk as stock_masuk',
+                                  'tb_master.stock_keluar as stock_keluar',
+                                  'tb_master.sisa_stock as sisa_stock')
+                        ->get();
+        return view('dashboard.dashboard_basedType', compact('nama_kategori', 'lihat_stock'));
+     }
+
+
+     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     public function create()
