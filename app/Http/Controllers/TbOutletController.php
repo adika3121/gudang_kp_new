@@ -93,7 +93,6 @@ class TbOutletController extends Controller
           }
       else {
         $outlet = tb_outlet::findOrFail($request->kode_outlet_update);
-        $outlet -> kode_outlet = $request -> kode_outlet_update;
         $outlet -> nama_outlet = $request -> nama_outlet_update;
         $outlet -> alamat = $request -> alamat_outlet_update;
         $outlet -> no_telp = $request -> no_telp_outlet_update;
