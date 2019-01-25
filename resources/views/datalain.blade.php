@@ -682,7 +682,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="nama_outlet" class=" form-control-label">Nama Outlet</label>
-                                      <input type="text" id="nama_outlet_update" name="nama_outlet_update" class="form-control">
+                                      <input type="text" id="nama_outlet_update" name="nama_outlet_update" class="form-control" value="{{ old('nama_outlet_update') }}">
                                       @if ($errors->any())
                                         @if($errors->first('nama_outlet_update'))
                                         <div class="alert alert-warning">
@@ -693,11 +693,13 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="alamat_outlet" class=" form-control-label">Alamat</label>
-                                      <input type="text" id="alamat_outlet_update" name="alamat_outlet_update" class="form-control">
+                                      <input type="text" id="alamat_outlet_update" name="alamat_outlet_update" class="form-control" value="{{ old('alamat_outlet_update') }}">
+                                      
                                       @if ($errors->any())
                                         @if($errors->first('alamat_outlet_update'))
                                         <div class="alert alert-warning">
                                           <li>{{ $errors->first('alamat_outlet_update') }}</li>
+                                          
                                         </div>
                                         @endif
                                         @endif
@@ -711,7 +713,7 @@
                                           <li>{{ $errors->first('no_telp_outlet_update') }}</li>
                                         </div>
                                         @endif
-                                        @endif
+                                    @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
