@@ -21,7 +21,7 @@ Route::resource('/datavendor', 'TbVendorController');
 Route::resource('/outlet', 'TbOutletController');
 Route::resource('/lainnya', 'DataController');
 Route::resource('/master', 'MasterController');
-Route::resource('/', 'dashboardController');
+Route::resource('/', 'HomeController');
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
 // Stock Keluar
 Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
