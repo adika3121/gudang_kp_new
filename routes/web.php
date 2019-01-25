@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::resource('/', 'HomeController');
 Route::get('/dataBarang', 'MasterController@index');
 Route::resource('/barang', 'MasterController');
 Route::resource('/kategori', 'TbKategoriController');
@@ -21,7 +21,8 @@ Route::resource('/datavendor', 'TbVendorController');
 Route::resource('/outlet', 'TbOutletController');
 Route::resource('/lainnya', 'DataController');
 Route::resource('/master', 'MasterController');
-Route::resource('/', 'HomeController');
+Route::resource('/dashboard', 'dashboardController');
+
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
 // Stock Keluar
 Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');

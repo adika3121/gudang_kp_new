@@ -233,11 +233,23 @@
 					<div id="userbox" class="userbox">
 						<a href="#" data-toggle="dropdown">
 							<figure class="profile-picture">
-								<img src="{{asset('assets/images/!logged-user.jpg')}}" alt="Joseph Doe" class="img-circle" data-lock-picture="{{asset('assets/images/!logged-user.jpg')}}" />
+								{{--  <img src="{{asset('assets/images/!logged-user.jpg')}}" alt="Joseph Doe" class="img-circle" data-lock-picture="{{asset('assets/images/!logged-user.jpg')}}" />  --}}
 							</figure>
-							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">John Doe Junior</span>
-								<span class="role">administrator</span>
+							<div class="profile-info">
+								{{--  <span class="name">John Doe Junior</span>
+								<span class="role">administrator</span>  --}}
+								@guest
+                            		@if (Route::has('register'))
+										<li class="nav-item">
+											
+										</li>
+									@endif
+								@else
+									{{--  <li class="nav-item dropdown">
+										<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>  --}}
+											<span class="name">{{ Auth::user()->name }}</span>
+										{{--  </a>  --}}
+
 							</div>
 
 							<i class="fa custom-caret"></i>
@@ -247,14 +259,26 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
-								</li>
-								<li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-								</li>
-								<li>
+									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ __('Logout') }}</a>
+								</li> 
+								
+										{{--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  --}}
+											{{--  <a class="dropdown-item" href="{{ route('logout') }}"
+											onclick="event.preventDefault();
+															document.getElementById('logout-form').submit();">
+												{{ __('Logout') }}
+											</a>  --}}
+
+											<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+												@csrf
+											</form>
+										{{--  </div>  --}}
+									
+								@endguest
+								{{--  <li>
 									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
-								</li>
+								</li>  --}}
 							</ul>
 						</div>
 					</div>
