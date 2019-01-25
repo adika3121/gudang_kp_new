@@ -668,12 +668,8 @@
                                   {{ csrf_field() }}
                                   <div class="form-group">
                                       <label for="nama_outlet" class=" form-control-label">Nama Outlet</label>
-<<<<<<< HEAD
-                                      <input type="text" id="nama_outlet_update" name="nama_outlet_update" class="form-control" value="{{ old('nama_outlet_update') }}">
-=======
                                       <input type="hidden" id="kode_outlet_update" name="kode_outlet_update" value="{{old('kode_outlet_update')}}">
                                       <input type="text" id="nama_outlet_update" name="nama_outlet_update" class="form-control" value="{{old('nama_outlet_update')}}">
->>>>>>> b5d8fef01cfe1f92b7daa96c07eabb0793e60542
                                       @if ($errors->any())
                                         @if($errors->first('nama_outlet_update'))
                                         <div class="alert alert-warning">
@@ -684,12 +680,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="alamat_outlet" class=" form-control-label">Alamat</label>
-<<<<<<< HEAD
-                                      <input type="text" id="alamat_outlet_update" name="alamat_outlet_update" class="form-control" value="{{ old('alamat_outlet_update') }}">
-                                      
-=======
                                       <input type="text" id="alamat_outlet_update" name="alamat_outlet_update" class="form-control" value="{{old('alamat_outlet_update')}}">
->>>>>>> b5d8fef01cfe1f92b7daa96c07eabb0793e60542
                                       @if ($errors->any())
                                         @if($errors->first('alamat_outlet_update'))
                                         <div class="alert alert-warning">
