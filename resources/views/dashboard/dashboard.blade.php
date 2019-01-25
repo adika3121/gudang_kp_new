@@ -31,7 +31,7 @@
   <!-- start: page -->
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <section class="panel">
         <header class="panel-heading">
           <div class="panel-actions">
@@ -173,7 +173,7 @@
               <a href="#" class="fa fa-caret-down"></a>
             </div>
 
-            <h2 class="panel-title">Data Stock Sebuah Outlet</h2>
+            <h2 class="panel-title">Data Stock Outlet</h2>
 
           </header>
           <div class="panel-body">

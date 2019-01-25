@@ -133,7 +133,7 @@
                                 <label for="text-input" class=" form-control-label">Nama Barang <span class="required">*</span></label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="nama_barang" name="nama_barang" placeholder="Nama Barang" class="form-control">
+                                <input type="text" id="nama_barang" name="nama_barang" placeholder="Nama Barang" class="form-control" value="{{old('nama_barang')}}">
                                 @if ($errors->first('nama_barang'))
                                   <div class="alert alert-warning">
                                     <li>{{ $errors->first('nama_barang') }}</li>
@@ -201,7 +201,7 @@
                           {{method_field('patch')}}
                           {{ csrf_field() }}
                           <div class="form-group">
-                              <label for="keterangan" class=" form-control-label">Catatan <span class="required">*</span></label>
+                              <label for="keterangan" class=" form-control-label">Catatan</label>
                               <input type="hidden" id="id_master" name="id_master" value="">
                               <input type="text" id="keterangan" name="keterangan" class="form-control" required>
                           </div>

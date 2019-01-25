@@ -87,8 +87,8 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-md">
-                <button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Submit <i class="fa fa-plus"></i></button>
-                <a href="/stock-keluar" class="btn btn-warning">Selesai</a>
+                <button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Tambahkan <i class="fa fa-plus"></i></button>
+                <a href="/stock-keluar" class="btn btn-danger">Batalkan</a>
               </div>
             </div>
           </div>

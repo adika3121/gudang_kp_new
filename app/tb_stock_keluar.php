@@ -18,13 +18,14 @@ class tb_stock_keluar extends Model
 
     public static function Rules(){
          $rules= array(
-           'sn' => 'required|exists:tb_transaksi,sn'
+           'sn' => 'required|exists:tb_transaksi,sn|unique:tb_stock_keluar,sn'
         );
        return $rules;
     }
 
     public static $messages=array(
         'sn.required'=>'Masukan SN',
-        'sn.exists'=>'Masukan SN yang sudah ada pada transaksi'
+        'sn.exists'=>'Masukan SN yang sudah ada pada transaksi',
+        'sn.unique'=>'SN ini sudah digunakan'
     );
 }
