@@ -67,7 +67,7 @@ class dashboardController extends Controller
                       ->get();
       return view('dashboard.dashboard_masukTerbaru', compact('lihat_stock', 'nama_outlet'));
      }
-     /////////////////////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////////////////////
 
      /////////// Melihat Stock yang baru keluar sebuah outlet
      public function lihat_stock_keluar_terbaru(Request $request){
