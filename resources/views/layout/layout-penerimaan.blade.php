@@ -241,7 +241,7 @@
 								@guest
                             		@if (Route::has('register'))
 										<li class="nav-item">
-											
+
 										</li>
 									@endif
 								@else
@@ -261,8 +261,8 @@
 								<li>
 									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}" onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ __('Logout') }}</a>
-								</li> 
-								
+								</li>
+
 										{{--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  --}}
 											{{--  <a class="dropdown-item" href="{{ route('logout') }}"
 											onclick="event.preventDefault();
@@ -274,7 +274,7 @@
 												@csrf
 											</form>
 										{{--  </div>  --}}
-									
+
 								@endguest
 								{{--  <li>
 									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
@@ -304,12 +304,6 @@
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
-									<li class="@yield('dashboard')">
-										<a href="/">
-											<i class="fa fa-home" aria-hidden="true"></i>
-											<span>Dashboard</span>
-										</a>
-									</li>
 									<li class="@yield('master')">
 										<a href="/master">
 											<i class="fa fa-dropbox" aria-hidden="true"></i>
@@ -320,18 +314,6 @@
 										<a href="/transaksi">
 											<i class="fa fa-bar-chart-o" aria-hidden="true"></i>
 											<span>Transaksi</span>
-										</a>
-									</li>
-                  <li class="@yield('stock_keluar')">
-										<a href="/stock-keluar">
-											<i class="fa fa-truck" aria-hidden="true"></i>
-											<span>Stock Keluar</span>
-										</a>
-									</li>
-                  <li class="@yield('lainnya')">
-										<a href="/lainnya">
-											<i class="fa fa-copy" aria-hidden="true"></i>
-											<span>Lainnya</span>
 										</a>
 									</li>
 								</ul>
@@ -365,7 +347,7 @@
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 							</div>
 
-							
+
 
 						</div>
 					</div>
