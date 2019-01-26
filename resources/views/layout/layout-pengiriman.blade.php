@@ -305,19 +305,20 @@
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
 									<li class="@yield('master')">
-										<a href="/penerimaan-master">
+										<a href="/pengiriman-master">
 											<i class="fa fa-dropbox" aria-hidden="true"></i>
 											<span>Master Barang</span>
 										</a>
 									</li>
-                  <li class="@yield('transaksi')">
-										<a href="/penerimaan-transaksi">
-											<i class="fa fa-bar-chart-o" aria-hidden="true"></i>
-											<span>Transaksi</span>
+                  <li class="@yield('stock_keluar')">
+										<a href="/pengiriman-stock-keluar">
+											<i class="fa fa-truck" aria-hidden="true"></i>
+											<span>Stock Keluar</span>
 										</a>
 									</li>
 								</ul>
 							</nav>
+
 							<hr class="separator" />
 
 

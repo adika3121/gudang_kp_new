@@ -52,7 +52,7 @@
         <div class="row">
 					<div class="col-sm-6">
 						<div class="mb-md">
-              <a href="/transaksi" class="btn btn-warning">Tidak</a>
+              <a href="/penerimaan-transaksi" class="btn btn-warning">Tidak</a>
 							<button type="submit" data-toggle="modal" data-target="#tambahTransaksiSN" class="btn btn-primary">Iya</button>
 						</div>
 					</div>

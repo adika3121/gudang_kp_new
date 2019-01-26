@@ -24,14 +24,23 @@ Route::resource('/master', 'MasterController');
 Route::resource('/dashboard', 'dashboardController');
 Route::resource('/', 'HomeController');
 Route::resource('/marketing', 'MarketingController');
-Route::resource('/penerimaan', 'PenerimaanTransaksiController');
+Route::resource('/penerimaan-master', 'PenerimaanMasterController');
+Route::resource('/penerimaan-transaksi', 'PenerimaanTransaksiController');
+Route::resource('/pengiriman-stock-keluar', 'PengirimanStockKeluarController');
+Route::resource('/pengiriman-master', 'PengirimanMasterController');
 
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
+
 // Stock Keluar
 Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
 Route::post('/tambah-stock-keluar-sn', 'TbStockKeluarController@tambah_sn_keluar');
 Route::post('/tambah-stock-keluar-sn-simpan', 'TbStockKeluarController@store');
 // Route::get('/transaksi', 'TbTransaksiController@create')->name('transaksi');
+
+// Pengiriman Stock Keluar
+Route::post('/pengiriman-tambah-stock-keluar', 'PengirimanStockKeluarController@tambah_stock_keluar');
+Route::post('/pengiriman-tambah-stock-keluar-sn', 'PengirimanStockKeluarController@tambah_sn_keluar');
+Route::post('/pengiriman-tambah-stock-keluar-sn-simpan', 'PengirimanStockKeluarController@store');
 
 // transaksi
 Route::post('/tambah-stock','TbTransaksiController@outlet');
