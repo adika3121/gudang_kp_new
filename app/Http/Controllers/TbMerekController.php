@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Gate;
 
 class TbMerekController extends Controller
 {
@@ -17,8 +18,10 @@ class TbMerekController extends Controller
      */
     public function index()
     {
-        $tampilMerk = tb_merek::all();
-        return view('tambah_merk', compact('tampilMerk'));
+        if(!Gate::allows('isAdmin')){
+            return view('error');
+        }
+        return redirect('/lainnya');
     }
 
     /**

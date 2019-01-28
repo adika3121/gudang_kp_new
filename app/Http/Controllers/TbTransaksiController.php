@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use View;
 use DB;
+use Gate;
 use App\tb_transaksi;
 use App\tb_vendor;
 use App\master;
@@ -24,12 +25,15 @@ class TbTransaksiController extends Controller
    */
   public function index()
   {
-      $tampilTransaksi = tb_transaksi::with('tb_vendor', 'master')
-                      ->get();
-      $tb_outlet = tb_outlet::all();
-      $vendor=tb_vendor::all();
-      // $tampilBRG = DB
-      return view('Transaksi.tampil_transaksi', compact('tampilTransaksi', 'tb_outlet', 'vendor'));
+        if(Gate::allows('isMarketing')||Gate::allows('isPengiriman')){
+            return view('error');
+        }
+        $tampilTransaksi = tb_transaksi::with('tb_vendor', 'master')
+                        ->get();
+        $tb_outlet = tb_outlet::all();
+        $vendor=tb_vendor::all();
+        // $tampilBRG = DB
+        return view('Transaksi.tampil_transaksi', compact('tampilTransaksi', 'tb_outlet', 'vendor'));
   }
 
   /**
@@ -176,6 +180,9 @@ class TbTransaksiController extends Controller
    */
    public function update(Request $request)
    {
+        if(Gate::allows('isMarketing')||Gate::allows('isPengiriman')){
+            return view('error');
+        }
        $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
 
        $transaksi->update($request->all());
@@ -191,6 +198,9 @@ class TbTransaksiController extends Controller
 
    public function destroy(Request $request)
    {
+        if(Gate::allows('isMarketing')||Gate::allows('isPengiriman')){
+            return view('error');
+        }
        $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
        $transaksi->delete();
 

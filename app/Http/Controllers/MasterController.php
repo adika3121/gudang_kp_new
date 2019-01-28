@@ -13,11 +13,16 @@ use App\tb_kategori;
 use App\tb_vendor;
 use App\tb_transaksi;
 use DB;
+use Gate;
 
 class MasterController extends Controller
 {
     public function index()
     {
+        if(Gate::allows('isMarketing')){
+            return view('error');
+        }
+
         $tampilBarang = master::with('tb_outlet','tb_merek', 'tb_kategori')
                         ->get();
 
@@ -40,10 +45,10 @@ class MasterController extends Controller
      */
     public function create()
     {
-        $outlet = tb_outlet::all();
-        $merk = tb_merek::all();
-        $kategori = tb_kategori::all();
-        return view('tambahbarang', compact('outlet', 'merk', 'kategori'));
+        // $outlet = tb_outlet::all();
+        // $merk = tb_merek::all();
+        // $kategori = tb_kategori::all();
+        // return view('tambahbarang', compact('outlet', 'merk', 'kategori'));
     }
 
     /**
@@ -54,6 +59,10 @@ class MasterController extends Controller
      */
     public function store(Request $request)
     {
+        if(Gate::allows('isMarketing')){
+            return view('error');
+        }
+
         $validator = Validator::make(Input::all(),  master::Rules(), master::$messages);
         if ($validator->fails())
              {

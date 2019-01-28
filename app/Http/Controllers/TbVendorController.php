@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Gate;
 
 class TbVendorController extends Controller
 {
@@ -15,10 +16,13 @@ class TbVendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $tampilVendor = tb_vendor::all();
-        return view('tambah_vendor', compact('tampilVendor'));
+        if(!Gate::allows('isAdmin')){
+            return view('error');
+        }
+        return redirect('/lainnya');
     }
 
     /**

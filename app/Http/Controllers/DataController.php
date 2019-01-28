@@ -8,6 +8,7 @@ use App\tb_outlet;
 use App\tb_merek;
 use App\tb_kategori;
 use App\tb_vendor;
+use Gate;
 use DB;
 
 class DataController extends Controller
@@ -17,8 +18,14 @@ class DataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
     public function index()
     {
+        if(!Gate::allows('isAdmin')){
+            return view('error');
+        }
+
         $tampilKategori = tb_kategori::all();
         $tampilMerk = tb_merek::all();
         $tampilVendor = tb_vendor::all();

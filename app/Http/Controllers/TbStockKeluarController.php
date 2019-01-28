@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use View;
 use DB;
+use Gate;
 use App\tb_stock_keluar;
 use App\tb_outlet;
 use App\master;
@@ -21,6 +22,9 @@ class TbStockKeluarController extends Controller
    */
   public function index()
   {
+    if(Gate::allows('isMarketing')||Gate::allows('isGudang')){
+      return view('error');
+    }
     $stock_keluar = tb_stock_keluar::all();
     $tb_outlet = tb_outlet::all();
     return view('stock_keluar.tampil_stockKeluar', compact('stock_keluar', 'tb_outlet'));
@@ -176,6 +180,9 @@ class TbStockKeluarController extends Controller
    */
   public function update(Request $request)
   {
+    if(Gate::allows('isMarketing')||Gate::allows('isGudang')){
+      return view('error');
+    }
     $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
     $stock_keluar->update($request->all());
@@ -190,6 +197,9 @@ class TbStockKeluarController extends Controller
    */
   public function destroy(Request $request)
   {
+      if(Gate::allows('isMarketing')||Gate::allows('isGudang')){
+        return view('error');
+      }
       $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
       $stock_keluar->delete();
 

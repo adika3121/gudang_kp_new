@@ -299,47 +299,60 @@
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
 						</div>
 					</div>
-
+				
 					<div class="nano">
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
+								@canany('isMarketing|isAdmin')
 									<li class="@yield('dashboard')">
-										<a href="/">
+										<a href="/dashboard">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
 									</li>
+								@endcanany
+								@cannot('isMarketing')
 									<li class="@yield('master')">
 										<a href="/master">
 											<i class="fa fa-dropbox" aria-hidden="true"></i>
 											<span>Master Barang</span>
 										</a>
 									</li>
-                  <li class="@yield('transaksi')">
+								@endcannot
+								@canany('isGudang|isAdmin')
+                  					<li class="@yield('transaksi')">
 										<a href="/transaksi">
 											<i class="fa fa-bar-chart-o" aria-hidden="true"></i>
 											<span>Transaksi</span>
 										</a>
 									</li>
-                  <li class="@yield('stock_keluar')">
+								@endcanany
+								@canany('isPengiriman|isAdmin')
+                 					<li class="@yield('stock_keluar')">
 										<a href="/stock-keluar">
 											<i class="fa fa-truck" aria-hidden="true"></i>
 											<span>Stock Keluar</span>
 										</a>
 									</li>
-                  <li class="@yield('lainnya')">
+								@endcanany
+								@can('isAdmin')
+                  					<li class="@yield('lainnya')">
 										<a href="/lainnya">
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>Lainnya</span>
 										</a>
 									</li>
+<<<<<<< HEAD
 									<li class="@yield('Tambah Pengguna')">
 										<a href="/pengguna">
 											<i class="fa fa-group" aria-hidden="true"></i>
 											<span>Pengguna Sistem</span>
 										</a>
 									</li>
+=======
+								@endcan
+>>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
 								</ul>
 							</nav>
 
