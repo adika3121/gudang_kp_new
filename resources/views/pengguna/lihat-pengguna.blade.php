@@ -231,6 +231,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="confirm_pass" type="password" class="form-control" name="confirm_pass" >
+
+                                    @if ($errors->has('confirm_pass'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('confirm_pass') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -351,6 +365,11 @@
   @endif
   @if ($errors->any())
     @if($errors->first('password'))
+      $('#ModalPengguna').modal('show');
+    @endif
+  @endif
+  @if ($errors->any())
+    @if($errors->first('confirm_pass'))
       $('#ModalPengguna').modal('show');
     @endif
   @endif
