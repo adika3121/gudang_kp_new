@@ -40,6 +40,25 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Tipe User') }}</label>
+
+                            <div class="col-md-6">
+                              <select class="form-control" name="role" id="role">
+                                  <option value="admin">admin</option>
+                                  <option value="marketing">marketing</option>
+                                  <option value="pengiriman">pengiriman</option>
+                                  <option value="gudang">gudang</option>
+                              </select>
+
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('role') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

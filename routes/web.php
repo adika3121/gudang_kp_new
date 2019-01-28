@@ -29,6 +29,9 @@ Route::resource('/penerimaan-transaksi', 'PenerimaanTransaksiController');
 Route::resource('/pengiriman-stock-keluar', 'PengirimanStockKeluarController');
 Route::resource('/pengiriman-master', 'PengirimanMasterController');
 
+// Pengguna Sistem
+Route::resource('/pengguna', 'penggunaController');
+
 Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
 
 // Stock Keluar
@@ -65,16 +68,8 @@ Route::post('/marketing-lihat-stock-keluar-dash', 'MarketingController@lihat_sto
 Route::post('/marketing-lihat-stock-based-type-dash', 'MarketingController@lihat_stock_based_type');
 
 Route::get('/tesTampil', function () {
-    return view('dashboard.dashboard');
+    return view('auth.register');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 

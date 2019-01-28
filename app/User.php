@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'role', 'password',
     ];
 
     /**
@@ -27,4 +27,40 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function Rules(){
+         $rules= array(
+           'name' => 'required',
+           'email' => 'required|email|unique:users,email',
+           'role' => 'required',
+           'password' => 'required|min:6'
+        );
+       return $rules;
+    }
+
+    public static $messages=array(
+        'name.required'=>'Field Nama Wajib Diisi',
+        'email.required'=>'Field email Wajib Diisi',
+        'email.email' => 'Masukan email dengan format email yang benar',
+        'email.unique' => 'Email ini sudah ada pengguna yang menggunakan',
+        'role.required' => 'Field Role Dipelukan',
+        'password.required'=> 'Field Password wajib diisi',
+        'password.min' => 'Karakter pada password minimanl 6 karakter'
+    );
+
+    public static function RulesUpdate(){
+         $rules= array(
+           'nama_pengguna_update' => 'required',
+           'email_pengguna_update' => 'required|email',
+           'role_pengguna_update' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messagesUpdate=array(
+        'nama_pengguna_update.required'=>'Field Nama Wajib Diisi',
+        'email_pengguna_update.required'=>'Field email Wajib Diisi',
+        'email_pengguna_update.email' => 'Masukan email dengan format email yang benar',
+        'role_pengguna_update.required' => 'Field Role Dipelukan'
+    );
 }
