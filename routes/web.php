@@ -11,6 +11,12 @@
 |
 */
 
+
+// Pengguna Sistem
+
+
+// Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
@@ -28,7 +34,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/master', 'MasterController');
     Route::resource('/lainnya', 'DataController');
     Route::resource('/dashboard', 'dashboardController');
-    
+    Route::resource('/pengguna', 'penggunaController');
+
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
     // Stock Keluar
     Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
@@ -48,9 +55,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
  });
 
-// Route::get('/tesTampil', function () {
-//     return view('auth.register');
-// });
 
 
 Route::get('/home', 'HomeController@index')->name('home');

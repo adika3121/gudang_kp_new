@@ -299,7 +299,7 @@
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
 						</div>
 					</div>
-				
+
 					<div class="nano">
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
@@ -341,6 +341,12 @@
 										<a href="/lainnya">
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>Lainnya</span>
+										</a>
+									</li>
+									<li class="@yield('Tambah Pengguna')">
+										<a href="/pengguna">
+											<i class="fa fa-group" aria-hidden="true"></i>
+											<span>Pengguna Sistem</span>
 										</a>
 									</li>
 								@endcan
@@ -413,14 +419,15 @@
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.row.with.details.js')}}"></script>
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
 
-    @yield('script_master')
-    @yield('script_transaksi')
-    @yield('script_stock_keluar')
+		@yield('script_master')
+		@yield('script_transaksi')
+		@yield('script_stock_keluar')
 		@yield('script_kategori')
 		@yield('script_merk')
 		@yield('script_vendor')
 		@yield('script_outlet')
 		@yield('script_stock_keluar')
+		@yield('script_pengguna')
 
 		<script>
 	        $(function() {
