@@ -11,16 +11,7 @@
 |
 */
 
-<<<<<<< HEAD
-// Pengguna Sistem
-Route::resource('/pengguna', 'penggunaController');
-
-Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
-=======
 Auth::routes();
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
-
-
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -57,24 +48,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
  });
 
-<<<<<<< HEAD
-Route::get('/tesTampil', function () {
-    return view('auth.register');
-=======
-Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function () {
-    
-    
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
-});
-
-
-<<<<<<< HEAD
-Route::get('/home', 'HomeController@index')->name('home');
-=======
-
 // Route::get('/tesTampil', function () {
-//     return view('dashboard.dashboard');
+//     return view('auth.register');
 // });
 
 
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
+Route::get('/home', 'HomeController@index')->name('home');

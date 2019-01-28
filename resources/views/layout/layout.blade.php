@@ -241,7 +241,7 @@
 								@guest
                             		@if (Route::has('register'))
 										<li class="nav-item">
-
+											
 										</li>
 									@endif
 								@else
@@ -261,8 +261,8 @@
 								<li>
 									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}" onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ __('Logout') }}</a>
-								</li>
-
+								</li> 
+								
 										{{--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  --}}
 											{{--  <a class="dropdown-item" href="{{ route('logout') }}"
 											onclick="event.preventDefault();
@@ -274,7 +274,7 @@
 												@csrf
 											</form>
 										{{--  </div>  --}}
-
+									
 								@endguest
 								{{--  <li>
 									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
@@ -343,16 +343,7 @@
 											<span>Lainnya</span>
 										</a>
 									</li>
-<<<<<<< HEAD
-									<li class="@yield('Tambah Pengguna')">
-										<a href="/pengguna">
-											<i class="fa fa-group" aria-hidden="true"></i>
-											<span>Pengguna Sistem</span>
-										</a>
-									</li>
-=======
 								@endcan
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
 								</ul>
 							</nav>
 
@@ -384,7 +375,7 @@
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 							</div>
 
-
+							
 
 						</div>
 					</div>
@@ -430,7 +421,6 @@
 		@yield('script_vendor')
 		@yield('script_outlet')
 		@yield('script_stock_keluar')
-		@yield('script_pengguna')
 
 		<script>
 	        $(function() {
