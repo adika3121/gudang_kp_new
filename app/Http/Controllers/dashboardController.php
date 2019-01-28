@@ -10,6 +10,7 @@ use App\tb_kategori;
 use App\tb_vendor;
 use App\tb_transaksi;
 use App\tb_stock_keluar;
+use Gate;
 
 class dashboardController extends Controller
 {
@@ -18,11 +19,19 @@ class dashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
     public function index()
     {
-      $tb_outlet = tb_outlet::all();
-      $tb_kategori = tb_kategori::all();
-      return view('dashboard.dashboard', compact('tb_outlet','tb_kategori'));
+        if(Gate::allows('isAdmin') || Gate::allows('isMarketing')){
+            $tb_outlet = tb_outlet::all();
+            $tb_kategori = tb_kategori::all();
+            return view('dashboard.dashboard', compact('tb_outlet','tb_kategori'));
+            
+        }else{
+            return view('error');
+        }
+        
     }
 
     /**
@@ -32,7 +41,7 @@ class dashboardController extends Controller
      */
 
      //////// Melihat Stock Sebuah Outlet
-     public function lihat_stock_outlet(Request $request){
+    public function lihat_stock_outlet(Request $request){
        $nama_outlet = tb_outlet::where('kode_outlet',$request->outlet)
                       ->select('nama_outlet as nama')
                       ->first();
@@ -51,7 +60,7 @@ class dashboardController extends Controller
 
 
      ////////// Melihat Stock yang baru masuk sebuah outlet
-     public function lihat_stock_masuk_terbaru(Request $request){
+    public function lihat_stock_masuk_terbaru(Request $request){
        $nama_outlet = tb_outlet::where('kode_outlet',$request->outlet)
                       ->select('nama_outlet as nama')
                       ->first();
@@ -70,7 +79,7 @@ class dashboardController extends Controller
      //////////////////////////////////////////////////////////////////////////////////////////
 
      /////////// Melihat Stock yang baru keluar sebuah outlet
-     public function lihat_stock_keluar_terbaru(Request $request){
+    public function lihat_stock_keluar_terbaru(Request $request){
        $nama_outlet = tb_outlet::where('kode_outlet',$request->outlet)
                       ->select('nama_outlet as nama')
                       ->first();
@@ -87,7 +96,7 @@ class dashboardController extends Controller
      ///////////////////////////////////////////////////////////////////////////////////////////////////
 
      ///////////// Melihat Stock Berdasarkan Kategori Barang
-     public function lihat_stock_based_type(Request $request){
+    public function lihat_stock_based_type(Request $request){
        $nama_kategori = tb_kategori::where('kode_kategori', $request->kategori)
                         ->select('nama_kategori as nama')
                         ->first();

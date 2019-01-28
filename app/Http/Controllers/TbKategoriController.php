@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Gate;
 
 class TbKategoriController extends Controller
 {
@@ -17,8 +18,10 @@ class TbKategoriController extends Controller
      */
     public function index()
     {
-        $tampilKategori = tb_kategori::all();
-        return view('tambah_kategori', compact('tampilKategori'));
+        if(!Gate::allows('isAdmin')){
+            return view('error');
+        }
+        return redirect('/lainnya');
     }
 
     /**

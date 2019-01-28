@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Gate;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,23 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+
+    protected function authenticated($request, $user){
+
+        // return ($user);
+        if(Gate::allows('isAdmin')){
+            return redirect ('/lainnya');
+            // abort(404,"Sorry, You can do this actions");
+        }else if(Gate::allows('isMarketing')){
+            return redirect ('/dashboard');
+        }else if(Gate::allows('isGudang')){
+            return redirect ('/transaksi');
+        }else if(Gate::allows('isPengiriman')){
+            return redirect ('/stock-keluar');
+        }
+        
+    }
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

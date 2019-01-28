@@ -7,6 +7,7 @@ use App\tb_outlet;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Gate;
 
 class TbOutletController extends Controller
 {
@@ -17,8 +18,10 @@ class TbOutletController extends Controller
      */
     public function index()
     {
-        $tampilOutlet = tb_outlet::all();
-        return view('tambah_outlet', compact('tampilOutlet'));
+        if(!Gate::allows('isAdmin')){
+            return view('error');
+        }
+        return redirect('/lainnya');
     }
 
     /**
