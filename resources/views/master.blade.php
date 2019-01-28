@@ -17,7 +17,7 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/master">
             <i class="fa fa-home"></i>
           </a>
         </li>
@@ -222,7 +222,7 @@
               <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h5 class="modal-title" id="largeModalLabel">Delete Barang</h5>
+                          <h5 class="modal-title" id="largeModalLabel">Hapus Barang</h5>
                       </div>
                       <div class="modal-body">
                           <form action="{{route('master.destroy','test')}}" method="post">
@@ -233,8 +233,8 @@
                               </p>
                               <input type="hidden" id="id_master" name="id_master" value="">
                               <div class="modal-footer">
-                                  <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                  <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                  <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                               </div>
                           </form>
                       </div>

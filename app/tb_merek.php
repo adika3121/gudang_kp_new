@@ -17,23 +17,25 @@ class tb_merek extends Model
 
     public static function Rules(){
          $rules= array(
-           'nama_merek' => 'required'
+           'nama_merek' => 'required|unique:tb_merek,nama_merek'
         );
        return $rules;
     }
 
     public static $messages=array(
-        'nama_merek.required'=>'Field Nama Merk Wajib Diisi'
+        'nama_merek.required'=>'Field Nama Merk Wajib Diisi',
+        'nama_merek.unique'=>'Merk ini sudah ada'
     );
 
     public static function RulesUpdate(){
          $rules= array(
-           'nama_merek_update' => 'required'
+           'nama_merek_update' => 'required|unique:tb_merek,nama_merek'
         );
        return $rules;
     }
 
     public static $messagesUpdate=array(
-        'nama_merek_update.required'=>'Field Nama Merk Wajib Diisi'
+        'nama_merek_update.required'=>'Field Nama Merk Wajib Diisi',
+        'nama_merek_update.unique'=>'Merk ini sudah ada'
     );
 }

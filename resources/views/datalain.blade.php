@@ -17,7 +17,7 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/lainnya">
             <i class="fa fa-home"></i>
           </a>
         </li>
@@ -280,7 +280,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <i class="fa fa-dot-circle-o"></i> Simpan
                             </button>
-                            <button type="reset" class="btn btn-danger btn-sm">
+                            <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                 <i class="fa fa-ban"></i> Batalkan
                             </button>
                         </div>
@@ -316,6 +316,9 @@
                                   <button type="submit" class="btn btn-primary btn-sm">
                                       <i class="fa fa-dot-circle-o"></i> Simpan
                                   </button>
+                                  <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                      <i class="fa fa-ban"></i> Batalkan
+                                  </button>
                               </div>
                           </form>
                       </div>
@@ -328,19 +331,19 @@
                   <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
                           <div class="modal-header">
-                              <h5 class="modal-title" id="largeModalLabel">Delete Kategori</h5>
+                              <h5 class="modal-title" id="largeModalLabel">Hapus Kategori</h5>
                           </div>
                           <div class="modal-body">
                               <form action="{{route('kategori.destroy','test')}}" method="post">
                                   {{method_field('delete')}}
                                   {{csrf_field()}}
                                   <p class="text-center">
-                                      Are you sure you want to delete this?
+                                      Yakin untuk menghapus kategori ini?
                                   </p>
                                   <input type="hidden" id="kode_kategori" name="kode_kategori" value="">
                                   <div class="modal-footer">
-                                      <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                      <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                      <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                   </div>
                               </form>
                           </div>
@@ -373,7 +376,7 @@
                                   <button type="submit" class="btn btn-primary btn-sm">
                                       <i class="fa fa-dot-circle-o"></i> Simpan
                                   </button>
-                                  <button type="reset" class="btn btn-danger btn-sm">
+                                  <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                       <i class="fa fa-ban"></i> Batalkan
                                   </button>
                               </div>
@@ -410,7 +413,7 @@
                                       <button type="submit" class="btn btn-primary btn-sm">
                                           <i class="fa fa-dot-circle-o"></i> Simpan
                                       </button>
-                                      <button type="reset" class="btn btn-danger btn-sm">
+                                      <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                           <i class="fa fa-ban"></i> Batalkan
                                       </button>
                                   </div>
@@ -432,13 +435,13 @@
                                   {{method_field('delete')}}
                                   {{csrf_field()}}
                                   <p class="text-center">
-                                      Are you sure you want to delete this?
+                                      Yakin untuk menghapus merk ini?
                                   </p>
                                   <input type="hidden" id="kode_merek" name="kode_merek" value="">
 
                                   <div class="modal-footer">
-                                      <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                      <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                      <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                   </div>
                               </form>
                           </div>
@@ -493,7 +496,7 @@
                                       <button type="submit" class="btn btn-primary btn-sm">
                                           <i class="fa fa-dot-circle-o"></i> Simpan
                                       </button>
-                                      <button type="reset" class="btn btn-danger btn-sm">
+                                      <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                           <i class="fa fa-ban"></i> Batalkan
                                       </button>
                                   </div>
@@ -552,7 +555,7 @@
                                       <button type="submit" class="btn btn-primary btn-sm">
                                           <i class="fa fa-dot-circle-o"></i> Simpan
                                       </button>
-                                      <button type="reset" class="btn btn-danger btn-sm">
+                                      <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                           <i class="fa fa-ban"></i> Batalkan
                                       </button>
                                   </div>
@@ -574,12 +577,12 @@
                                     {{method_field('delete')}}
                                     {{csrf_field()}}
                                     <p class="text-center">
-                                        Are you sure you want to delete this?
+                                        Yakin ingin menghapus vendor ini?
                                     </p>
                                     <input type="hidden" id="kode_vendor" name="kode_vendor" value="">
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                     </div>
                                 </form>
                             </div>
@@ -645,7 +648,7 @@
                                       <button type="submit" class="btn btn-primary btn-sm">
                                           <i class="fa fa-dot-circle-o"></i> Simpan
                                       </button>
-                                      <button type="reset" class="btn btn-danger btn-sm">
+                                      <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                           <i class="fa fa-ban"></i> Batalkan
                                       </button>
                                   </div>
@@ -685,7 +688,7 @@
                                         @if($errors->first('alamat_outlet_update'))
                                         <div class="alert alert-warning">
                                           <li>{{ $errors->first('alamat_outlet_update') }}</li>
-                                          
+
                                         </div>
                                         @endif
                                         @endif
@@ -705,7 +708,7 @@
                                       <button type="submit" class="btn btn-primary btn-sm">
                                           <i class="fa fa-dot-circle-o"></i> Simpan
                                       </button>
-                                      <button type="reset" class="btn btn-danger btn-sm">
+                                      <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
                                           <i class="fa fa-ban"></i> Batalkan
                                       </button>
                                   </div>
@@ -727,12 +730,12 @@
                                   {{method_field('delete')}}
                                   {{csrf_field()}}
                                   <p class="text-center">
-                                      Are you sure you want to delete this?
+                                      Yakin ingin menghapus outlet ini?
                                   </p>
                                   <input type="hidden" id="kode_outlet" name="kode_outlet" value="">
                                   <div class="modal-footer">
-                                      <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                      <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                      <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                   </div>
                               </form>
                           </div>

@@ -54,14 +54,33 @@ class TbTransaksiController extends Controller
   }
 
   public function tambah_transaksi_sn(Request $request){
-    $nama_outlet = $request->outlet;
-    $id_master = $request->id_master;
-    $vendor = $request->kode_vendor;
-    $kk_master = master::where('id_master', $id_master)
-                  ->select('tb_master.kode_master as kode_master')
-                  ->first();
-    $kode_master = $kk_master->kode_master;
-    return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
+
+    $validator = Validator::make(Input::all(),  tb_transaksi::RulesAwal(), tb_transaksi::$messagesAwal);
+    if ($validator->passes())
+         {
+           $nama_outlet = $request->outlet;
+           $id_master = $request->id_master;
+           $vendor = $request->kode_vendor;
+           $kk_master = master::where('id_master', $id_master)
+                         ->select('tb_master.kode_master as kode_master')
+                         ->first();
+           $kode_master = $kk_master->kode_master;
+           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
+            // return Redirect::back()->withErrors($validator)->withInput();
+        }
+    else{
+          $nama_outlet = $request->outlet;
+          $outlet = tb_outlet::all();
+          $nama_barang = master::where('kode_outlet', $nama_outlet)
+                          -> select('tb_master.id_master as id_master', 'tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
+                          -> get();
+          $vendor = tb_vendor::all();
+
+          $data = compact('nama_outlet', 'outlet', 'nama_barang', 'vendor');
+          return View::make('Transaksi.tambah_transaksi', $data)->withErrors($validator);
+
+    }
+
   }
 
   // public function create(Request $request)

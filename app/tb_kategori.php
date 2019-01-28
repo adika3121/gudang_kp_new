@@ -17,23 +17,25 @@ class tb_kategori extends Model
 
     public static function Rules(){
          $rules= array(
-           'nama_kategori' => 'required'
+           'nama_kategori' => 'required|unique:tb_kategori,nama_kategori'
         );
        return $rules;
     }
 
     public static function RulesUpdate(){
          $rules= array(
-           'nama_kategori_update' => 'required'
+           'nama_kategori_update' => 'required|unique:tb_kategori,nama_kategori'
         );
        return $rules;
     }
 
     public static $messages=array(
-        'nama_kategori.required'=>'Field Nama Kategori Wajib Diisi'
+        'nama_kategori.required'=>'Field Nama Kategori Wajib Diisi',
+        'nama_kategori.unique' => 'Kategori ini sudah ada sebelumnya'
     );
 
     public static $messagesUpdate=array(
-        'nama_kategori_update.required'=>'Field Nama Kategori Wajib Diisi'
+        'nama_kategori_update.required'=>'Field Nama Kategori Wajib Diisi',
+        'nama_kategori_update.unique' => 'Kategori ini sudah ada sebelumnya'
     );
 }

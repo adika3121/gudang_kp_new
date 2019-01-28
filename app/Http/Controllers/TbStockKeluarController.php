@@ -44,13 +44,28 @@ class TbStockKeluarController extends Controller
    }
 
    public function tambah_sn_keluar(Request $request){
-     $nama_outlet = $request->outlet;
-     $id_master = $request->id_master;
-     $kk_master = master::where('id_master', $id_master)
-                   ->select('tb_master.kode_master as kode_master')
-                   ->first();
-     $kode_master = $kk_master->kode_master;
-     return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'id_master'));
+
+     $validator = Validator::make(Input::all(),  tb_stock_keluar::RulesAwal(), tb_stock_keluar::$messagesAwal);
+     if ($validator->passes()){
+       $nama_outlet = $request->outlet;
+       $id_master = $request->id_master;
+       $kk_master = master::where('id_master', $id_master)
+                     ->select('tb_master.kode_master as kode_master')
+                     ->first();
+       $kode_master = $kk_master->kode_master;
+       return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'id_master'));
+     }else{
+       $nama_outlet = $request->outlet;
+       $nama_barang = master::where('kode_outlet', $nama_outlet)
+                     -> select('tb_master.id_master as id_master','tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
+                     -> get();
+
+       $data = compact('nama_outlet', 'nama_barang');
+       return View::make('stock_keluar.tambah_stock_keluar', $data)->withErrors($validator);
+     }
+
+
+
    }
 
   public function create(Request $request)
