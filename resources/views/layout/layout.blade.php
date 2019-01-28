@@ -241,7 +241,7 @@
 								@guest
                             		@if (Route::has('register'))
 										<li class="nav-item">
-
+											
 										</li>
 									@endif
 								@else
@@ -261,8 +261,8 @@
 								<li>
 									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}" onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ __('Logout') }}</a>
-								</li>
-
+								</li> 
+								
 										{{--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  --}}
 											{{--  <a class="dropdown-item" href="{{ route('logout') }}"
 											onclick="event.preventDefault();
@@ -274,7 +274,7 @@
 												@csrf
 											</form>
 										{{--  </div>  --}}
-
+									
 								@endguest
 								{{--  <li>
 									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
@@ -381,7 +381,7 @@
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 							</div>
 
-
+							
 
 						</div>
 					</div>
@@ -419,9 +419,9 @@
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.row.with.details.js')}}"></script>
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
 
-    @yield('script_master')
-    @yield('script_transaksi')
-    @yield('script_stock_keluar')
+		@yield('script_master')
+		@yield('script_transaksi')
+		@yield('script_stock_keluar')
 		@yield('script_kategori')
 		@yield('script_merk')
 		@yield('script_vendor')

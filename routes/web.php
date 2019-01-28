@@ -13,14 +13,11 @@
 
 
 // Pengguna Sistem
-Route::resource('/pengguna', 'penggunaController');
 
-Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
-=======
+
+// Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
+
 Auth::routes();
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
-
-
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -37,6 +34,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/master', 'MasterController');
     Route::resource('/lainnya', 'DataController');
     Route::resource('/dashboard', 'dashboardController');
+    Route::resource('/pengguna', 'penggunaController');
 
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
     // Stock Keluar
@@ -58,23 +56,5 @@ Route::group(['middleware' => 'auth'], function(){
  });
 
 
-Route::get('/tesTampil', function () {
-    return view('auth.register');
-=======
-Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function () {
 
-
-
-});
-
-
-<<<<<<< HEAD
 Route::get('/home', 'HomeController@index')->name('home');
-=======
-
-// Route::get('/tesTampil', function () {
-//     return view('dashboard.dashboard');
-// });
-
-
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
