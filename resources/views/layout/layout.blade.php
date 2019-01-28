@@ -299,7 +299,7 @@
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
 						</div>
 					</div>
-				
+
 					<div class="nano">
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
@@ -343,16 +343,13 @@
 											<span>Lainnya</span>
 										</a>
 									</li>
-<<<<<<< HEAD
 									<li class="@yield('Tambah Pengguna')">
 										<a href="/pengguna">
 											<i class="fa fa-group" aria-hidden="true"></i>
 											<span>Pengguna Sistem</span>
 										</a>
 									</li>
-=======
 								@endcan
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
 								</ul>
 							</nav>
 

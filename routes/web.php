@@ -11,7 +11,7 @@
 |
 */
 
-<<<<<<< HEAD
+
 // Pengguna Sistem
 Route::resource('/pengguna', 'penggunaController');
 
@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/master', 'MasterController');
     Route::resource('/lainnya', 'DataController');
     Route::resource('/dashboard', 'dashboardController');
-    
+
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
     // Stock Keluar
     Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
@@ -57,14 +57,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
  });
 
-<<<<<<< HEAD
+
 Route::get('/tesTampil', function () {
     return view('auth.register');
 =======
 Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function () {
-    
-    
->>>>>>> 4a4b2c2866f1ab138ccda6d7ec134572df7f59b1
+
+
+
 });
 
 
