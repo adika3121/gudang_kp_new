@@ -38,7 +38,8 @@ class User extends Authenticatable
            'name' => 'required',
            'email' => 'required|email|unique:users,email',
            'role' => 'required',
-           'password' => 'required|min:6'
+           'password' => 'required|min:6',
+           'confirm_pass' => 'required|min:6|same:password'
         );
        return $rules;
     }
@@ -50,7 +51,10 @@ class User extends Authenticatable
         'email.unique' => 'Email ini sudah ada pengguna yang menggunakan',
         'role.required' => 'Field Role Dipelukan',
         'password.required'=> 'Field Password wajib diisi',
-        'password.min' => 'Karakter pada password minimanl 6 karakter'
+        'password.min' => 'Karakter pada password minimanl 6 karakter',
+        'confirm_pass.required'=> 'Field Confirm Password wajib diisi',
+        'confirm_pass.min' => 'Karakter pada confirm password minimanl 6 karakter',
+        'confirm_pass.same' => 'Password tidak sama'
     );
 
     public static function RulesUpdate(){
