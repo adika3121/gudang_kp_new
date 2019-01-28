@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\tb_outlet;
+use App\tb_kategori;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $tb_outlet = tb_outlet::all();
+        $tb_kategori = tb_kategori::all();
+        return view('dashboard.dashboard', compact('tb_outlet','tb_kategori'));
     }
 }

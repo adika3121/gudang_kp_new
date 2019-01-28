@@ -685,6 +685,7 @@
                                         @if($errors->first('alamat_outlet_update'))
                                         <div class="alert alert-warning">
                                           <li>{{ $errors->first('alamat_outlet_update') }}</li>
+                                          
                                         </div>
                                         @endif
                                         @endif
@@ -698,7 +699,7 @@
                                           <li>{{ $errors->first('no_telp_outlet_update') }}</li>
                                         </div>
                                         @endif
-                                        @endif
+                                    @endif
                                   </div>
                                   <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary btn-sm">
