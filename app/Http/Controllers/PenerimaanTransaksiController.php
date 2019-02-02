@@ -53,11 +53,13 @@ class PenerimaanTransaksiController extends Controller
     $nama_outlet = $request->outlet;
     $id_master = $request->id_master;
     $vendor = $request->kode_vendor;
+    $keterangan = $request->keterangan;
     $kk_master = master::where('id_master', $id_master)
                   ->select('tb_master.kode_master as kode_master')
                   ->first();
     $kode_master = $kk_master->kode_master;
-    return view('penerimaan.penerimaan-sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
+    $nama_vendor = tb_vendor::where('kode_vendor', $vendor)->select('tb_vendor.nama_vendor as nama_vendor')->first();
+    return view('penerimaan.penerimaan-sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor', 'nama_vendor','keterangan'));
   }
 
   // public function create(Request $request)
@@ -144,6 +146,33 @@ class PenerimaanTransaksiController extends Controller
       }
 
   }
+    public function addMorePost(Request $request)
+    {
+        $rules = [];
+
+
+        foreach($request->input('sn') as $key => $value) {
+            $rules["sn.{$key}"] = 'required';
+        }
+
+
+        $validator = Validator::make($request->all(), $rules);
+
+
+        if ($validator->passes()) {
+
+
+            foreach($request->input('sn') as $key => $value) {
+                TagList::create(['sn'=>$value]);
+            }
+
+
+            return response()->json(['success'=>'done']);
+        }
+
+
+        return response()->json(['error'=>$validator->errors()->all()]);
+    }
 
   /**
    * Display the specified resource.
