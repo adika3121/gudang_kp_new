@@ -9,20 +9,13 @@
 		// format function for row details
 		var fnFormatDetails = function( datatable, tr ) {
 			var data = datatable.fnGetData( tr );
+			var stock_masuk = "{{action('dashboardController@edit',$stock->kode_master)}}";
 
 			return [
 				'<table class="table mb-none">',
 					'<tr class="b-top-none">',
-						'<td><label class="mb-none">Rendering engine:</label></td>',
-						'<td>' + data[1]+ ' ' + data[4] + '</td>',
-					'</tr>',
-					'<tr>',
-						'<td><label class="mb-none">Link to source:</label></td>',
-						'<td>Could provide a link here</td>',
-					'</tr>',
-					'<tr>',
-						'<td><label class="mb-none">Extra info:</label></td>',
-						'<td>And any further details here (images etc)</td>',
+						'<td><label class="mb-none"><a href="'+stock_masuk+'">Detail Stock Masuk</a></label></td>',
+						'<td><label class="mb-none"><a href="#">Detail Stock Keluar</a></label></td>',
 					'</tr>',
 				'</div>'
 			].join('');

@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/dashboard', 'dashboardController');
     Route::resource('/pengguna', 'penggunaController');
 
+    Route::post('dash-detStock', 'dashboardController@lihat_detail_stock');
+
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
     // Stock Keluar
     Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');

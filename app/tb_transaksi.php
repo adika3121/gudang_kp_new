@@ -17,6 +17,10 @@ class tb_transaksi extends Model
       return $this->belongsTo('App\tb_vendor', 'vendor');
     }
 
+    public function tb_outlet(){
+      return $this->belongsTo('App\tb_outlet', 'outlet');
+    }
+
     protected $fillable = [
        'kode_transaksi', 'kode_master', 'sn', 'vendor', 'tgl_masuk', 'keterangan'
     ];
@@ -34,15 +38,14 @@ class tb_transaksi extends Model
 
     public static function Rules(){
          $rules= array(
-           'sn' => 'required|unique:tb_transaksi,sn|max:30'
+           'sn' => 'required|max:30'
         );
        return $rules;
     }
 
     public static $messages=array(
         'sn.required'=>'Masukan SN',
-        'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter',
-        'sn.unique'=>'Kode SN harus yang belum pernah diinputkan sebelumnya'
+        'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter'
     );
 
 }

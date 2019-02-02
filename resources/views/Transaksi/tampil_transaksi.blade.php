@@ -40,6 +40,7 @@
           <thead>
             <tr>
               <th>Kode Master</th>
+              <!-- <th>Outlet</th> -->
               <th>SN</th>
               <th>Vendor</th>
               <th>Waktu Masuk</th>
