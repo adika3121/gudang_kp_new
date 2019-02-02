@@ -29,7 +29,7 @@ class PenerimaanMasterController extends Controller
   }
 
   public function home(){
-      return view('index2');
+      return view('penerimaan.penerimaan-master');
   }
 
 

@@ -384,14 +384,15 @@
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.row.with.details.js')}}"></script>
 		<script src="{{asset('assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
 
-    @yield('script_master')
-    @yield('script_transaksi')
-    @yield('script_stock_keluar')
+		@yield('script_master')
+		@yield('script_transaksi')
+		@yield('script_stock_keluar')
 		@yield('script_kategori')
 		@yield('script_merk')
 		@yield('script_vendor')
 		@yield('script_outlet')
 		@yield('script_stock_keluar')
+		@yield('script_addmore')
 
 		<script>
 	        $(function() {
@@ -402,6 +403,8 @@
 	            });
 	        });
 		</script>
+
+		
 
 		<!-- <script>
 			$(".snTransaksi").on("submit", function(){

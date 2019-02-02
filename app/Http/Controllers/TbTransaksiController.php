@@ -64,17 +64,10 @@ class TbTransaksiController extends Controller
     return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
   }
 
-  // public function create(Request $request)
-  // {
-  //   $nama_outlet = $request->outlet;
-  //   $outlet = tb_outlet::all();
-  //   $nama_barang = master::where('kode_outlet', $nama_outlet)
-  //                   -> select('tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
-  //                   -> get();
-  //   $vendor = tb_vendor::all();
-  //
-  //   return view('tambah_transaksi', compact('nama_outlet', 'outlet', 'nama_barang', 'vendor'));
-  // }
+  public function create(Request $request)
+  {
+    return view('penerimaan.tambahtransaksi');
+  }
 
   /**
    * Store a newly created resource in storage.
@@ -142,7 +135,6 @@ class TbTransaksiController extends Controller
         return View::make('Transaksi.sn_transaksi', $data)->withErrors($validator);
          // return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'))->withErrors($validator)->withInput();
          // return Redirect::back()->withErrors($validator)->withInput();
-
 
 
       }

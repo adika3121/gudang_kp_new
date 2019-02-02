@@ -65,6 +65,14 @@
                 </select>
             </div>
         </div>
+        <div class="row form-group">
+          <div class="col col-md-3">
+              <label for="text-input" class=" form-control-label">Catatan</label>
+          </div>
+          <div class="col-12 col-md-9">
+              <textarea id="keterangan" name="keterangan" placeholder="..." class="form-control"></textarea>
+          </div>
+        </div>
         <!-- Button Tambah Barang Baru -->
         <div class="row">
 					<div class="col-sm-6">
