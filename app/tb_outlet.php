@@ -21,7 +21,7 @@ class tb_outlet extends Model
     public static function Rules(){
          $rules= array(
            'kode_outlet' => 'required|max:7|unique:tb_outlet,kode_outlet',
-           'nama_outlet' => 'required',
+           'nama_outlet' => 'required|unique:tb_outlet,nama_outlet',
            'alamat_outlet' => 'required',
            'no_telp_outlet' => 'required|max:12'
         );
@@ -33,6 +33,7 @@ class tb_outlet extends Model
         'kode_outlet.max' => 'Kode Outlet hanya boleh maksimal 7 karakter',
         'kode_outlet.unique' => 'Kode Outlet harus kode yang belum pernah digunakan sebelumnya',
         'nama_outlet.required'=>'Field Nama Outlet Wajib Diisi',
+        'nama_outlet.unique' => 'Outlet ini sudah ada sebelumnya',
         'alamat_outlet.required'=>'Field Alamat Wajib Diisi',
         'no_telp_outlet.required'=> 'Field No Telp wajib diisi',
         'no_telp_outlet.max' => 'No Telp hanya boleh maksimal 12 karakter'

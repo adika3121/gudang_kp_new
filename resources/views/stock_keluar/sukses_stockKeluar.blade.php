@@ -17,11 +17,11 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/stock_keluar">
             <i class="fa fa-home"></i>
           </a>
         </li>
-        <li><span>Stock Keluar</span></li>
+        <li><span>Sukses Tambah Stock Keluar</span></li>
       </ol>
 
       <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -43,7 +43,7 @@
           <input type="hidden" id="kode_master" name="kode_master" value="{{$kode_master}}"placeholder="Kode PN" class="form-control">
           <p class="text-center">
               Stock Berhasil Keluar <br>
-              Tambah Lagi?
+              Tambah lagi dengan tipe barang dan outlet yang sama?
           </p>
         <!-- End input stock Keluar -->
 

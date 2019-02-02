@@ -17,7 +17,7 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/pengguna">
             <i class="fa fa-home"></i>
           </a>
         </li>
@@ -320,19 +320,19 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="largeModalLabel">Delete Kategori</h5>
+                                <h5 class="modal-title" id="largeModalLabel">Hapus Pengguna</h5>
                             </div>
                             <div class="modal-body">
                                 <form action="{{route('pengguna.destroy','test')}}" method="post">
                                     {{method_field('delete')}}
                                     {{csrf_field()}}
                                     <p class="text-center">
-                                        Are you sure you want to delete this?
+                                        Yakin ingin menghapus pengguna ini?
                                     </p>
                                     <input type="hidden" id="id" name="id" value="">
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                     </div>
                                 </form>
                             </div>

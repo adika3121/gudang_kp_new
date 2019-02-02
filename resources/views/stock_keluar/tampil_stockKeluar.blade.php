@@ -17,7 +17,7 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/stock_keluar">
             <i class="fa fa-home"></i>
           </a>
         </li>
@@ -105,7 +105,7 @@
                 </div>
   						</div>
   						<div class="modal-footer">
-  							<button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+  							<button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
   							<button type="submit" class="btn btn-primary">Lanjut</button>
   						</div>
               </form>
@@ -159,8 +159,8 @@
                                 <input type="hidden" name="kode_master" id="kode_master" value="">
                                 <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                 </div>
                             </form>
                         </div>

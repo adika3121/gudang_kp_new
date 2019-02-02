@@ -17,7 +17,7 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/transaksi">
             <i class="fa fa-home"></i>
           </a>
         </li>
@@ -112,7 +112,7 @@
                   </div>
     						</div>
     						<div class="modal-footer">
-    							<button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+    							<button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
     							<button type="submit" class="btn btn-primary">Lanjut</button>
     						</div>
                 </form>
@@ -165,7 +165,7 @@
               <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h5 class="modal-title" id="largeModalLabel">Delete Transaksi</h5>
+                          <h5 class="modal-title" id="largeModalLabel">Hapus Transaksi</h5>
                       </div>
                       <div class="modal-body">
                           <form action="{{route('transaksi.destroy','test')}}" method="post">
@@ -177,8 +177,8 @@
                               <input type="hidden" name="kode_master" id="kode_master" value="">
                               <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="">
                               <div class="modal-footer">
-                                  <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
-                                  <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
+                                  <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                               </div>
                           </form>
                       </div>

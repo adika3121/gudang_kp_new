@@ -21,15 +21,27 @@ class tb_transaksi extends Model
        'kode_transaksi', 'kode_master', 'sn', 'vendor', 'tgl_masuk', 'keterangan'
     ];
 
+    public static function RulesAwal(){
+         $rules= array(
+           'id_master' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messagesAwal=array(
+        'id_master.required' => 'Barang pada outlet ini belum terdaftar. Silahkan daftarkan di master barang'
+    );
+
     public static function Rules(){
          $rules= array(
-           'sn' => 'required|unique:tb_transaksi,sn'
+           'sn' => 'required|unique:tb_transaksi,sn|max:30'
         );
        return $rules;
     }
 
     public static $messages=array(
         'sn.required'=>'Masukan SN',
+        'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter',
         'sn.unique'=>'Kode SN harus yang belum pernah diinputkan sebelumnya'
     );
 

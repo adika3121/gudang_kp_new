@@ -16,6 +16,18 @@ class tb_stock_keluar extends Model
       'sn', 'keterangan'
     ];
 
+
+    public static function RulesAwal(){
+         $rules= array(
+           'id_master' => 'required'
+        );
+       return $rules;
+    }
+
+    public static $messagesAwal=array(
+        'id_master.required' => 'Barang pada outlet ini belum terdaftar. Silahkan daftarkan di master barang'
+    );
+
     public static function Rules(){
          $rules= array(
            'sn' => 'required|exists:tb_transaksi,sn|unique:tb_stock_keluar,sn'
