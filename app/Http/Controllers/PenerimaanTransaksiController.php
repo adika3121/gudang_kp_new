@@ -99,12 +99,18 @@ class PenerimaanTransaksiController extends Controller
              $kode_master = $k_master->kode_master;
 
              // Simpan ke db
-             $transaksi = new tb_transaksi();
-             $transaksi->kode_master = Input::get('kode_master');
-             $transaksi->sn = Input::get('sn');
-             $transaksi->vendor = $vendor;
-             $transaksi->keterangan = Input::get('keterangan');
-             $transaksi->save();
+             foreach ($request->sn as $key => $value) {
+                $transaksi = new tb_transaksi();
+                //  $transaksi->sn = Input::get('sn');
+                $data = array(  $transaksi->kode_master = Input::get('kode_master'),
+                                $transaksi->vendor = $vendor,
+                                $transaksi->sn = $request->sn[$key],
+                                $transaksi->keterangan = $request->keterangan[$key] );
+                
+                //  $transaksi->keterangan = Input::get('keterangan');
+                $transaksi->save();
+             }
+             
 
              // input stock masuk ke tb_master
              $master = master::find($id_master);

@@ -44,7 +44,7 @@
         <input type="hidden" name="kode_master" value="{{$kode_master}}">
         <input type="hidden" name="id_master" value="{{$id_master}}">
         <input type="hidden" name="vendor" value="{{$vendor}}">
-        <input type="hidden" name="vendor" value="{{$keterangan}}">
+        <input type="hidden" name="keterangan" value="{{$keterangan}}">
         <table class="table table-bordered table-striped mb-none" id="dynamic_field">
           <thead>
             <tr>
@@ -53,15 +53,16 @@
               <th><strong>Vendor</strong></th>
               <th><strong>Kode SN</strong></th>
               <th><strong>Catatan</strong></th>
+              <th><strong></strong></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="tablerow">
                 <td>{{$kode_master}}</td>
                 <td>{{$nama_outlet}}</td>
                 <td>{{$nama_vendor->nama_vendor}}</td>
                 <td><div class="col-12 col-md-9">
-                      <input type="text" id="sn" name="sn[]" placeholder="SN" class="form-control">
+                      <input type="text" class="form-control" id="sn" name="sn[]" placeholder="SN" >
                       @if ($errors->any())
                         @if($errors->first('sn'))
                           <div class="alert alert-warning">
@@ -71,7 +72,8 @@
                       @endif
                     </div>
                 </td>
-                <td>{{$keterangan}}</td>
+                <td><input type="text" class="form-control" id="keterangan" name="keterangan[]" value="{{$keterangan}}" ></td>
+                <td><button type="button" name="remove" id="'firstremove'" class="btn btn-danger btn_removefirst">X</button></td>
             </tr>
           </tbody>
         </table>
@@ -126,13 +128,18 @@
 @endsection
 @section('script_addmore')
 <script>
-  var input = document.getElementById("sn");
-  input.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      document.getElementById("add").click();
-    }
-  });
+  document.addEventListener('keyup', function(event) {
+        event.preventDefault();
+        var target = event.target || event.srcElement,
+            text = target.value;
+        if (event.keyCode === 13) {
+            document.getElementById("add").click();
+        }
+    }, false);
+
+    $(".btn_removefirst").click(function(){
+      $('#tablerow').remove();
+    });
 </script>
 <script type="text/javascript">
   
@@ -143,12 +150,9 @@
 
     $('#add').click(function(){  
        i++;  
-       $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td>{{$kode_master}}</td><td>{{$nama_outlet}}</td><td>{{$nama_vendor->nama_vendor}}</td><td><div class="col-12 col-md-9"><input type="text" id="sn" name="sn[]" placeholder="SN" class="form-control">@if ($errors->any()) @if($errors->first('sn')) <div class="alert alert-warning"><li>{{ $errors->first('sn') }}</li></div>@endif @endif</div><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td><td>{{$keterangan}}</td></tr>');  
-       
+       $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td>{{$kode_master}}</td><td>{{$nama_outlet}}</td><td>{{$nama_vendor->nama_vendor}}</td><td><div class="col-12 col-md-9"><input type="text" class="form-control sn" id="serial" name="sn[]" placeholder="SN">@if ($errors->any()) @if($errors->first('sn')) <div class="alert alert-warning"><li>{{ $errors->first('sn') }}</li></div>@endif @endif</div></td><td><input type="text" class="form-control" id="keterangan" name="keterangan[]" value="{{$keterangan}}" ></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+       $( ".sn" ).focus();   
     });
-    
-    
-
 
     $(document).on('click', '.btn_remove', function(){  
        var button_id = $(this).attr("id");   

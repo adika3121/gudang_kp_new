@@ -17,11 +17,11 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="/transaksi">
+          <a href="index.html">
             <i class="fa fa-home"></i>
           </a>
         </li>
-        <li><span>Tambah Transaksi</span></li>
+        <li><span>Transaksi Barang</span></li>
       </ol>
 
       <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -49,13 +49,6 @@
                         @endforeach
                 @endif
                 </select>
-                @if ($errors->any())
-                  @if($errors->first('id_master'))
-                  <div class="alert alert-warning">
-                    <li>{{ $errors->first('id_master') }}</li>
-                  </div>
-                  @endif
-                  @endif
             </div>
         </div>
         <div class="row form-group">
@@ -71,6 +64,14 @@
                 @endif
                 </select>
             </div>
+        </div>
+        <div class="row form-group">
+          <div class="col col-md-3">
+              <label for="text-input" class=" form-control-label">Catatan</label>
+          </div>
+          <div class="col-12 col-md-9">
+              <textarea id="keterangan" name="keterangan" placeholder="..." class="form-control"></textarea>
+          </div>
         </div>
         <!-- Button Tambah Barang Baru -->
         <div class="row">

@@ -61,11 +61,13 @@ class TbTransaksiController extends Controller
            $nama_outlet = $request->outlet;
            $id_master = $request->id_master;
            $vendor = $request->kode_vendor;
+           $keterangan = $request->keterangan;
            $kk_master = master::where('id_master', $id_master)
                          ->select('tb_master.kode_master as kode_master')
                          ->first();
            $kode_master = $kk_master->kode_master;
-           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
+           $nama_vendor = tb_vendor::where('kode_vendor', $vendor)->select('tb_vendor.nama_vendor as nama_vendor')->first();
+           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor','keterangan', 'nama_vendor'));
             // return Redirect::back()->withErrors($validator)->withInput();
         }
     else{
@@ -113,12 +115,17 @@ class TbTransaksiController extends Controller
              $kode_master = $k_master->kode_master;
 
              // Simpan ke db
-             $transaksi = new tb_transaksi();
-             $transaksi->kode_master = Input::get('kode_master');
-             $transaksi->sn = Input::get('sn');
-             $transaksi->vendor = $vendor;
-             $transaksi->keterangan = Input::get('keterangan');
-             $transaksi->save();
+             foreach ($request->sn as $key => $value) {
+                $transaksi = new tb_transaksi();
+                //  $transaksi->sn = Input::get('sn');
+                $data = array(  $transaksi->kode_master = Input::get('kode_master'),
+                                $transaksi->vendor = $vendor,
+                                $transaksi->sn = $request->sn[$key],
+                                $transaksi->keterangan = $request->keterangan[$key] );
+                
+                //  $transaksi->keterangan = Input::get('keterangan');
+                $transaksi->save();
+             }
 
              // input stock masuk ke tb_master
              $master = master::find($id_master);
@@ -141,6 +148,7 @@ class TbTransaksiController extends Controller
         $nama_outlet = Input::get('nama_outlet');
         $id_master = Input::get('id_master');
         $vendor = Input::get('vendor');
+        $keterangan = $request->keterangan;
         $k_master = master::where('id_master', $id_master)
                       ->select('tb_master.kode_master as kode_master')
                       ->first();
@@ -148,7 +156,7 @@ class TbTransaksiController extends Controller
         //////////////////////////////////////////
 
         $transaksi = $validator->errors();
-        $data = compact('nama_outlet', 'id_master', 'vendor', 'k_master', 'kode_master');
+        $data = compact('nama_outlet', 'id_master', 'vendor', 'k_master', 'kode_master','keterangan');
 
         // $data['errors'] = $validation->errors();
         return View::make('Transaksi.sn_transaksi', $data)->withErrors($validator);
