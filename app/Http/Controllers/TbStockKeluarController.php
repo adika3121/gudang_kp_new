@@ -54,7 +54,16 @@ class TbStockKeluarController extends Controller
                      ->select('tb_master.kode_master as kode_master')
                      ->first();
        $kode_master = $kk_master->kode_master;
-       return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'kode_master', 'id_master'));
+
+       //Nama Komponen
+       $nama_lainnya = master::where('kode_master', $kode_master)
+                      ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                      ->select('tb_master.nama_barang as nama_barang',
+                                'tb_outlet.nama_outlet as nama_outlet')
+                      ->first();
+       ///////////////////////////////////////////
+
+       return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'nama_lainnya','kode_master', 'id_master'));
      }else{
        $nama_outlet = $request->outlet;
        $nama_barang = master::where('kode_outlet', $nama_outlet)
@@ -114,10 +123,24 @@ class TbStockKeluarController extends Controller
                       ->first();
         $nama_outlet = Input::get('outlet');
         $kode_master = $kk_master->kode_master;
+        $ket = Input::get('keterangan');
         //////////////////////////////////////
 
+        //Nama Komponen
+        $nama_lainnya = master::where('kode_master', $kode_master)
+                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                       ->select('tb_master.nama_barang as nama_barang',
+                                 'tb_outlet.nama_outlet as nama_outlet')
+                       ->first();
+        ///////////////////////////////////////////
+
         $stock_out = $validator->errors();
-        $data = compact('id_master', 'kk_master', 'nama_outlet', 'kode_master');
+        if (!empty($ket)) {
+          $data = compact('id_master', 'kk_master', 'nama_lainnya','nama_outlet', 'kode_master', 'ket');
+        }else {
+          $data = compact('id_master', 'kk_master', 'nama_lainnya', 'nama_outlet', 'kode_master');
+        }
+
         /////////////////////////////////////////////////////////////////////////////
 
 
@@ -175,8 +198,8 @@ class TbStockKeluarController extends Controller
               //////////////////////////////////////
 
 
-
-              return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+              return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+              // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
             }else{
               return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
             }
@@ -220,8 +243,8 @@ class TbStockKeluarController extends Controller
             //////////////////////////////////////
 
 
-
-            return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+            return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+            // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
           }
         }else {
           return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
@@ -284,10 +307,23 @@ class TbStockKeluarController extends Controller
                       ->first();
         $nama_outlet = Input::get('outlet');
         $kode_master = $kk_master->kode_master;
+        $ket = Input::get('keterangan');
         //////////////////////////////////////
 
+        //Nama Komponen
+        $nama_lainnya = master::where('kode_master', $kode_master)
+                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                       ->select('tb_master.nama_barang as nama_barang',
+                                 'tb_outlet.nama_outlet as nama_outlet')
+                       ->first();
+        ///////////////////////////////////////////
+
         $stock_out = $validator->errors();
-        $data = compact('id_master', 'kk_master', 'nama_outlet', 'kode_master');
+        if (!empty($ket)) {
+          $data = compact('id_master', 'kk_master', 'nama_lainnya','nama_outlet', 'kode_master', 'ket');
+        }else {
+          $data = compact('id_master', 'kk_master', 'nama_lainnya','nama_outlet', 'kode_master');
+        }
 
         return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors($validator);
 

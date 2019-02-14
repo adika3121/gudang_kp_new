@@ -102,6 +102,29 @@ class penggunaController extends Controller
       }
     }
 
+    public function ganti_password(Request $request){
+      $id_user = $request->id_pengguna_update;
+      $nama_pengguna = User::where('id', $id_user)
+                        ->select('users.name as nama')
+                        ->first();
+      // return response()->json([$id_user]);
+      return view('pengguna.update_password', compact('id_user','nama_pengguna'));
+    }
+
+    public function update_pass(Request $request){
+      $validator = Validator::make(Input::all(),  User::RulesPass(), User::$messagesPass);
+      if ($validator->fails())
+           {
+              return Redirect::back()->withErrors($validator)->withInput();
+          }
+      else {
+        $user = User::findOrFail($request->id_user);
+        $user ->  password = Hash::make($request -> password);
+        $user->save();
+        return redirect('/pengguna');
+      }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

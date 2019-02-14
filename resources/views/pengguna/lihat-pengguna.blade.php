@@ -304,10 +304,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- <div class="form-group">
+                                    <form class="" action="{{action('penggunaController@ganti_password')}}" method="post">
+                                      <input type="hidden" id="id_pengguna_update" name="id_pengguna_update" value="{{old('id_pengguna_update')}}">
+                                      <button type="submit" class="btn btn-primary btn-sm" name="button">Ganti Password Baru</button>
+                                    </form>
+                                </div> -->
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary btn-sm">
                                         <i class="fa fa-dot-circle-o"></i> Simpan
                                     </button>
+                                    <form class="" action="{{action('penggunaController@ganti_password')}}" method="post">
+                                      {{method_field('patch')}}
+                                      {{ csrf_field() }}
+                                      <input type="hidden" id="id_pengguna_update" name="id_pengguna_update" value="{{old('id_pengguna_update')}}">
+                                      <button type="submit" class="btn btn-warning btn-sm" name="button">Ganti Password Baru</button>
+                                    </form>
                                 </div>
                             </form>
                         </div>

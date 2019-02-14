@@ -66,7 +66,19 @@ class TbTransaksiController extends Controller
                          ->select('tb_master.kode_master as kode_master')
                          ->first();
            $kode_master = $kk_master->kode_master;
-           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master', 'id_master', 'vendor'));
+
+           //Nama Komponen
+           $nama_vendor = tb_vendor::where('kode_vendor', $vendor)
+                          ->select('tb_vendor.nama_vendor as nama')
+                          ->first();
+           $nama_lainnya = master::where('kode_master', $kode_master)
+                          ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                          ->select('tb_master.nama_barang as nama_barang',
+                                    'tb_outlet.nama_outlet as nama_outlet')
+                          ->first();
+
+           /////////////////////////////////////////////
+           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master','nama_vendor','nama_lainnya', 'id_master', 'vendor'));
             // return Redirect::back()->withErrors($validator)->withInput();
         }
     else{
@@ -114,10 +126,30 @@ class TbTransaksiController extends Controller
                            ->select('tb_master.kode_master as kode_master')
                            ->first();
              $kode_master = Input::get('kode_master');
+             $ket = Input::get('keterangan');
+
+
              //////////////////////////////////////////
 
+             //Nama Komponen
+             $nama_vendor = tb_vendor::where('kode_vendor', $vendor)
+                            ->select('tb_vendor.nama_vendor as nama')
+                            ->first();
+             $nama_lainnya = master::where('kode_master', $kode_master)
+                            ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                            ->select('tb_master.nama_barang as nama_barang',
+                                      'tb_outlet.nama_outlet as nama_outlet')
+                            ->first();
+
+             /////////////////////////////////////////////
+
              $transaksi = $validator->errors();
-             $data = compact('nama_outlet', 'id_master', 'vendor', 'k_master', 'kode_master');
+             if (!empty($ket)) {
+               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
+             }else{
+               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
+             }
+             // return response()->json($data);
              ///////////////////////////////////////////////////////
 
              $nama_outlet = $request->nama_outlet;
@@ -177,14 +209,15 @@ class TbTransaksiController extends Controller
                   $master->sisa_stock = $total_stock->total;
                   $master->save();
                   ////////////////////////////////////
+                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan'));
 
-                  return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
+                  // return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
                 }else{
                   return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang1'));
                 }
               }
               else{
-                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini keluar dari gudang2'));
+                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang2'));
               }
             }else{
               // hasil oper dari view sebelumnya
@@ -217,8 +250,8 @@ class TbTransaksiController extends Controller
               $master->sisa_stock = $total_stock->total;
               $master->save();
               ////////////////////////////////////
-
-              return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
+              return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan'));
+              // return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
             }
 
 
@@ -282,10 +315,28 @@ class TbTransaksiController extends Controller
                       ->select('tb_master.kode_master as kode_master')
                       ->first();
         $kode_master = Input::get('kode_master');
+        $ket = Input::get('keterangan');
         //////////////////////////////////////////
+        //Nama Komponen
+        $nama_vendor = tb_vendor::where('kode_vendor', $vendor)
+                       ->select('tb_vendor.nama_vendor as nama')
+                       ->first();
+        $nama_lainnya = master::where('kode_master', $kode_master)
+                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                       ->select('tb_master.nama_barang as nama_barang',
+                                 'tb_outlet.nama_outlet as nama_outlet')
+                       ->first();
+        ///////////////////////////////////////////
 
         $transaksi = $validator->errors();
-        $data = compact('nama_outlet', 'id_master', 'vendor', 'k_master', 'kode_master');
+        if (!empty($ket)) {
+          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
+        }else{
+          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
+        }
+
+
+        // return response()->json($data);
 
         // $data['errors'] = $validation->errors();
         return View::make('Transaksi.sn_transaksi', $data)->withErrors($validator);

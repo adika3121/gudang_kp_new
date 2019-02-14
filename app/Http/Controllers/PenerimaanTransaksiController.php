@@ -24,12 +24,12 @@ class PenerimaanTransaksiController extends Controller
    */
   public function index()
   {
-      $tampilTransaksi = tb_transaksi::with('tb_vendor', 'master')
-                      ->get();
-      $tb_outlet = tb_outlet::all();
-      $vendor=tb_vendor::all();
+      // $tampilTransaksi = tb_transaksi::with('tb_vendor', 'master')
+      //                 ->get();
+      // $tb_outlet = tb_outlet::all();
+      // $vendor=tb_vendor::all();
       // $tampilBRG = DB
-      return view('penerimaan.penerimaan-tampil_transaksi', compact('tampilTransaksi', 'tb_outlet', 'vendor'));
+      return view('pengguna.update_password');
   }
 
   /**

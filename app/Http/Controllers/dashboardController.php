@@ -112,6 +112,7 @@ class dashboardController extends Controller
                         ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
                         ->select('tb_kategori.nama_kategori as nama_kategori',
                                   'tb_outlet.nama_outlet as nama_outlet',
+                                  'tb_master.kode_master as kode_master',
                                   'tb_master.nama_barang as nama_barang',
                                   'tb_master.stock_masuk as stock_masuk',
                                   'tb_master.stock_keluar as stock_keluar',

@@ -57,6 +57,23 @@ class User extends Authenticatable
         'confirm_pass.same' => 'Password tidak sama'
     );
 
+    public static function RulesPass(){
+         $rules= array(
+           'password' => 'required|min:6',
+           'confirm_pass' => 'required|min:6|same:password'
+        );
+       return $rules;
+    }
+
+    public static $messagesPass=array(
+        'password.required'=> 'Field Password wajib diisi',
+        'password.min' => 'Karakter pada password minimanl 6 karakter',
+        'confirm_pass.required'=> 'Field Confirm Password wajib diisi',
+        'confirm_pass.min' => 'Karakter pada confirm password minimanl 6 karakter',
+        'confirm_pass.same' => 'Password tidak sama'
+    );
+
+
     public static function RulesUpdate(){
          $rules= array(
            'nama_pengguna_update' => 'required',
