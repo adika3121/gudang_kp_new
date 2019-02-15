@@ -371,10 +371,54 @@ class TbStockKeluarController extends Controller
     if(Gate::allows('isMarketing')||Gate::allows('isGudang')){
       return view('error');
     }
-    $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-    $stock_keluar->update($request->all());
-    return back();
+    $rules= array(
+      'sn' => 'required|max:30'
+    );
+
+
+    $messagesUpdate= array(
+      'sn.required'=>'Masukan SN',
+      'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter',
+      'sn.unique' => 'Kode SN sudah ada'
+    );
+
+   $validator = Validator::make(Input::all(),
+                                $rules,
+                                $messagesUpdate);
+    if($validator->fails()){
+      return Redirect::back()->withErrors($validator)->withInput();
+    }else{
+      $kode_sn = $request->sn;
+      $kode_keluar = $request->kode_keluar;
+      $cek_sn_satu_tabel = tb_stock_keluar::where('sn', $kode_sn)
+                           ->first();
+      $cek_sn_sebelumnya = tb_stock_keluar::where([['sn', $kode_sn],['kode_keluar', $kode_keluar]])
+                           ->first();
+
+       if (!empty($cek_sn_satu_tabel)) {
+         if (!empty($cek_sn_sebelumnya)) {
+           $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
+
+           $stock_keluar->update($request->all());
+           return back();
+         }else {
+           //Data view sebelumnya
+           $stock_keluar = tb_stock_keluar::all();
+           $tb_outlet = tb_outlet::all();
+           /////////////////////
+
+           $data = compact('stock_keluar','tb_outlet');
+           return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+         }
+       }else {
+         $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
+
+         $stock_keluar->update($request->all());
+         return back();
+       }
+    }
+
   }
 
   /**

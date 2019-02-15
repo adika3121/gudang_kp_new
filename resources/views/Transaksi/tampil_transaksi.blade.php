@@ -30,6 +30,14 @@
 
   <!-- start: page -->
     <section class="panel">
+      @if ($errors->any())
+        @if($errors->first('success'))
+        <div class="alert alert-success alert-dismissable custom-success-box" style="margin: 15px;">
+           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+           <strong> {{ $errors->first('success') }} </strong>
+        </div>
+        @endif
+      @endif
       <header class="panel-heading">
         <h2 class="panel-title">Tabel Transaksi Barang</h2>
       </header>
@@ -61,6 +69,7 @@
                       data-target="#editTransaksi"
                       data-keterangan_transaksi="{{$tp_transaksi->keterangan}}"
                       data-vendor_transaksi="{{$tp_transaksi->vendor}}"
+                      data-sn_transaksi="{{$tp_transaksi->sn}}"
                       data-kode_transaksi={{$tp_transaksi->kode_transaksi}}>
                         <i class="fa fa-pencil"></i></button>
 
@@ -139,7 +148,7 @@
                                   <select name="vendor" id="vendor" class="form-control">
                                   <@if(count($vendor->all()) > 0)
                                       @foreach($vendor->all() as $vnd)
-                                          <option value="{{$vnd->kode_vendor}}">{{$vnd->nama_vendor}}</option>
+                                          <option value="{{$vnd->kode_vendor}}"{{ (collect(old('vendor'))->contains($vnd->kode_vendor)) ? 'selected':'' }}>{{$vnd->nama_vendor}}</option>
                                       @endforeach
                                   @endif
                                   </select>
@@ -147,7 +156,22 @@
                               <div class="form-group">
                                   <label for="keterangan" class=" form-control-label">Catatan</label>
                                   <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="">
-                                  <input type="text" id="keterangan" name="keterangan" class="form-control">
+                                  <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{old('keterangan')}}">
+                              </div>
+                              <div class="row form-group">
+                                  <div class="col col-md-3">
+                                      <label for="text-input" class=" form-control-label">Kode SN <span class="required">*</span></label>
+                                  </div>
+                                  <div class="col-12 col-md-9">
+                                      <input type="text" id="sn" name="sn" placeholder="SN" class="form-control" value="{{old('sn')}}" autofocus>
+                                      @if ($errors->any())
+                                        @if($errors->first('sn'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('sn') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
+                                  </div>
                               </div>
                               <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary btn-sm">
@@ -195,17 +219,25 @@
 
 @section('script_transaksi')
 <script>
+@if ($errors->any())
+  @if($errors->first('sn'))
+    $('#editTransaksi').modal('show');
+
+  @endif
+@endif
   $('#editTransaksi').on('show.bs.modal', function (event) {
 
               var button = $(event.relatedTarget)
               var keterangan_transaksi = button.data('keterangan_transaksi')
               var vendor_transaksi = button.data('vendor_transaksi')
               var kode_transaksi = button.data('kode_transaksi')
+              var sn_transaksi = button.data('sn_transaksi')
               var modal = $(this)
 
               modal.find('.modal-body #keterangan').val(keterangan_transaksi);
               modal.find('.modal-body #vendor').val(vendor_transaksi);
               modal.find('.modal-body #kode_transaksi').val(kode_transaksi);
+              modal.find('.modal-body #sn').val(sn_transaksi);
           })
 
           $('#deleteTransaksi').on('show.bs.modal', function (event) {

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use View;
 use DB;
 use Gate;
+use Illuminate\Validation\Rule;
 use App\tb_transaksi;
 use App\tb_stock_keluar;
 use App\tb_vendor;
@@ -213,11 +214,11 @@ class TbTransaksiController extends Controller
 
                   // return view('Transaksi.sukses_transaksi', compact('nama_outlet', 'kode_master',  'id_master', 'vendor'));
                 }else{
-                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang1'));
+                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang'));
                 }
               }
               else{
-                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang2'));
+                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang'));
               }
             }else{
               // hasil oper dari view sebelumnya
@@ -382,10 +383,68 @@ class TbTransaksiController extends Controller
         if(Gate::allows('isMarketing')||Gate::allows('isPengiriman')){
             return view('error');
         }
-       $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
+        $tb_transaksi= tb_transaksi::all();
+        $rules= array(
+          'sn' => 'required|max:30'
+          // 'sn' => ['required',
+          //           'max:30',
+          //           Rule::unique('tb_transaksi','sn')->ignore($tb_transaksi->kode_transaksi)
+          //           ]
+        );
 
-       $transaksi->update($request->all());
-       return back();
+
+        $messagesUpdate= array(
+          'sn.required'=>'Masukan SN',
+          'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter',
+          'sn.unique' => 'Kode SN sudah ada'
+        );
+
+       $validator = Validator::make($request->all(),
+                                    $rules,
+                                    $messagesUpdate);
+       if ($validator->fails()) {
+         return Redirect::back()->withErrors($validator)->withInput();
+       }else{
+         $kode_sn = $request->sn;
+         $kode_transaksi = $request->kode_transaksi;
+         $cek_sn_satu_tabel = tb_transaksi::where('sn', $kode_sn)
+                              ->first();
+         $cek_sn_sebelumnya = tb_transaksi::where([['sn', $kode_sn],['kode_transaksi', $kode_transaksi]])
+                              ->first();
+        // Validasi
+        if (!empty($cek_sn_satu_tabel)) {
+          if (!empty($cek_sn_sebelumnya)) {
+            $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
+
+            $transaksi->vendor = $request->vendor;
+            $transaksi->keterangan = $request->keterangan;
+            $transaksi->sn = $request->sn;
+            $transaksi->save();
+            return back();
+          }else {
+            //Data view sebelumnya
+            $tampilTransaksi = tb_transaksi::with('tb_vendor', 'master')
+                            ->get();
+            $tb_outlet = tb_outlet::all();
+            $vendor=tb_vendor::all();
+            /////////////////////
+
+            $data = compact('tampilTransaksi','tb_outlet','vendor');
+            return View::make('Transaksi.tampil_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+          }
+        }else {
+          $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
+
+          $transaksi->vendor = $request->vendor;
+          $transaksi->keterangan = $request->keterangan;
+          $transaksi->sn = $request->sn;
+          $transaksi->save();
+          return back();
+        }
+
+
+       }
+
    }
 
   /**
