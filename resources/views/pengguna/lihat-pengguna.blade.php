@@ -310,16 +310,24 @@
                                       <button type="submit" class="btn btn-primary btn-sm" name="button">Ganti Password Baru</button>
                                     </form>
                                 </div> -->
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Simpan
-                                    </button>
-                                    <form class="" action="{{action('penggunaController@ganti_password')}}" method="post">
-                                      {{method_field('patch')}}
-                                      {{ csrf_field() }}
-                                      <input type="hidden" id="id_pengguna_update" name="id_pengguna_update" value="{{old('id_pengguna_update')}}">
-                                      <button type="submit" class="btn btn-warning btn-sm" name="button">Ganti Password Baru</button>
-                                    </form>
+                                <div class="modal-footer" style="padding-left:0px;">
+                                    <div class="row">
+                                      <div class="col-md-2" style="text-align:left;">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Simpan
+                                        </button>
+                                        </form>
+                                      </div>
+                                      <div class="col-md-10">
+                                        <form class="" action="{{route('pengguna-pass.ganti_password')}}" method="post" id="form_ganti_password">
+                                          {{ csrf_field() }}
+                                          <input type="hidden" id="id_pengguna_update" name="id_pengguna_update" value="{{old('id_pengguna_update')}}">
+                                          <button type="submit" class="btn btn-warning btn-sm" name="button">Ganti Password Baru</button>
+                                        </form>
+                                      </div>
+                                    </div>
+
+
                                 </div>
                             </form>
                         </div>

@@ -36,12 +36,11 @@
                     <a href="#" class="fa fa-caret-down"></a>
                   </div>
 
-                  <h2 class="panel-title">Ganti Password {{$nama_pengguna}}</h2>
+                  <h2 class="panel-title">Ganti Password {{$nama_pengguna->nama}}</h2>
 
                 </header>
                 <div class="panel-body">
-                  <form class="" action="{{action('penggunaController@update_pass')}}" method="post">
-                    {{method_field('patch')}}
+                  <form class="" action="{{route('pengguna-update.update_pass')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="id_user" value="{{$id_user}}">
                     <div class="form-group row">
@@ -71,20 +70,20 @@
                             @endif
                         </div>
                     </div>
-                  </form>
+
                 </div>
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="center">
                       <button type="submit" class="btn btn-primary">
-                          {{ __('Ganti Password ') }}
+                          Ganti Password
                       </button>
                       </form>
                     </div>
                   </div>
                 </footer>
               </section>
-            </form>
+
           </div>
           <!-- end kategori  -->
 

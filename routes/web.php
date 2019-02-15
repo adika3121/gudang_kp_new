@@ -36,7 +36,7 @@ Auth::routes();
     Route::resource('/dashboard', 'dashboardController');
     Route::resource('/pengguna', 'penggunaController');
     Route::post('/pengguna-pass', 'penggunaController@ganti_password')->name('pengguna-pass.ganti_password');
-    Route::post('/pengguna-pass-update', 'penggunaController@update_pass');
+    Route::post('/pengguna-pass-update', 'penggunaController@update_pass')->name('pengguna-update.update_pass');
     Route::post('dash-detStock', 'dashboardController@lihat_detail_stock');
 
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
