@@ -40,6 +40,7 @@
           <thead>
             <tr>
               <th>Kode Master</th>
+              <th>Outlet</th>
               <th>SN</th>
               <th>Waktu Keluar</th>
               <th>Catatan</th>
@@ -50,6 +51,7 @@
             @foreach($stock_keluar as $stk_kluar)
             <tr>
                 <td>{{$stk_kluar->kode_master}}</td>
+                <td>{{$stk_kluar->tb_outlet->nama_outlet}}</td>
                 <td>{{$stk_kluar->sn}}</td>
                 <td>{{$stk_kluar->created_at}}</td>
                 <td>{{$stk_kluar->keterangan}}</td>

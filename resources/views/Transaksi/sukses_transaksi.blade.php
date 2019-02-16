@@ -41,6 +41,8 @@
         <input type="hidden" name="kode_master" value="{{$kode_master}}">
         <input type="hidden" name="id_master" value="{{$id_master}}">
         <input type="hidden" name="kode_vendor" value="{{$vendor}}">
+        <input type="hidden" name="keterangan" value="{{$keterangan}}">
+        <input type="hidden" name="sn" value="{{$sn}}">
 
         <!-- Konfimasi Message-->
         <p class="text-center">

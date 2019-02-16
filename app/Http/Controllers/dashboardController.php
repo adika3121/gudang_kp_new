@@ -11,6 +11,7 @@ use App\tb_vendor;
 use App\tb_transaksi;
 use App\tb_stock_keluar;
 use Gate;
+use View;
 
 class dashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class dashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function index()
     {
@@ -27,11 +28,11 @@ class dashboardController extends Controller
             $tb_outlet = tb_outlet::all();
             $tb_kategori = tb_kategori::all();
             return view('dashboard.dashboard', compact('tb_outlet','tb_kategori'));
-            
+
         }else{
             return view('error');
         }
-        
+
     }
 
     /**
@@ -48,6 +49,7 @@ class dashboardController extends Controller
        $lihat_stock = master::where('tb_master.kode_outlet', $request->outlet)
                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
                       ->select('tb_outlet.nama_outlet as nama_outlet',
+                                'tb_master.kode_master as kode_master',
                                 'tb_master.nama_barang as nama_barang',
                                 'tb_master.stock_masuk as stock_masuk',
                                 'tb_master.stock_keluar as stock_keluar',
@@ -56,6 +58,10 @@ class dashboardController extends Controller
       return view('dashboard.dashboard_lihatStockOutlet', compact('lihat_stock', 'nama_outlet'));
 
      }
+
+     // SELECT tb_master.`nama_barang`, tb_transaksi.`sn`, tb_transaksi.`created_at`FROM tb_transaksi
+     //  JOIN tb_master ON tb_transaksi.`kode_master`=tb_master.`kode_master`
+     //  WHERE tb_master.`kode_master`= 'BYSBHHAGSHPCI0 ABS'
      ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -117,7 +123,30 @@ class dashboardController extends Controller
 
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
+     public function lihat_detail_stock(Request $request){
+       $nama_dan_outlet_barang = master::where('kode_master', $request->kode_master)
+                                  ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                                  ->select('tb_master.nama_barang as nama_barang',
+                                            'tb_outlet.nama_outlet as nama_outlet')
+                                  ->first();
 
+       $transaksi = tb_transaksi::where('kode_master', $request->kode_master)
+                    ->select('tb_transaksi.kode_transaksi as kode_trans',
+                              'tb_transaksi.kode_master as kode_master',
+                              'tb_transaksi.sn as sn',
+                              'tb_transaksi.created_at as  waktu_masuk',
+                              'tb_transaksi.keterangan as catatan')
+                    ->get();
+
+      $stock_keluar = tb_stock_keluar::where('kode_master', $request->kode_master)
+                      ->select('tb_stock_keluar.kode_keluar as kode_keluar',
+                                'tb_stock_keluar.kode_master as kode_master',
+                                'tb_stock_keluar.sn as sn',
+                                'tb_stock_keluar.created_at as waktu_keluar',
+                                'tb_stock_keluar.keterangan as catatan')
+                      ->get();
+       return view('dashboard.dashboard_detStockMasuk', compact('nama_dan_outlet_barang', 'transaksi', 'stock_keluar'));
+     }
 
     public function create()
     {
@@ -152,9 +181,10 @@ class dashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $transaksi = tb_transaksi::findOrFail($request->kode_master);
+        return view('dashboard.dashboard_detStockMasuk', compact('transaksi'));
     }
 
     /**

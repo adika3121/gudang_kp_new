@@ -62,11 +62,11 @@
                 <td>{{$nama_outlet}}</td>
                 <td>{{$nama_vendor->nama_vendor}}</td>
                 <td><div class="col-12 col-md-9">
-                      <input type="text" class="form-control" id="sn" name="sn[]" placeholder="SN" >
+                      <input type="text" class="form-control" id="sn" name="sn[]" placeholder="SN">
                       @if ($errors->any())
-                        @if($errors->first('sn'))
+                        @if($errors->first('sn[]'))
                           <div class="alert alert-warning">
-                            <li>{{ $errors->first('sn') }}</li>
+                            <li>{{ $errors->first('sn[]') }}</li>
                           </div>
                         @endif
                       @endif

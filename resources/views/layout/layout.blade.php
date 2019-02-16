@@ -259,6 +259,7 @@
 		@yield('script_stock_keluar')
 		@yield('script_pengguna')
 		@yield('script_addmore')
+		@yield('script_lihat_stock_outlet')
 
 		<script>
 	        $(function() {

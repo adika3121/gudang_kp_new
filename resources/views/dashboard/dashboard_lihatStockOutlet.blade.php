@@ -43,13 +43,14 @@
           <div class="panel-body">
           <!-- Tampilan Stock Sebuah Outlet -->
             <div class="table-responsive table--no-card m-b-30">
-              <table class="table table-borderless table-striped table-earning" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+              <table class="table table-borderless table-striped table-earning" id="datatable-default">
                 <thead>
                   <tr>
                     <th>Nama Barang</th>
                     <th>Stock Masuk</th>
                     <th>Stock Keluar</th>
                     <th>Sisa Stock</th>
+                    <th>Lainnya</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,11 @@
                     <td>{{$stock->stock_masuk}}</td>
                     <td>{{$stock->stock_keluar}}</td>
                     <td>{{$stock->sisa_stock}}</td>
+                    <td><form class="" action="{{action('dashboardController@lihat_detail_stock')}}" method="post">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="kode_master" value="{{$stock->kode_master}}">
+                      <button type="submit" class="btn btn-primary">Lihat Detail</button>
+                    </form></td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -81,4 +87,16 @@
     </div>
   <!-- end: page -->
 </section>
+@endsection
+
+@section('script_lihat_stock_outlet')
+<script>
+      $(function() {
+          $('#lihatStockTable').DataTable({
+              scrollX : true,
+              scrollCollapse : true,
+              "autoWidth": false
+          });
+      });
+</script>
 @endsection

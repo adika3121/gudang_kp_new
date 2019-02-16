@@ -43,7 +43,7 @@
           <div class="panel-body">
           <!-- Tampilan Stock Keluar Sebuah Outlet -->
             <div class="table-responsive table--no-card m-b-30">
-              <table class="table table-borderless table-striped table-earning" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+              <table class="table table-borderless table-striped table-earning" id="datatable-default">
                 <thead>
                   <tr>
                     <th>Nama Barang</th>
