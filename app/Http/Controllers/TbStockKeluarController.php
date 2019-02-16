@@ -409,7 +409,8 @@ class TbStockKeluarController extends Controller
            /////////////////////
 
            $data = compact('stock_keluar','tb_outlet');
-           return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+           // return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+           return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
          }
        }else {
          $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);

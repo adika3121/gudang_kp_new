@@ -131,14 +131,14 @@
                               <div class="form-group">
                                   <label for="keterangan" class=" form-control-label">Catatan</label>
                                   <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
-                                  <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{old('keterangan')}}">
+                                  <input type="text" id="keterangan" name="keterangan" value="{{old('keterangan')}}" class="form-control">
                               </div>
                               <div class="row form-group">
                                   <div class="col col-md-3">
                                       <label for="text-input" class=" form-control-label">Kode SN <span class="required">*</span></label>
                                   </div>
                                   <div class="col-12 col-md-9">
-                                      <input type="text" id="sn" name="sn" placeholder="SN" class="form-control" value="{{old('sn')}}" autofocus>
+                                      <input type="text" id="sn" name="sn" placeholder="SN" class="form-control" value="{{ old('sn') }}" autofocus>
                                       @if ($errors->any())
                                         @if($errors->first('sn'))
                                         <div class="alert alert-warning">

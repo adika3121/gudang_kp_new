@@ -430,7 +430,8 @@ class TbTransaksiController extends Controller
             /////////////////////
 
             $data = compact('tampilTransaksi','tb_outlet','vendor');
-            return View::make('Transaksi.tampil_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+            // return View::make('Transaksi.tampil_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+            return redirect('/transaksi')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
           }
         }else {
           $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
