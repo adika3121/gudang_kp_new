@@ -35,7 +35,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/lainnya', 'DataController');
     Route::resource('/dashboard', 'dashboardController');
     Route::resource('/pengguna', 'penggunaController');
-
+    Route::post('/pengguna-pass', 'penggunaController@ganti_password')->name('pengguna-pass.ganti_password');
+    Route::post('/pengguna-pass-update', 'penggunaController@update_pass')->name('pengguna-update.update_pass');
     Route::post('dash-detStock', 'dashboardController@lihat_detail_stock');
 
     // Route::get('/tambah-barang', 'MasterController@create')->name('tambahbarang');
@@ -49,6 +50,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/tambah-stock','TbTransaksiController@outlet');
     Route::post('/tambah-stock-sn', 'TbTransaksiController@tambah_transaksi_sn');
     Route::post('/tambah-stock-sn-simpan', 'TbTransaksiController@store');
+
+
 
     // dashboard
     Route::post('/lihat-stock-outlet', 'dashboardController@lihat_stock_outlet');

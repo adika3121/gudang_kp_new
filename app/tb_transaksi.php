@@ -48,4 +48,6 @@ class tb_transaksi extends Model
         'sn.*.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter'
     );
 
+    
+
 }

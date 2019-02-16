@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -99,6 +100,33 @@ class penggunaController extends Controller
         $user -> role = $request -> role_pengguna_update;
         $user->save();
         return redirect('/pengguna');
+      }
+    }
+
+    public function ganti_password(Request $request){
+
+      $id_user = $request->id_pengguna_update;
+      $nama_pengguna = User::where('id', $id_user)
+                        ->select('users.name as nama')
+                        ->first();
+      // return response()->json([$id_user]);
+      return view('pengguna.update_password', compact('id_user','nama_pengguna'));
+    }
+
+    public function update_pass(Request $request){
+      $validator = Validator::make(Input::all(),  User::RulesPass(), User::$messagesPass);
+      if($validator->passes()){
+        $user = User::findOrFail($request->id_user);
+        $user ->  password = Hash::make($request -> password);
+        $user->save();
+        return redirect('/pengguna');
+      }else{
+        $id_user = $request->id_user;
+        $nama_pengguna = User::where('id', $id_user)
+                          ->select('users.name as nama')
+                          ->first();
+        $data = compact('id_user', 'nama_pengguna');
+        return View::make('pengguna.update_password', $data)->withErrors($validator);
       }
     }
 

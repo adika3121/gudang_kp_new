@@ -45,6 +45,14 @@
       </table> -->
     <form action="{{action('TbStockKeluarController@store')}}" method="post" class="form-horizontal" id="tambahStock">
       <section class="panel">
+        @if ($errors->any())
+          @if($errors->first('success'))
+          <div class="alert alert-success alert-dismissable custom-success-box" style="margin: 15px;">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             <strong> {{ $errors->first('success') }} </strong>
+          </div>
+          @endif
+        @endif
         <header class="panel-heading">
           <h3 class="panel-title">Tambah Serial Number</h3>
         </header>
@@ -55,13 +63,42 @@
             <input  type="hidden" id="kode_master" name="kode_master" value="{{$kode_master}}" class="form-control">
 
           {{ csrf_field() }}
+
+          <!-- Nama barang -->
+          <div class="row form-group">
+              <div class="col col-md-3">
+                  <label for="text-input" class=" form-control-label">Nama Barang</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" name="nama_barang" value="{{$nama_lainnya->nama_barang}}" class="form-control" disabled>
+
+                  <!-- <textarea id="kode_pn" name="keterangan" placeholder="..." value="" class="form-control"></textarea> -->
+              </div>
+          </div>
+
+          <!-- nama outlet -->
+          <div class="row form-group">
+              <div class="col col-md-3">
+                  <label for="text-input" class=" form-control-label">Nama Outlet</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" name="name_out" value="{{$nama_lainnya->nama_outlet}}" class="form-control" disabled>
+
+                  <!-- <textarea id="kode_pn" name="keterangan" placeholder="..." value="" class="form-control"></textarea> -->
+              </div>
+          </div>
           <!-- Form Isi Stock Keluar -->
           <div class="row form-group">
               <div class="col col-md-3">
                   <label for="keterangan" class=" form-control-label">Catatan</label>
               </div>
               <div class="col-12 col-md-9">
-                  <textarea type="text" id="keterangan" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea>
+                @if(!empty($ket) > 0)
+                    <input type="text" name="keterangan" value="{{ $ket }}" class="form-control">
+                @else
+                    <input type="text" name="keterangan" value="" class="form-control">
+                @endif
+                  <!-- <textarea type="text" id="keterangan" rows="9" name="keterangan" placeholder="Masukan Catatan.." class="form-control"></textarea> -->
               </div>
           </div>
           <div class="row form-group">
@@ -69,7 +106,7 @@
                   <label for="sn" class=" form-control-label">Kode SN <span class="required">*</span></label>
               </div>
               <div class="col-12 col-md-9">
-                  <input type="text" id="sn" name="sn" placeholder="Masukan Kode SN" class="form-control">
+                  <input type="text" id="sn" name="sn" placeholder="Masukan Kode SN" class="form-control" autofocus>
                   @if ($errors->any())
                     @if($errors->first('sn'))
                     <div class="alert alert-warning">
@@ -88,7 +125,7 @@
             <div class="col-sm-6">
               <div class="mb-md">
                 <button type="submit" data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Tambahkan <i class="fa fa-plus"></i></button>
-                <a href="/stock-keluar" class="btn btn-danger">Batalkan</a>
+                <a href="/stock-keluar" class="btn btn-warning">Kembali ke Tabel Stock Keluar</a>
               </div>
             </div>
           </div>

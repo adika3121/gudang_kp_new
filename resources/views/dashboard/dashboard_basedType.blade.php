@@ -51,6 +51,7 @@
                     <th>Stock Masuk</th>
                     <th>Stock Keluar</th>
                     <th>Sisa Stock</th>
+                    <th>Lainnya</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,6 +62,11 @@
                     <td>{{$stock->stock_masuk}}</td>
                     <td>{{$stock->stock_keluar}}</td>
                     <td>{{$stock->sisa_stock}}</td>
+                    <td><form class="" action="{{action('dashboardController@lihat_detail_stock')}}" method="post">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="kode_master" value="{{$stock->kode_master}}">
+                      <button type="submit" class="btn btn-primary">Lihat Detail</button>
+                    </form></td>
                   </tr>
                   @endforeach
                 </tbody>

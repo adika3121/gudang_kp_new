@@ -59,6 +59,7 @@
                       data-toggle="modal"
                       data-target="#editStockKeluar"
                       data-keterangan_keluar="{{$stk_kluar->keterangan}}"
+                      data-sn_keluar="{{$stk_kluar->sn}}"
                       data-kode_keluar={{$stk_kluar->kode_keluar}}>
                         <i class="fa fa-pencil"></i></button>
                     <button class="on-default remove-row"
@@ -130,7 +131,22 @@
                               <div class="form-group">
                                   <label for="keterangan" class=" form-control-label">Catatan</label>
                                   <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
-                                  <input type="text" id="keterangan" name="keterangan" class="form-control">
+                                  <input type="text" id="keterangan" name="keterangan" value="{{old('keterangan')}}" class="form-control">
+                              </div>
+                              <div class="row form-group">
+                                  <div class="col col-md-3">
+                                      <label for="text-input" class=" form-control-label">Kode SN <span class="required">*</span></label>
+                                  </div>
+                                  <div class="col-12 col-md-9">
+                                      <input type="text" id="sn" name="sn" placeholder="SN" class="form-control" value="{{ old('sn') }}" autofocus>
+                                      @if ($errors->any())
+                                        @if($errors->first('sn'))
+                                        <div class="alert alert-warning">
+                                          <li>{{ $errors->first('sn') }}</li>
+                                        </div>
+                                        @endif
+                                        @endif
+                                  </div>
                               </div>
                               <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary btn-sm">
@@ -180,14 +196,21 @@
 
 @section('script_stock_keluar')
 <script>
+@if ($errors->any())
+  @if($errors->first('sn'))
+    $('#editStockKeluar').modal('show');
+  @endif
+@endif
   $('#editStockKeluar').on('show.bs.modal', function (event) {
 
               var button = $(event.relatedTarget)
               var keterangan_keluar = button.data('keterangan_keluar')
               var kode_keluar = button.data('kode_keluar')
+              var sn_keluar = button.data('sn_keluar')
               var modal = $(this)
 
               modal.find('.modal-body #keterangan').val(keterangan_keluar);
+              modal.find('.modal-body #sn').val(sn_keluar);
               modal.find('.modal-body #kode_keluar').val(kode_keluar);
           })
 
