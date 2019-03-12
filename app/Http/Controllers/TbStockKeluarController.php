@@ -395,30 +395,76 @@ class TbStockKeluarController extends Controller
                            ->first();
       $cek_sn_sebelumnya = tb_stock_keluar::where([['sn', $kode_sn],['kode_keluar', $kode_keluar]])
                            ->first();
-
+      $stk_k = tb_stock_keluar::findOrFail($request->kode_keluar);
+       $cek_transaksi = tb_transaksi::where([['sn', $kode_sn], ['kode_master', $stk_k->kode_master],['status', 0]])
+                       ->select('tb_transaksi.kode_transaksi as kode')
+                       ->first();
+      //ada sn yg sama di satu tabel
        if (!empty($cek_sn_satu_tabel)) {
+         // Tidak edit sn ini
          if (!empty($cek_sn_sebelumnya)) {
            $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-           $stock_keluar->update($request->all());
+           $stock_keluar->sn = $request->sn;
+           $stock_keluar->keterangan = $request->keterangan;
+           $stock_keluar->save();
            return back();
-         }else {
-           //Data view sebelumnya
-           $stock_keluar = tb_stock_keluar::all();
-           $tb_outlet = tb_outlet::all();
-           /////////////////////
+           // Cek di tb_transaksi sn yg sama ini statusnya 0 apa tidak
+         }elseif(!empty($cek_transaksi)) {
+           $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-           $data = compact('stock_keluar','tb_outlet');
-           // return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
-           return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
+           $stock_keluar->sn = $request->sn;
+           $stock_keluar->keterangan = $request->keterangan;
+           $stock_keluar->save();
+
+           // Rubah Status di tb_transaksi
+           $status_transaksi = tb_transaksi::findOrFail($cek_transaksi->kode);
+           $i = 1;
+           $status_transaksi->status = $i;
+           $status_transaksi->save();
+           ////////////////////////////
+           return back();
+
+           // //Data view sebelumnya
+           // $stock_keluar = tb_stock_keluar::all();
+           // $tb_outlet = tb_outlet::all();
+           // /////////////////////
+           //
+           // $data = compact('stock_keluar','tb_outlet');
+           // // return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+           // return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
+         }else{
+           return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN belum masuk di transaksi'))->withInput();
          }
-       }else {
+      // Cek apakah sn ini statusnya di transaksi 0 apa tidak
+       }elseif(!empty($cek_transaksi)) {
          $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-         $stock_keluar->update($request->all());
+         $stock_keluar->sn = $request->sn;
+         $stock_keluar->keterangan = $request->keterangan;
+         $stock_keluar->save();
+
+         // Rubah Status di tb_transaksi
+         $status_transaksi = tb_transaksi::findOrFail($cek_transaksi->kode);
+         $i = 1;
+         $status_transaksi->status = $i;
+         $status_transaksi->save();
+         ////////////////////////////
          return back();
+
+         // //Data view sebelumnya
+         // $stock_keluar = tb_stock_keluar::all();
+         // $tb_outlet = tb_outlet::all();
+         // /////////////////////
+         //
+         // $data = compact('stock_keluar','tb_outlet');
+         // // return View::make('stock_keluar.tampil_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
+         // return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
+       }else{
+         return redirect('/stock-keluar')->withErrors(array('sn' => 'Stock dengan SN ini belum masuk di transaksi'))->withInput();
        }
-    }
+
+    }//end validator
 
   }
 

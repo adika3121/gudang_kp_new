@@ -37,6 +37,58 @@
               <a href="#" class="fa fa-caret-down"></a>
             </div>
 
+            <h2 class="panel-title">Data Sisa Stock {{$nama_dan_outlet_barang->nama_barang}} pada {{$nama_dan_outlet_barang->nama_outlet}}</h2>
+
+          </header>
+          <div class="panel-body">
+          <!-- Tampilan Stock Keluar Sebuah Outlet -->
+            <div class="table-responsive table--no-card m-b-30">
+              <table class="table table-borderless table-striped table-earning" id="datatable-default">
+                <thead>
+                  <tr>
+                    <th>Kode SN</th>
+                    <th>Waktu Masuk</th>
+                    <th>Catatan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($sisa_stock as $stk_sisa)
+                    <tr>
+                      <td>{{$stk_sisa->sn}}</td>
+                      <td>{{$stk_sisa->waktu_masuk}}</td>
+                      <td>{{$stk_sisa->catatan}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <div class="row">
+              <div class="center">
+                <form class="" action="{{action('dashboardController@get_excell')}}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="kode_master" value="{{$kode_master}}">
+                  <button type="submit" name="button" class="btn btn-primary">Export to Excell</button>
+                </form>
+              </div>
+            </div>
+          </footer>
+        </section>
+      </form>
+    </div>
+
+
+  </div>
+  <!-- End Sisa Stock -->
+  <div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+          <header class="panel-heading">
+            <div class="panel-actions">
+              <a href="#" class="fa fa-caret-down"></a>
+            </div>
+
             <h2 class="panel-title">Data Stock Masuk {{$nama_dan_outlet_barang->nama_barang}} pada {{$nama_dan_outlet_barang->nama_outlet}}</h2>
 
           </header>
@@ -88,13 +140,13 @@
 
             </header>
             <div class="panel-body">
-            <!-- Tampilan Stock Masuk Sebuah Outlet -->
+            <!-- Tampilan Stock Keluar Sebuah Outlet -->
               <div class="table-responsive table--no-card m-b-30">
-                <table class="table table-borderless table-striped table-earning" id="datatable-default">
+                <table class="table table-borderless table-striped table-earning" id="stockTable">
                   <thead>
                     <tr>
                       <th>Kode SN</th>
-                      <th>Waktu Masuk</th>
+                      <th>Waktu Keluar</th>
                       <th>Catatan</th>
                     </tr>
                   </thead>

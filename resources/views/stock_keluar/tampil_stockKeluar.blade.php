@@ -131,7 +131,7 @@
                               <div class="form-group">
                                   <label for="keterangan" class=" form-control-label">Catatan</label>
                                   <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
-                                  <input type="text" id="keterangan" name="keterangan" value="{{old('keterangan')}}" class="form-control">
+                                  <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{old('keterangan')}}">
                               </div>
                               <div class="row form-group">
                                   <div class="col col-md-3">

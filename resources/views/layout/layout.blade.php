@@ -268,6 +268,13 @@
 	                "autoWidth": false
 	            });
 	        });
+					$(function() {
+	            $('#stockTable').DataTable({
+	                scrollX : true,
+	                scrollCollapse : true,
+	                "autoWidth": false
+	            });
+	        });
 		</script>
 
 		<!-- <script>
