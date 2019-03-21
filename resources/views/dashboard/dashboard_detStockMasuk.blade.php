@@ -66,7 +66,7 @@
           <footer class="panel-footer">
             <div class="row">
               <div class="center">
-                <form class="" action="{{action('dashboardController@get_excell')}}" method="post">
+                <form class="" action="{{action('dashboardController@get_excell_sisa_stock')}}" method="post">
                   {{ csrf_field() }}
                   <input type="hidden" name="kode_master" value="{{$kode_master}}">
                   <button type="submit" name="button" class="btn btn-primary">Export to Excell</button>
