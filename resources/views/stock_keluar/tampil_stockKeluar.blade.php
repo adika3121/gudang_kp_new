@@ -57,19 +57,23 @@
                 <td>{{$stk_kluar->created_at}}</td>
                 <td>{{$stk_kluar->keterangan}}</td>
                 <td>{{$status_jadi[$stk_kluar->status]}}</td>
-                <td><button class="on-default edit-row"
+                <td><button class="btn btn-outline-warning on-default edit-row"
                       data-toggle="modal"
                       data-target="#editStockKeluar"
                       data-keterangan_keluar="{{$stk_kluar->keterangan}}"
                       data-sn_keluar="{{$stk_kluar->sn}}"
                       data-kode_keluar={{$stk_kluar->kode_keluar}}>
                         <i class="fa fa-pencil"></i></button>
-                    <button class="on-default remove-row"
-                        data-toggle="modal"
-                        data-target="#deleteStockKeluar"
-                        data-kode_master="{{$stk_kluar->kode_master}}"
-                        data-kode_keluar={{$stk_kluar->kode_keluar}}
-                        ><i class="fa fa-trash-o"></i></button></td>
+                    @if($stk_kluar->status!='2')
+                        <button class="btn btn-danger on-default remove-row"
+                            data-toggle="modal"
+                            data-target="#deleteStockKeluar"
+                            data-kode_master="{{$stk_kluar->kode_master}}"
+                            data-kode_keluar={{$stk_kluar->kode_keluar}}
+                            >Batal</button></td>
+                    @else
+                        <button class="btn btn-outline-warning">Batal</button>
+                    @endif
             </tr>
             @endforeach
           </tbody>
