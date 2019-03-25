@@ -412,8 +412,14 @@ class TbTransaksiController extends Controller
                               ->first();
          $cek_sn_sebelumnya = tb_transaksi::where([['sn', $kode_sn],['kode_transaksi', $kode_transaksi]])
                               ->first();
+         $tran = tb_transaksi::findOrFail($request->kode_transaksi);
+         $kode_stock_keluar = tb_stock_keluar::where([['sn', $kode_sn],['status', 0],['kode_master', $request->kode_master]])
+                           ->select('tb_stock_keluar.kode_keluar as kode')
+                           ->first();
         // Validasi
+        // Kalo sn-nya udah ada di tabel ini
         if (!empty($cek_sn_satu_tabel)) {
+          //kalo sn-nya gaa diganti
           if (!empty($cek_sn_sebelumnya)) {
             $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
 
@@ -421,6 +427,21 @@ class TbTransaksiController extends Controller
             $transaksi->keterangan = $request->keterangan;
             $transaksi->sn = $request->sn;
             $transaksi->save();
+            return back();
+          //kalo sn-nya udah ada di stock keluar dan statusnya 0
+          }elseif(!empty($kode_stock_keluar)){
+            $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
+
+            $transaksi->vendor = $request->vendor;
+            $transaksi->keterangan = $request->keterangan;
+            $transaksi->sn = $request->sn;
+            $transaksi->save();
+
+            //rubah status di stok Keluar
+            $status_keluar = tb_stock_keluar::findOrFail($kode_stock_keluar->kode);
+            $i=1;
+            $status_keluar->status=$i;
+            $status_keluar->save();
             return back();
           }else {
             //Data view sebelumnya
@@ -434,6 +455,20 @@ class TbTransaksiController extends Controller
             // return View::make('Transaksi.tampil_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'));
             return redirect('/transaksi')->withErrors(array('sn' => 'Stock dengan SN ini sudah ada'))->withInput();
           }
+        }elseif(!empty($kode_stock_keluar)){
+          $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
+
+          $transaksi->vendor = $request->vendor;
+          $transaksi->keterangan = $request->keterangan;
+          $transaksi->sn = $request->sn;
+          $transaksi->save();
+
+          //rubah status di stok Keluar
+          $status_keluar = tb_stock_keluar::findOrFail($kode_stock_keluar->kode);
+          $i=1;
+          $status_keluar->status=$i;
+          $status_keluar->save();
+          return back();
         }else {
           $transaksi = tb_transaksi::findOrFail($request->kode_transaksi);
 
@@ -441,7 +476,6 @@ class TbTransaksiController extends Controller
           $transaksi->keterangan = $request->keterangan;
           $transaksi->sn = $request->sn;
           $transaksi->save();
-          return back();
         }
 
 

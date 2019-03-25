@@ -58,7 +58,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/lihat-stock-masuk-dash', 'dashboardController@lihat_stock_masuk_terbaru');
     Route::post('/lihat-stock-keluar-dash', 'dashboardController@lihat_stock_keluar_terbaru');
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
- });
+    Route::post('/export_excell', 'dashboardController@get_excell_sisa_stock');
+});
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\transaksiExport;
 use App\master;
 use App\tb_outlet;
 use App\tb_merek;
@@ -12,6 +13,7 @@ use App\tb_transaksi;
 use App\tb_stock_keluar;
 use Gate;
 use View;
+use Excel;
 
 class dashboardController extends Controller
 {
@@ -125,6 +127,7 @@ class dashboardController extends Controller
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
      public function lihat_detail_stock(Request $request){
+       $kode_master = $request->kode_master;
        $nama_dan_outlet_barang = master::where('kode_master', $request->kode_master)
                                   ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
                                   ->select('tb_master.nama_barang as nama_barang',
@@ -146,7 +149,80 @@ class dashboardController extends Controller
                                 'tb_stock_keluar.created_at as waktu_keluar',
                                 'tb_stock_keluar.keterangan as catatan')
                       ->get();
-       return view('dashboard.dashboard_detStockMasuk', compact('nama_dan_outlet_barang', 'transaksi', 'stock_keluar'));
+        $sisa_stock = tb_transaksi::where([['kode_master', $request->kode_master],['status', 0]])
+                      ->select('tb_transaksi.kode_transaksi as kode_transaksi',
+                                'tb_transaksi.kode_master as kode_master',
+                                'tb_transaksi.sn as sn',
+                                'tb_transaksi.created_at as waktu_masuk',
+                                'tb_transaksi.keterangan as catatan')
+                      ->get();
+       return view('dashboard.dashboard_detStockMasuk', compact('nama_dan_outlet_barang', 'transaksi', 'stock_keluar','sisa_stock','kode_master'));
+     }
+
+     public function get_excell_sisa_stock(Request $request){
+       // return Excel::download(new transaksiExport, 'transaksi.xlsx');
+       $kode_master = $request->kode_master;
+       $nama_dan_outlet_barang = master::where('kode_master', $request->kode_master)
+                                  ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                                  ->select('tb_master.nama_barang as nama_barang',
+                                            'tb_outlet.nama_outlet as nama_outlet')
+                                  ->first();
+      $sisa_stock = tb_transaksi::where([['kode_master', $request->kode_master],['status', 0]])
+                    ->select('tb_transaksi.kode_transaksi as kode_transaksi',
+                              'tb_transaksi.kode_master as kode_master',
+                              'tb_transaksi.sn as sn',
+                              'tb_transaksi.created_at as waktu_masuk',
+                              'tb_transaksi.keterangan as catatan')
+                    ->get();
+
+       return Excel::download(new transaksiExport($sisa_stock), "transaksi"."$nama_dan_outlet_barang->nama_barang"."pada"."$nama_dan_outlet_barang->nama_outlet".".xlxs");
+
+      //  $nama_dan_outlet_barang = master::where('kode_master', $request->kode_master)
+      //                             ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+      //                             ->select('tb_master.nama_barang as nama_barang',
+      //                                       'tb_outlet.nama_outlet as nama_outlet')
+      //                             ->first();
+      //   $nama_outlet_array[] = array('nama_barang', 'nama_outlet');
+      //
+      //
+      //  $transaksi = tb_transaksi::where('kode_master', $request->kode_master)
+      //               ->select('tb_transaksi.kode_transaksi as kode_trans',
+      //                         'tb_transaksi.kode_master as kode_master',
+      //                         'tb_transaksi.sn as sn',
+      //                         'tb_transaksi.created_at as  waktu_masuk',
+      //                         'tb_transaksi.keterangan as catatan')
+      //               ->get();
+      // $transaksi_array[] = array('Kode Master', 'SN', 'Waktu Masuk', 'Catatan');
+      // foreach($transaksi as $trx){
+      //   $transaksi_array[] = array(
+      //                         'Kode Master' => $trx->kode_master,
+      //                         'SN' => $trx->sn,
+      //                         'Waktu Masuk'=> $trx->waktu_masuk,
+      //                         'Catatan' => $trx->catatan
+      //                       );
+      // }
+      // Excel::store('Stock Masuk '.$nama_dan_outlet_barang->nama_barang.' pada '.$nama_dan_outlet_barang->nama_outlet,
+      //               function($excel) use($transaksi_array){
+      //                 $excel->setTitle('Stock Masuk');
+      //                 $excel->sheet('Stock Masuk', function($sheet) use($transaksi_array){
+      //                   $sheet->fromArray($transaksi_array, null, A1, false, false);
+      //                 });
+      //               })->download('xlsx');
+
+      // $stock_keluar = tb_stock_keluar::where('kode_master', $request->kode_master)
+      //                 ->select('tb_stock_keluar.kode_keluar as kode_keluar',
+      //                           'tb_stock_keluar.kode_master as kode_master',
+      //                           'tb_stock_keluar.sn as sn',
+      //                           'tb_stock_keluar.created_at as waktu_keluar',
+      //                           'tb_stock_keluar.keterangan as catatan')
+      //                 ->get();
+      //   $sisa_stock = tb_transaksi::where([['kode_master', $request->kode_master],['status', 0]])
+      //                 ->select('tb_transaksi.kode_transaksi as kode_transaksi',
+      //                           'tb_transaksi.kode_master as kode_master',
+      //                           'tb_transaksi.sn as sn',
+      //                           'tb_transaksi.created_at as waktu_masuk',
+      //                           'tb_transaksi.keterangan as catatan')
+      //                 ->get();
      }
 
     public function create()
