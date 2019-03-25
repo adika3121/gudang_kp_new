@@ -44,6 +44,7 @@
               <th>SN</th>
               <th>Waktu Keluar</th>
               <th>Catatan</th>
+              <th>Status</th>
               <th>Ket</th>
             </tr>
           </thead>
@@ -55,6 +56,7 @@
                 <td>{{$stk_kluar->sn}}</td>
                 <td>{{$stk_kluar->created_at}}</td>
                 <td>{{$stk_kluar->keterangan}}</td>
+                <td>{{$status_jadi[$stk_kluar->status]}}</td>
                 <td><button class="on-default edit-row"
                       data-toggle="modal"
                       data-target="#editStockKeluar"
@@ -165,20 +167,20 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="largeModalLabel">Delete Transaksi</h5>
+                            <h5 class="modal-title" id="largeModalLabel">Batalkan Transaksi</h5>
                         </div>
                         <div class="modal-body">
                             <form action="{{route('stock-keluar.destroy','test')}}" method="post">
                                 {{method_field('delete')}}
                                 {{csrf_field()}}
                                 <p class="text-center">
-                                    Yakin untuk menghapus stock keluar ini?
+                                    Yakin untuk membatalkan stock keluar ini?
                                 </p>
                                 <input type="hidden" name="kode_master" id="kode_master" value="">
                                 <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">Tidak, Batalkan</button>
-                                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Tidak</button>
+                                    <button type="submit" class="btn btn-danger">Ya, Batalkan Transaksi</button>
                                 </div>
                             </form>
                         </div>
