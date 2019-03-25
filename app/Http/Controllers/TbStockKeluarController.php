@@ -400,8 +400,10 @@ class TbStockKeluarController extends Controller
          if (!empty($cek_sn_sebelumnya)) {
            $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-           $stock_keluar->update($request->all());
-           return back();
+            $stock_keluar->keterangan = $request->keterangan;
+            $stock_keluar->sn = $request->sn;
+            $stock_keluar->save();
+           return back()->withInput();
          }else {
            //Data view sebelumnya
            $stock_keluar = tb_stock_keluar::all();
@@ -415,8 +417,10 @@ class TbStockKeluarController extends Controller
        }else {
          $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
 
-         $stock_keluar->update($request->all());
-         return back();
+         $stock_keluar->keterangan = $request->keterangan;
+         $stock_keluar->sn = $request->sn;
+         $stock_keluar->save();
+         return back()->withInput();
        }
     }
 
