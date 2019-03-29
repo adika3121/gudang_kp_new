@@ -11,6 +11,7 @@ use DB;
 use Gate;
 use Illuminate\Validation\Rule;
 use App\tb_transaksi;
+use App\tb_stock_keluar;
 use App\tb_vendor;
 use App\master;
 use App\tb_outlet;
@@ -79,7 +80,7 @@ class TbTransaksiController extends Controller
                           ->first();
 
            /////////////////////////////////////////////
-           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master','nama_vendor','nama_lainnya', 'id_master', 'vendor'));
+           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master','nama_vendor','nama_lainnya', 'id_master', 'vendor', 'keterangan'));
             // return Redirect::back()->withErrors($validator)->withInput();
         }
     else{
@@ -110,8 +111,8 @@ class TbTransaksiController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
-  { 
-    
+  {
+
       $transaksi = [
         "errors" => null
       ];

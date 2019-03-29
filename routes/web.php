@@ -19,7 +19,7 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
+// Route::group(['middleware' => 'auth'], function(){
 
     Route::resource('/', 'HomeController');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/lihat-stock-keluar-dash', 'dashboardController@lihat_stock_keluar_terbaru');
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
     Route::post('/export_excell', 'dashboardController@get_excell_sisa_stock');
-});
+//  });
 
 
 

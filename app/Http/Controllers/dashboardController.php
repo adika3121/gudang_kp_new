@@ -24,6 +24,11 @@ class dashboardController extends Controller
      */
 
 
+     public $status_jadi =  [
+            0 => 'Sudah Keluar',
+            1 => 'Batal'
+          ];
+
     public function index()
     {
         if(Gate::allows('isAdmin') || Gate::allows('isMarketing')){
@@ -147,7 +152,8 @@ class dashboardController extends Controller
                                 'tb_stock_keluar.kode_master as kode_master',
                                 'tb_stock_keluar.sn as sn',
                                 'tb_stock_keluar.created_at as waktu_keluar',
-                                'tb_stock_keluar.keterangan as catatan')
+                                'tb_stock_keluar.keterangan as catatan',
+                                'tb_stock_keluar.status as status')
                       ->get();
         $sisa_stock = tb_transaksi::where([['kode_master', $request->kode_master],['status', 0]])
                       ->select('tb_transaksi.kode_transaksi as kode_transaksi',
@@ -156,7 +162,8 @@ class dashboardController extends Controller
                                 'tb_transaksi.created_at as waktu_masuk',
                                 'tb_transaksi.keterangan as catatan')
                       ->get();
-       return view('dashboard.dashboard_detStockMasuk', compact('nama_dan_outlet_barang', 'transaksi', 'stock_keluar','sisa_stock','kode_master'));
+        $status_jadi = $this->status_jadi;
+       return view('dashboard.dashboard_detStockMasuk', compact('nama_dan_outlet_barang', 'transaksi', 'stock_keluar','sisa_stock','kode_master','status_jadi'));
      }
 
      public function get_excell_sisa_stock(Request $request){

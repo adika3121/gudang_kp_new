@@ -17,11 +17,11 @@
     <div class="right-wrapper pull-right">
       <ol class="breadcrumbs">
         <li>
-          <a href="index.html">
+          <a href="/transaksi">
             <i class="fa fa-home"></i>
           </a>
         </li>
-        <li><span>Transaksi Barang</span></li>
+        <li><span>Kode SN Transaksi Barang</span></li>
       </ol>
 
       <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -114,51 +114,7 @@
                       <li>{{ $errors->first('sn') }}</li>
                     </div>
                     @endif
-                  @endif
-                </td>
-                <td><input type="text" class="form-control" id="keterangan" name="keterangan[]" value="{{$keterangan}}" ></td>
-                <td><button type="button" name="remove" id="'firstremove'" class="btn btn-danger btn_removefirst">X</button></td>
-            </tr>
-          </tbody>
-        </table>
-      
-        {{-- <section class="panel">
-          <header class="panel-heading">
-            <h2 class="panel-title">Tambah Transaksi Barang</h2>
-          </header>
-          <div class="panel-body"> --}}
-            
-
-            <!-- Form Mengisi Catatn dan SN -->
-            {{-- <div class="row form-group">
-                <div class="col col-md-3">
-                    <label for="text-input" class=" form-control-label">Catatan</label>
-                </div>
-                <div class="col-12 col-md-9">
-                    <textarea id="kode_pn" name="keterangan" placeholder="..." class="form-control"></textarea>
-                </div>
-            </div> --}}
-        <div class="row form-group"> 
-                {{-- <div class="col col-md-3">
-                    <label for="text-input" class=" form-control-label">Kode SN <span class="required">*</span></label>
-                </div>
-                <div class="col-12 col-md-9">
-                    <input type="text" id="sn" name="sn" placeholder="SN" class="form-control">
-                    @if ($errors->any())
-                      @if($errors->first('sn'))
-                      <div class="alert alert-warning">
-                        <li>{{ $errors->first('sn') }}</li>
-                      </div>
-                      @endif
-                      @endif
-                </div> --}}
-        </div>
-        <!-- Button Tambah Transaksi SN -->
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="mb-md">
-                  <button data-toggle="modal" data-target="#tambahTransaksi" class="btn btn-success">Simpan</button>
-                </div>
+                    @endif
               </div>
           </div>
           <!-- Button Tambah Transaksi SN -->

@@ -148,6 +148,7 @@
                       <th>Kode SN</th>
                       <th>Waktu Keluar</th>
                       <th>Catatan</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -156,6 +157,7 @@
                         <td>{{$stk_kluar->sn}}</td>
                         <td>{{$stk_kluar->waktu_keluar}}</td>
                         <td>{{$stk_kluar->catatan}}</td>
+                        <td>{{$status_jadi[$stk_kluar->status]}}</td>
                       </tr>
                     @endforeach
                   </tbody>
