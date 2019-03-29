@@ -11,8 +11,8 @@ use DB;
 use Gate;
 use Illuminate\Validation\Rule;
 use App\tb_transaksi;
-use App\tb_stock_keluar;
 use App\tb_vendor;
+use App\tb_stock_keluar;
 use App\master;
 use App\tb_outlet;
 use App\tb_merek;
@@ -80,7 +80,7 @@ class TbTransaksiController extends Controller
                           ->first();
 
            /////////////////////////////////////////////
-           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master','nama_vendor','nama_lainnya', 'id_master', 'vendor', 'keterangan'));
+           return view('Transaksi.sn_transaksi', compact('nama_outlet', 'kode_master','nama_vendor','nama_lainnya', 'id_master', 'vendor'));
             // return Redirect::back()->withErrors($validator)->withInput();
         }
     else{
@@ -111,8 +111,8 @@ class TbTransaksiController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
-  {
-
+  { 
+    
       $transaksi = [
         "errors" => null
       ];
@@ -129,7 +129,7 @@ class TbTransaksiController extends Controller
                            ->select('tb_master.kode_master as kode_master')
                            ->first();
              $kode_master = Input::get('kode_master');
-             $keterangan = Input::get('keterangan');
+             $ket = Input::get('keterangan');
 
 
              //////////////////////////////////////////
@@ -147,8 +147,8 @@ class TbTransaksiController extends Controller
              /////////////////////////////////////////////
 
              $transaksi = $validator->errors();
-             if (!empty($keterangan)) {
-               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'keterangan');
+             if (!empty($ket)) {
+               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
              }else{
                $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
              }
@@ -177,7 +177,6 @@ class TbTransaksiController extends Controller
                   // hasil oper dari view sebelumnya
                   $nama_outlet = $request->nama_outlet;
                   $id_master = $request->id_master;
-                  $keterangan = $request->keterangan;
                   $vendor = $request->vendor;
                   $k_master = master::where('id_master', $id_master)
                                 ->select('tb_master.kode_master as kode_master')
@@ -227,7 +226,6 @@ class TbTransaksiController extends Controller
               // hasil oper dari view sebelumnya
               $nama_outlet = $request->nama_outlet;
               $id_master = $request->id_master;
-              $keterangan = $request->keterangan;
               $vendor = $request->vendor;
               $k_master = master::where('id_master', $id_master)
                             ->select('tb_master.kode_master as kode_master')
@@ -320,7 +318,7 @@ class TbTransaksiController extends Controller
                       ->select('tb_master.kode_master as kode_master')
                       ->first();
         $kode_master = Input::get('kode_master');
-        $keterangan = Input::get('keterangan');
+        $ket = Input::get('keterangan');
         //////////////////////////////////////////
         //Nama Komponen
         $nama_vendor = tb_vendor::where('kode_vendor', $vendor)
@@ -334,8 +332,8 @@ class TbTransaksiController extends Controller
         ///////////////////////////////////////////
 
         $transaksi = $validator->errors();
-        if (!empty($keterangan)) {
-          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'keterangan');
+        if (!empty($ket)) {
+          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
         }else{
           $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
         }

@@ -44,14 +44,13 @@ Auth::routes();
     Route::post('/tambah-stock-keluar', 'TbStockKeluarController@tambah_stock_keluar');
     Route::post('/tambah-stock-keluar-sn', 'TbStockKeluarController@tambah_sn_keluar');
     Route::post('/tambah-stock-keluar-sn-simpan', 'TbStockKeluarController@store');
+    Route::post('/tambah-sn', 'TbStockKeluarController@tambahsn');
     // Route::get('/transaksi', 'TbTransaksiController@create')->name('transaksi');
 
     // transaksi
     Route::post('/tambah-stock','TbTransaksiController@outlet');
     Route::post('/tambah-stock-sn', 'TbTransaksiController@tambah_transaksi_sn');
     Route::post('/tambah-stock-sn-simpan', 'TbTransaksiController@store');
-
-
 
     // dashboard
     Route::post('/lihat-stock-outlet', 'dashboardController@lihat_stock_outlet');

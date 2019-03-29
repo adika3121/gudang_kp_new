@@ -80,13 +80,17 @@
           </tbody>
         </table>
         <!-- Button Tambah Barang Baru -->
-        <div class="row">
-					<div class="col-sm-6">
-						<div class="mb-md">
-							<button data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Tambah Barang <i class="fa fa-plus"></i></button>
-						</div>
-					</div>
-				</div>
+        <form action="{{action('TbStockKeluarController@tambahsn')}}" method="post" class="">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="mb-md">
+                        <button type="submit" class="btn btn-primary">Tambah <i class="fa fa-plus"></i></button>
+                        {{--  <button data-toggle="modal" data-target="#tambahStockKeluar" class="btn btn-primary">Tambah <i class="fa fa-plus"></i></button>  --}}
+                    </div>
+                </div>
+            </div>
+        </form>
 
         <!-- modal tambah stock Keluar -->
   			<div class="modal fade" id="tambahStockKeluar" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
