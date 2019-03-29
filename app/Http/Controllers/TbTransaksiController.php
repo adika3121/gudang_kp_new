@@ -128,7 +128,7 @@ class TbTransaksiController extends Controller
                            ->select('tb_master.kode_master as kode_master')
                            ->first();
              $kode_master = Input::get('kode_master');
-             $ket = Input::get('keterangan');
+             $keterangan = Input::get('keterangan');
 
 
              //////////////////////////////////////////
@@ -146,8 +146,8 @@ class TbTransaksiController extends Controller
              /////////////////////////////////////////////
 
              $transaksi = $validator->errors();
-             if (!empty($ket)) {
-               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
+             if (!empty($keterangan)) {
+               $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'keterangan');
              }else{
                $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
              }
@@ -176,6 +176,7 @@ class TbTransaksiController extends Controller
                   // hasil oper dari view sebelumnya
                   $nama_outlet = $request->nama_outlet;
                   $id_master = $request->id_master;
+                  $keterangan = $request->keterangan;
                   $vendor = $request->vendor;
                   $k_master = master::where('id_master', $id_master)
                                 ->select('tb_master.kode_master as kode_master')
@@ -225,6 +226,7 @@ class TbTransaksiController extends Controller
               // hasil oper dari view sebelumnya
               $nama_outlet = $request->nama_outlet;
               $id_master = $request->id_master;
+              $keterangan = $request->keterangan;
               $vendor = $request->vendor;
               $k_master = master::where('id_master', $id_master)
                             ->select('tb_master.kode_master as kode_master')
@@ -317,7 +319,7 @@ class TbTransaksiController extends Controller
                       ->select('tb_master.kode_master as kode_master')
                       ->first();
         $kode_master = Input::get('kode_master');
-        $ket = Input::get('keterangan');
+        $keterangan = Input::get('keterangan');
         //////////////////////////////////////////
         //Nama Komponen
         $nama_vendor = tb_vendor::where('kode_vendor', $vendor)
@@ -331,8 +333,8 @@ class TbTransaksiController extends Controller
         ///////////////////////////////////////////
 
         $transaksi = $validator->errors();
-        if (!empty($ket)) {
-          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'ket');
+        if (!empty($keterangan)) {
+          $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master', 'keterangan');
         }else{
           $data = compact('nama_outlet', 'id_master', 'vendor', 'nama_vendor', 'nama_lainnya', 'kode_master');
         }

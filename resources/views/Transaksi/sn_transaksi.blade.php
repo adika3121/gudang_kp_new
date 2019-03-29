@@ -113,6 +113,8 @@
                     <div class="alert alert-warning">
                       <li>{{ $errors->first('sn') }}</li>
                     </div>
+                    @endif
+                  @endif
                 </td>
                 <td><input type="text" class="form-control" id="keterangan" name="keterangan[]" value="{{$keterangan}}" ></td>
                 <td><button type="button" name="remove" id="'firstremove'" class="btn btn-danger btn_removefirst">X</button></td>
