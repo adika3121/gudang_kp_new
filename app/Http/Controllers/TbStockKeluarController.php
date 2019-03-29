@@ -23,8 +23,7 @@ class TbStockKeluarController extends Controller
    */
    public $status_jadi =  [
           0 => 'Sudah Keluar',
-          1 => 'Kembali ke Stock Masuk',
-          2 => 'Batal'
+          1 => 'Batal'
         ];
 
   public function index()
@@ -193,7 +192,7 @@ class TbStockKeluarController extends Controller
 
               ///// Menghitung jumlah stock keluar untuk dimasukan ke tb_master
               $master = master::find($id_master);
-              $out_stock = tb_stock_keluar::where('kode_master', $kode_master)
+              $out_stock = tb_stock_keluar::where([['kode_master', $kode_master],['status', 0]])
                             ->count();
               $master->stock_keluar = $out_stock;
               $master->save();
@@ -238,7 +237,7 @@ class TbStockKeluarController extends Controller
 
             ///// Menghitung jumlah stock keluar untuk dimasukan ke tb_master
             $master = master::find($id_master);
-            $out_stock = tb_stock_keluar::where('kode_master', $kode_master)
+            $out_stock = tb_stock_keluar::where([['kode_master', $kode_master],['status',0]])
                           ->count();
             $master->stock_keluar = $out_stock;
             $master->save();
@@ -488,9 +487,40 @@ class TbStockKeluarController extends Controller
       }
 
       $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
-      $status = 2;
+      $status = 1;
       $stock_keluar->status = $status;
       $stock_keluar->save();
+
+      ///////////// ngambil id master
+      $id_master = master::where('kode_master', $request->kode_master)
+                   ->select('tb_master.id_master as id_master')
+                   ->first();
+
+        ////////// Update nilai stock keluar
+      $master = master::find($id_master->id_master);
+      $delete_stock = tb_stock_keluar::where([['kode_master', $request->kode_master],['status', 0]])
+                    ->count();
+      $master->stock_keluar = $delete_stock;
+      $master->save();
+        ////////////////////////////////////
+
+      //////// Rubah status di stock Masuk
+      $s_masuk = tb_transaksi::where([['kode_master', $request->kode_master],['sn', $request->sn],['status', 1]])
+                  ->first();
+      $status=0;
+      $s_masuk->status=$status;
+      $s_masuk->save();
+      //////////////////////////////////
+
+        ///////// Update nilai total_stock
+      $total_stock = master::where('id_master',$id_master->id_master)
+                      ->select(DB::raw('tb_master.stock_masuk - tb_master.stock_keluar as total'))
+                      ->first();
+      $master->sisa_stock = $total_stock->total;
+      $master->save();
+      /////////////////////////////////////////////////
+
+
       return back();
 
       // $stock_keluar = tb_stock_keluar::findOrFail($request->kode_keluar);
@@ -514,6 +544,6 @@ class TbStockKeluarController extends Controller
       // $master->sisa_stock = $total_stock->total;
       // $master->save();
       // /////////////////////////////////////////////////
-      return back();
+      // return back();
   }
 }

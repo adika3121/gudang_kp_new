@@ -64,12 +64,13 @@
                       data-sn_keluar="{{$stk_kluar->sn}}"
                       data-kode_keluar={{$stk_kluar->kode_keluar}}>
                         <i class="fa fa-pencil"></i></button>
-                    @if($stk_kluar->status!='2')
+                    @if($stk_kluar->status!='1')
                         <button class="btn btn-danger on-default remove-row"
                             data-toggle="modal"
                             data-target="#deleteStockKeluar"
                             data-kode_master="{{$stk_kluar->kode_master}}"
-                            data-kode_keluar={{$stk_kluar->kode_keluar}}
+                            data-kode_keluar="{{$stk_kluar->kode_keluar}}"
+                            data-sn="{{$stk_kluar->sn}}"
                             >Batal</button></td>
                     @else
                         <button class="btn btn-outline-warning">Batal</button>
@@ -182,6 +183,7 @@
                                 </p>
                                 <input type="hidden" name="kode_master" id="kode_master" value="">
                                 <input type="hidden" id="kode_keluar" name="kode_keluar" value="">
+                                <input type="hidden" name="sn" id="sn" value="">
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-success" data-dismiss="modal">Tidak</button>
                                     <button type="submit" class="btn btn-danger">Ya, Batalkan Transaksi</button>
@@ -225,10 +227,12 @@
         var button = $(event.relatedTarget)
         var kode_master = button.data('kode_master')
         var kode_keluar = button.data('kode_keluar')
+        var sn = button.data('sn')
         var modal = $(this)
 
         modal.find('.modal-body #kode_master').val(kode_master);
         modal.find('.modal-body #kode_keluar').val(kode_keluar);
+        modal.find('.modal-body #sn').val(sn);
     })
 </script>
 @endsection
