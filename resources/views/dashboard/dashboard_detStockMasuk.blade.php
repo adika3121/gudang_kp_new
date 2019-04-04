@@ -34,7 +34,13 @@
         <section class="panel">
           <header class="panel-heading">
             <div class="panel-actions">
-              <a href="#" class="fa fa-caret-down"></a>
+                <form class="" action="{{action('dashboardController@get_excell_sisa_stock')}}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="kode_master" value="{{$kode_master}}">
+                  <button type="submit" name="button" class="btn btn-primary">Export to Excell</button>
+                  <a href="#" class="fa fa-caret-down"></a>
+                </form>
+
             </div>
 
             <h2 class="panel-title">Data Sisa Stock {{$nama_dan_outlet_barang->nama_barang}} pada {{$nama_dan_outlet_barang->nama_outlet}}</h2>
@@ -66,11 +72,11 @@
           <footer class="panel-footer">
             <div class="row">
               <div class="center">
-                <form class="" action="{{action('dashboardController@get_excell_sisa_stock')}}" method="post">
+                <!-- <form class="" action="{{action('dashboardController@get_excell_sisa_stock')}}" method="post">
                   {{ csrf_field() }}
                   <input type="hidden" name="kode_master" value="{{$kode_master}}">
                   <button type="submit" name="button" class="btn btn-primary">Export to Excell</button>
-                </form>
+                </form> -->
               </div>
             </div>
           </footer>

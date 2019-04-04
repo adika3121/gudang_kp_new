@@ -174,15 +174,21 @@ class dashboardController extends Controller
                                   ->select('tb_master.nama_barang as nama_barang',
                                             'tb_outlet.nama_outlet as nama_outlet')
                                   ->first();
-      $sisa_stock = tb_transaksi::where([['kode_master', $request->kode_master],['status', 0]])
+      $sisa_stock = tb_transaksi::where([['tb_transaksi.kode_master', $request->kode_master],['status', 0]])
+                    ->join('tb_master', 'tb_master.kode_master', '=', 'tb_transaksi.kode_master')
+                    ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_transaksi.outlet')
                     ->select('tb_transaksi.kode_transaksi as kode_transaksi',
                               'tb_transaksi.kode_master as kode_master',
+                              'tb_master.nama_barang as nama_barang',
+                              'tb_outlet.nama_outlet as nama_outlet',
                               'tb_transaksi.sn as sn',
                               'tb_transaksi.created_at as waktu_masuk',
                               'tb_transaksi.keterangan as catatan')
                     ->get();
 
-       return Excel::download(new transaksiExport($sisa_stock), "transaksi"."$nama_dan_outlet_barang->nama_barang"."pada"."$nama_dan_outlet_barang->nama_outlet".".xlxs");
+                    // return $sisa_stock;
+
+       return Excel::download(new transaksiExport($sisa_stock), "Sisa Stock"." $nama_dan_outlet_barang->nama_barang"." pada"." $nama_dan_outlet_barang->nama_outlet".".xls");
 
       //  $nama_dan_outlet_barang = master::where('kode_master', $request->kode_master)
       //                             ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
