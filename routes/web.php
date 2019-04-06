@@ -19,7 +19,7 @@
 
 Auth::routes();
 
-// Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
     Route::resource('/', 'HomeController');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -58,14 +58,14 @@ Auth::routes();
     Route::post('/lihat-stock-keluar-dash', 'dashboardController@lihat_stock_keluar_terbaru');
     Route::post('/lihat-stock-based-type-dash', 'dashboardController@lihat_stock_based_type');
     Route::post('/export_excell', 'dashboardController@get_excell_sisa_stock');
-//  });
+});
 
 
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tesTampil', 'PenerimaanTransaksiController@index');
-Route::post('/tesOutlet','PenerimaanTransaksiController@outlet');
-Route::post("addmore","PenerimaanTransaksiController@addMorePost");
-Route::post('/tesTransaksiSn', 'PenerimaanTransaksiController@tambah_transaksi_sn');
-Route::post('/saveTransaksiSn', 'PenerimaanTransaksiController@store');
+// Route::get('/tesTampil', 'PenerimaanTransaksiController@index');
+// Route::post('/tesOutlet','PenerimaanTransaksiController@outlet');
+// Route::post("addmore","PenerimaanTransaksiController@addMorePost");
+// Route::post('/tesTransaksiSn', 'PenerimaanTransaksiController@tambah_transaksi_sn');
+// Route::post('/saveTransaksiSn', 'PenerimaanTransaksiController@store');

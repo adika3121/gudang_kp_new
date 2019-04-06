@@ -126,6 +126,7 @@ class TbStockKeluarController extends Controller
       $cari_sn = tb_transaksi::where([['sn', $sn],['status', 0]])
                   ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_transaksi.outlet')
                   ->select('tb_outlet.nama_outlet as nama_outlet',
+                            'tb_outlet.kode_outlet as kode_outlet',
                             'tb_transaksi.kode_master as kode_master')
                   ->first();
       //////////////////////////////////////////////
@@ -183,7 +184,7 @@ class TbStockKeluarController extends Controller
               $stock_out->sn = Input::get('sn');
               $stock_out->kode_master = $kode_master;
               $stock_out->keterangan = Input::get('keterangan');
-              $stock_out->outlet = $nama_outlet;
+              $stock_out->outlet = $kode_outlet;
               $stock_out->save();
               /////////////////////
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use View;
+use Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -19,6 +20,9 @@ class penggunaController extends Controller
      */
     public function index()
     {
+      if(!Gate::allows('isAdmin')){
+        return view('error');
+      }
       $tampilUser = user::all();
       return view('pengguna.lihat-pengguna', compact('tampilUser'));
     }
@@ -41,6 +45,9 @@ class penggunaController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Gate::allows('isAdmin')){
+          return view('error');
+      }
         $validator = Validator::make(Input::all(),  User::Rules(), User::$messages);
         if ($validator->fails())
              {
@@ -88,6 +95,9 @@ class penggunaController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if(!Gate::allows('isAdmin')){
+        return view('error');
+      }
       $validator = Validator::make(Input::all(),  User::RulesUpdate(), User::$messagesUpdate);
       if ($validator->fails())
            {
@@ -104,6 +114,9 @@ class penggunaController extends Controller
     }
 
     public function ganti_password(Request $request){
+      if(!Gate::allows('isAdmin')){
+        return view('error');
+      }
 
       $id_user = $request->id_pengguna_update;
       $nama_pengguna = User::where('id', $id_user)
@@ -114,6 +127,9 @@ class penggunaController extends Controller
     }
 
     public function update_pass(Request $request){
+      if(!Gate::allows('isAdmin')){
+        return view('error');
+      }
       $validator = Validator::make(Input::all(),  User::RulesPass(), User::$messagesPass);
       if($validator->passes()){
         $user = User::findOrFail($request->id_user);
@@ -138,6 +154,9 @@ class penggunaController extends Controller
      */
     public function destroy(Request $request)
     {
+      if(!Gate::allows('isAdmin')){
+        return view('error');
+      }
       $user = User::findOrFail($request->id);
       $user->delete();
 
