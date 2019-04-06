@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <!-- Stock Keluar Sebuah Outlet -->
+  <!-- Data Stock Sebuah Outlet -->
   <div class="row">
     <div class="col-md-12">
       <section class="panel">

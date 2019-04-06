@@ -85,7 +85,7 @@
           <div class="row">
   					<div class="col-sm-6">
   						<div class="mb-md">
-  							<button type="submit" class="btn btn-primary">Tambah Barang <i class="fa fa-plus"></i></button>
+  							<button type="submit" class="btn btn-primary">Keluarkan Barang <i class="fa fa-plus"></i></button>
   						</div>
   					</div>
   				</div>
@@ -101,7 +101,6 @@
   						</div>
   						<div class="modal-body">
                 <div class="card" style="center">
-
                     <form action="{{action('TbStockKeluarController@tambah_stock_keluar')}}" method="post" class="">
                     <div class="card-body card-block">
                         {{ csrf_field() }}
@@ -179,8 +178,8 @@
                             <h5 class="modal-title" id="largeModalLabel">Batalkan Transaksi</h5>
                         </div>
                         <div class="modal-body">
-                            <form action="{{route('stock-keluar.destroy','test')}}" method="post">
-                                {{method_field('delete')}}
+                            <form action="{{action('TbStockKeluarController@destroy')}}" method="post">
+
                                 {{csrf_field()}}
                                 <p class="text-center">
                                     Yakin untuk membatalkan stock keluar ini?

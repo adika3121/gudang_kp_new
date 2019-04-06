@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\master;
 use App\tb_outlet;
+use App\tb_transaksi;
+use App\tb_stock_keluar;
 use App\tb_merek;
 use App\tb_kategori;
 use App\tb_vendor;
-use App\tb_transaksi;
 use DB;
+use View;
 use Gate;
 
 class MasterController extends Controller
@@ -69,20 +71,37 @@ class MasterController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         else{
-          $master = new master();
+
           $outlet = $request->outlet;
           $kode_pn = $request->kode_pn;
           $nama_barang = $request->nama_barang;
           $kode_master = $outlet . $kode_pn . $nama_barang;
 
-          $master->kode_outlet = $request->outlet;
-          $master->kategori = $request->kategori;
-          $master->kode_pn = $request->kode_pn;
-          $master->nama_barang = $request->nama_barang;
-          $master->merek = $request->merk;
-          $master->kode_master = $kode_master;
-          $master->keterangan = $request->keterangan;
-          $master->save();
+          $cek_kode_master = master::where('kode_master', $kode_master)
+                            ->first();
+          if (!empty($cek_kode_master)) {
+            //Data untuk view Master
+            $tampilBarang = master::with('tb_outlet','tb_merek', 'tb_kategori')
+                            ->get();
+
+            $outlet = tb_outlet::all();
+            $merk = tb_merek::all();
+            $kategori = tb_kategori::all();
+            $data = compact('tampilBarang', 'outlet', 'merk', 'kategori');
+            /////////////////////
+            return View::make('master',$data)->withErrors(array('kode_master' => 'Barang dengan kode PN ini sudah ada di Outlet ini'));
+          }else{
+            $master = new master();
+            $master->kode_outlet = $request->outlet;
+            $master->kategori = $request->kategori;
+            $master->kode_pn = $request->kode_pn;
+            $master->nama_barang = $request->nama_barang;
+            $master->merek = $request->merk;
+            $master->kode_master = $kode_master;
+            $master->keterangan = $request->keterangan;
+            $master->save();
+          }
+
           return redirect("/master");
         }
 
@@ -121,7 +140,7 @@ class MasterController extends Controller
      public function update(Request $request)
      {
          $master = master::findOrFail($request->id_master);
-
+         
          $master->update($request->all());
          return back();
      }
@@ -134,8 +153,19 @@ class MasterController extends Controller
      */
     public function destroy(Request $request)
     {
+        // Menghapus di tabel transaksi dan stock keluar
+        $kode_master = master::where('id_master', $request->id_master)
+                      ->select('tb_master.kode_master as kode')
+                      ->first();
+        DB::table('tb_transaksi')->where('kode_master', $kode_master->kode)->delete();
+        DB::table('tb_stock_keluar')->where('kode_master', $kode_master->kode)->delete();
+        ////////////////////////
+
+        // Menghapus di tabel master
         $master = master::findOrFail($request->id_master);
         $master->delete();
+        //////////////////////////
+
         return back();
     }
 }

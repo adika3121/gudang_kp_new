@@ -14,6 +14,10 @@ class tb_outlet extends Model
       return $this->hasMany('App\master');
     }
 
+    public function tb_stock_keluar(){
+      return $this->hasMany('App\tb_stock_keluar');
+    }
+
     protected $fillable = [
       'kode_outlet','nama_outlet', 'alamat', 'no_telp'
     ];

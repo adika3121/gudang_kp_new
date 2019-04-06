@@ -45,6 +45,7 @@ Auth::routes();
     Route::post('/tambah-stock-keluar-sn', 'TbStockKeluarController@tambah_sn_keluar');
     Route::post('/tambah-stock-keluar-sn-simpan', 'TbStockKeluarController@store');
     Route::post('/tambah-sn-stock-keluar','TbStockKeluarController@store_sn');
+    Route::post('/batalkan-stock-keluar','TbStockKeluarController@destroy');
     // Route::get('/transaksi', 'TbTransaksiController@create')->name('transaksi');
 
     // transaksi

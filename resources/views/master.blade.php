@@ -68,6 +68,7 @@
                   <td><button class="on-default edit-row"
                         data-toggle="modal"
                         data-target="#editMaster"
+                        data-kategori="{{$tp_brg->kategori}}"
                         data-keterangan="{{$tp_brg->keterangan}}"
                         data-id_master={{$tp_brg->id_master}}>
                           <i class="fa fa-pencil"></i></button>
@@ -96,6 +97,14 @@
   						<div class="modal-header">
   							<h5 class="modal-title" id="largeModalLabel">Tambah Barang</h5>
   						</div>
+              @if ($errors->any())
+                @if($errors->first('kode_master'))
+                <div class="alert alert-danger alert-dismissable custom-success-box" style="margin: 15px;">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                   <strong> {{ $errors->first('kode_master') }} </strong>
+                </div>
+                @endif
+              @endif
               <form action="{{action('MasterController@store')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                   {{ csrf_field() }}
   						<div class="modal-body">
@@ -194,16 +203,27 @@
           <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="largeModalLabel">Edit Catatan</h5>
+                      <h5 class="modal-title" id="largeModalLabel">Edit Barang</h5>
                   </div>
                   <div class="modal-body">
                       <form action="{{route('master.update','test')}}" method="post" class="">
                           {{method_field('patch')}}
                           {{ csrf_field() }}
                           <div class="form-group">
+                              <label for="keterangan" class=" form-control-label">Kategori</label>
+                              <input type="hidden" id="id_master" name="id_master" value="">
+                              <select name="kategori" id="kategori" class="form-control">
+                              <@if(count($kategori->all()) > 0)
+                                  @foreach($kategori->all() as $k_gori)
+                                      <option value="{{$k_gori->kode_kategori}}"{{ (collect(old('kategori'))->contains($k_gori->kode_kategori)) ? 'selected':'' }}>{{$k_gori->nama_kategori}}</option>
+                                  @endforeach
+                              @endif
+                              </select>
+                          </div>
+                          <div class="form-group">
                               <label for="keterangan" class=" form-control-label">Catatan</label>
                               <input type="hidden" id="id_master" name="id_master" value="">
-                              <input type="text" id="keterangan" name="keterangan" class="form-control" required>
+                              <input type="text" id="keterangan" name="keterangan" class="form-control">
                           </div>
                           <div class="modal-footer">
                               <button type="submit" class="btn btn-primary btn-sm">
@@ -258,10 +278,12 @@
 $('#editMaster').on('show.bs.modal', function (event) {
 
               var button = $(event.relatedTarget)
+              var kategori = button.data('kategori')
               var keterangan = button.data('keterangan')
               var id_master = button.data('id_master')
               var modal = $(this)
 
+              modal.find('.modal-body #kategori').val(kategori);
               modal.find('.modal-body #keterangan').val(keterangan);
               modal.find('.modal-body #id_master').val(id_master);
           })
