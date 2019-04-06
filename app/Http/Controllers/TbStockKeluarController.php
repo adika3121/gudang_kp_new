@@ -25,9 +25,6 @@ class TbStockKeluarController extends Controller
           0 => 'Sudah Keluar',
           1 => 'Batal'
         ];
-  public function tambahsn(){
-    return view('stock_keluar.tambahsn');
-  }
 
   public function index()
   {
@@ -46,11 +43,11 @@ class TbStockKeluarController extends Controller
    * @return \Illuminate\Http\Response
    */
    public function tambah_stock_keluar(Request $request){
-     $nama_outlet = $request->outlet;
-     $nama_barang = master::where('kode_outlet', $nama_outlet)
-                   -> select('tb_master.id_master as id_master','tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
-                   -> get();
-     return view('stock_keluar.tambah_stock_keluar', compact('nama_barang','nama_outlet'));
+     // $nama_outlet = $request->outlet;
+     // $nama_barang = master::where('kode_outlet', $nama_outlet)
+     //               -> select('tb_master.id_master as id_master','tb_master.kode_master as kode_master', 'tb_master.nama_barang as nama_barang')
+     //               -> get();
+     return view('stock_keluar.tambah_sn');
    }
 
    public function tambah_sn_keluar(Request $request){
@@ -72,7 +69,7 @@ class TbStockKeluarController extends Controller
                       ->first();
        ///////////////////////////////////////////
 
-       return view('stock_keluar.tambahsn', compact('nama_outlet', 'nama_lainnya','kode_master', 'id_master'));
+       return view('stock_keluar.sn_stockKeluar', compact('nama_outlet', 'nama_lainnya','kode_master', 'id_master'));
      }else{
        $nama_outlet = $request->outlet;
        $nama_barang = master::where('kode_outlet', $nama_outlet)
@@ -82,6 +79,8 @@ class TbStockKeluarController extends Controller
        $data = compact('nama_outlet', 'nama_barang');
        return View::make('stock_keluar.tambah_stock_keluar', $data)->withErrors($validator);
      }
+
+
 
    }
 
@@ -114,6 +113,170 @@ class TbStockKeluarController extends Controller
   //   return redirect('/stock-keluar');
   // }
 
+  public function store_sn(Request $request){
+    $stock_out = [
+      "errors" => null
+    ];
+    $validator = Validator::make(Input::all(),  tb_stock_keluar::Rules(), tb_stock_keluar::$messages);
+    if($validator->passes()){
+      $ket = Input::get('keterangan');
+      $sn = Input::get('sn');
+
+      // Mencari Data SN dari Tabel Transaksi
+      $cari_sn = tb_transaksi::where([['sn', $sn],['status', 0]])
+                  ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_transaksi.outlet')
+                  ->select('tb_outlet.nama_outlet as nama_outlet',
+                            'tb_transaksi.kode_master as kode_master')
+                  ->first();
+      //////////////////////////////////////////////
+
+      //// Validator Cari SN
+      if(!empty($cari_sn)){
+        //Nama Komponen
+        $nama_lainnya = master::where('kode_master', $cari_sn->kode_master)
+                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                       ->select('tb_master.nama_barang as nama_barang',
+                                 'tb_outlet.kode_outlet as kode_outlet')
+                       ->first();
+        ///////////////////////////////////////////
+
+        /// Cek Keterangan
+        if (!empty($ket)) {
+          $data = compact('nama_lainnya', 'cari_sn', 'ket');
+        }else {
+          $data = compact('nama_lainnya', 'cari_sn');
+        }
+        /////////////////////////////
+
+        /// Mencari ID Master
+        $i_master = master::where('kode_master', $cari_sn->kode_master)
+                    ->select('tb_master.id_master as id_master')
+                    ->first();
+        $id_master = $i_master->id_master;
+
+        ///////////////
+
+        ///////// Variabel Validasi Untuk Masuk ke tabel
+        $cek_keluar = tb_stock_keluar::where([['sn', $sn], ['kode_master', $cari_sn->kode_master]])
+                              ->first();
+        $cek_status_keluar = tb_stock_keluar::where([['sn', $sn], ['kode_master', $cari_sn->kode_master], ['status',1]])
+                              ->first();
+        $cek_transaksi = tb_transaksi::where([['sn', $sn], ['kode_master', $cari_sn->kode_master],['status', 0]])
+                        ->select('tb_transaksi.kode_transaksi as kode')
+                        ->first();
+        ///////////////////////////////////////////////////////
+
+        ///////// Validasi If Mulai
+        //Kalau sn sudah ada di tabel transaksi
+        if(!empty($cek_transaksi)){
+          // Kalau sn sudah pernah masuk ke tabel keluar
+          if(!empty($cek_keluar)){
+            // kalau barang yg sudah pernah masuk itu statusnya 1 (artinya sudah dapet masuk lagi)
+            if(!empty($cek_status_keluar)){
+              ///// Data untuk tabel
+              $nama_outlet = $cari_sn->kode_outlet;
+              $kode_master = $cari_sn->kode_master;
+              //////////////////////////////////////
+
+              ///// Simpan ke DB
+              $stock_out = new tb_stock_keluar();
+              $stock_out->sn = Input::get('sn');
+              $stock_out->kode_master = $kode_master;
+              $stock_out->keterangan = Input::get('keterangan');
+              $stock_out->outlet = $nama_outlet;
+              $stock_out->save();
+              /////////////////////
+
+              // Rubah Status di tabel Transaksi
+              $status_transaksi = tb_transaksi::findOrFail($cek_transaksi->kode);
+              $i = 1;
+              $status_transaksi->status = $i;
+              $status_transaksi->save();
+              /////////////
+
+              ///// Menghitung jumlah stock keluar untuk dimasukan ke tb_master
+              $master = master::find($id_master);
+              $out_stock = tb_stock_keluar::where([['kode_master', $kode_master],['status', 0]])
+                            ->count();
+              $master->stock_keluar = $out_stock;
+              $master->save();
+              $total_stock = master::where('id_master',$id_master)
+                              ->select(DB::raw('tb_master.stock_masuk - tb_master.stock_keluar as total'))
+                              ->first();
+              $master->sisa_stock = $total_stock->total;
+              $master->save();
+              //////////////////////////////////////
+
+
+              return View::make('stock_keluar.tambah_sn', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+              // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+            }else{
+              return View::make('stock_keluar.tambah_sn', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
+            }
+          }else{
+            ///// Data untuk tabel
+            $nama_outlet = $cari_sn->nama_outlet;
+            $kode_master = $cari_sn->kode_master;
+            //////////////////////////////////////
+
+            ///// Simpan ke DB
+            $stock_out = new tb_stock_keluar();
+            $stock_out->sn = Input::get('sn');
+            $stock_out->kode_master = $kode_master;
+            $stock_out->keterangan = Input::get('keterangan');
+            $stock_out->outlet = $nama_outlet;
+            $stock_out->save();
+            /////////////////////
+
+            // Rubah Status di tabel Transaksi
+            $status_transaksi = tb_transaksi::findOrFail($cek_transaksi->kode);
+            $i = 1;
+            $status_transaksi->status = $i;
+            $status_transaksi->save();
+            /////////////
+
+            ///// Menghitung jumlah stock keluar untuk dimasukan ke tb_master
+            $master = master::find($id_master);
+            $out_stock = tb_stock_keluar::where([['kode_master', $kode_master],['status',0]])
+                          ->count();
+            $master->stock_keluar = $out_stock;
+            $master->save();
+            $total_stock = master::where('id_master',$id_master)
+                            ->select(DB::raw('tb_master.stock_masuk - tb_master.stock_keluar as total'))
+                            ->first();
+            $master->sisa_stock = $total_stock->total;
+            $master->save();
+            //////////////////////////////////////
+
+
+            return View::make('stock_keluar.tambah_sn', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+            // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
+          }
+        }else {
+          return View::make('stock_keluar.tambah_sn', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
+        }
+
+        /////////////// Validasi If Selesai
+      }else{
+        /// Kalo SN Tidak ketemu
+        /// Cek Keterangan
+        $data = compact('ket');
+        /////////////////////////////
+
+        return View::make('stock_keluar.tambah_sn', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
+        ////////////////////
+      }
+
+      /////////////////
+
+
+
+
+
+    }
+
+  }
+
   public function store(Request $request)
   {
 
@@ -123,23 +286,22 @@ class TbStockKeluarController extends Controller
       $validator = Validator::make(Input::all(),  tb_stock_keluar::Rules(), tb_stock_keluar::$messages);
       if($validator->passes()){
 
-        $kode_sn = $request->sn;
         ///// Data dari view sebelumnya
-        // $id_master = Input::get('id_master');
-        // $kk_master = master::where('id_master', $id_master)
-        //               ->select('tb_master.kode_master as kode_master')
-        //               ->first();
-        // $nama_outlet = Input::get('outlet');
-        // $kode_master = $kk_master->kode_master;
+        $id_master = Input::get('id_master');
+        $kk_master = master::where('id_master', $id_master)
+                      ->select('tb_master.kode_master as kode_master')
+                      ->first();
+        $nama_outlet = Input::get('outlet');
+        $kode_master = $kk_master->kode_master;
         $ket = Input::get('keterangan');
         //////////////////////////////////////
 
         //Nama Komponen
-        // $nama_lainnya = master::where('kode_master', $kode_master)
-        //                ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
-        //                ->select('tb_master.nama_barang as nama_barang',
-        //                          'tb_outlet.nama_outlet as nama_outlet')
-        //                ->first();
+        $nama_lainnya = master::where('kode_master', $kode_master)
+                       ->join('tb_outlet', 'tb_outlet.kode_outlet', '=', 'tb_master.kode_outlet')
+                       ->select('tb_master.nama_barang as nama_barang',
+                                 'tb_outlet.nama_outlet as nama_outlet')
+                       ->first();
         ///////////////////////////////////////////
 
         $stock_out = $validator->errors();
@@ -151,7 +313,8 @@ class TbStockKeluarController extends Controller
 
         /////////////////////////////////////////////////////////////////////////////
 
-        // $kode_sn = $request->sn;
+
+        $kode_sn = $request->sn;
         $cek_keluar = tb_stock_keluar::where([['sn', $kode_sn], ['kode_master', $request->kode_master]])
                               ->first();
         $cek_status_keluar = tb_stock_keluar::where([['sn', $kode_sn], ['kode_master', $request->kode_master], ['status',1]])
@@ -167,22 +330,12 @@ class TbStockKeluarController extends Controller
             // kalau barang yg sudah pernah masuk itu statusnya 1 (artinya sudah dapet masuk lagi)
             if(!empty($cek_status_keluar)){
               ///// Data dari view sebelumnya
-              // $id_master = $request->id_master;
-              // $kk_master = master::where('id_master', $id_master)
-              //               ->select('tb_master.kode_master as kode_master')
-              //               ->first();
-              // $nama_outlet = $request->outlet;
-              // $kode_master = $request->kode_master;
-
-              // $id_master = $request->id_master;
-              $kk_master = tb_transaksi::where('sn', $sn)
-                            ->select('tb_transaksi.kode_master as kode_master')
+              $id_master = $request->id_master;
+              $kk_master = master::where('id_master', $id_master)
+                            ->select('tb_master.kode_master as kode_master')
                             ->first();
-              $nama_outlet = tb_transaksi::where('sn', $sn)
-                              ->join('tb_outlet','tb_outlet.kode_outlet','=','tb_transaksi.outlet')
-                              ->select('tb_outlet.nama_outlet as nama_outlet')
-                              ->first();
-              // $kode_master = $request->kode_master;
+              $nama_outlet = $request->outlet;
+              $kode_master = $request->kode_master;
               //////////////////////////////////////
 
               ///// Simpan ke DB
@@ -215,10 +368,10 @@ class TbStockKeluarController extends Controller
               //////////////////////////////////////
 
 
-              return View::make('stock_keluar.tambahsn', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+              return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
               // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
             }else{
-              return View::make('stock_keluar.tambahsn', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
+              return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
             }
           }else{
             ///// Data dari view sebelumnya
@@ -260,11 +413,11 @@ class TbStockKeluarController extends Controller
             //////////////////////////////////////
 
 
-            return View::make('stock_keluar.tambahsn', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
+            return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('success'=> 'Barang Berhasil dikeluarkan'));
             // return view('stock_keluar.sukses_stockKeluar', compact('nama_outlet', 'kode_master', 'ket', 'id_master', 'stock_out'));
           }
         }else {
-          return View::make('stock_keluar.tambahsn', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
+          return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum masuk ke transaksi'));
         }
 
         // ///// Data dari view sebelumnya
@@ -342,7 +495,7 @@ class TbStockKeluarController extends Controller
           $data = compact('id_master', 'kk_master', 'nama_lainnya','nama_outlet', 'kode_master');
         }
 
-        return View::make('stock_keluar.tambahsn', $data)->withErrors($validator);
+        return View::make('stock_keluar.sn_stockKeluar', $data)->withErrors($validator);
 
       }
 
