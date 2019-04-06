@@ -1,6 +1,12 @@
 <table>
   <thead>
     <tr>
+      <td colspan="3"> Laporan Sisa Stock {{$sisa_stock[0]->nama_barang}} pada Outlet {{$sisa_stock[0]->nama_outlet}}</td>
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
       <th>Kode SN</th>
       <th>Waktu Masuk</th>
       <th>Catatan</th>

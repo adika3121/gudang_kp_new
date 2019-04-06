@@ -68,7 +68,7 @@ class transaksiExport implements FromView
 
     public function view(): View
     {
-      return view('exports.transaksi-sisa');
+      return view('exports.transaksi-sisa')->with("sisa_stock", $this->data);
     }
 
 }
