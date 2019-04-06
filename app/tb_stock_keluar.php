@@ -16,6 +16,7 @@ class tb_stock_keluar extends Model
     public function tb_outlet(){
       return $this->belongsTo('App\tb_outlet', 'outlet');
     }
+    
     protected $fillable = [
       'sn', 'keterangan'
     ];
