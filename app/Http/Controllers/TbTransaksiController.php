@@ -169,17 +169,17 @@ class TbTransaksiController extends Controller
              //pilih mau pake yg mana
              $cek_transaksi = tb_transaksi::where('sn', $kode_sn)
                               ->first();// gaboleh ada sn yg sama persis sama sekali di tabel
-             // $cek_transaksi = tb_transaksi::where([['sn', $kode_sn],['kode_master', $request->kode_master]])
+
+             // $cek_transaksi = tb_transaksi::where([['sn', $kode_sn],['kode_master', $request->kode_master])
              //                  ->first(); // boleh ada dengan syarat kode_masternya beda
 
-            $cek_status_transaksi = tb_transaksi::where([['sn', $kode_sn],['status', 1], ['kode_master', $request->kode_master]])
+            $cek_status_transaksi = tb_transaksi::where([['sn', $kode_sn],['status', 1]])
                                 ->first();
-             $kode_stock_keluar = tb_stock_keluar::where([['outlet', $nama_outlet], ['sn', $kode_sn],['status', 0],['kode_master', $request->kode_master]])
+             $kode_stock_keluar = tb_stock_keluar::where([['sn', $kode_sn],['status', 0]])
                                 ->select('tb_stock_keluar.kode_keluar as kode')
                                 ->first();
             /////////////////////////////////////////
-
-            // Kalo ada sn di tabel transaksi
+            // Kalo ada sn dan kode master di tabel transaksi
             if(!empty($cek_transaksi)){
               //kalo ada sn di tabel transaksi dengan status 1
               if(!empty($cek_status_transaksi)){
@@ -238,17 +238,17 @@ class TbTransaksiController extends Controller
                   // ////////////////////////////
 
                   //Balik lagi ke view masukin sn dengan alert barang berhasil masuk
-                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan'));
+                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan1'));
                 }else{
                   //Balik lagi ke view masukin sn dengan alert barang tidak masuk
-                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang'));
+                  return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang1'));
                 }
                 ///////Batas cek status keluar
 
               }
               else{
                 //Balik lagi ke view masukin sn dengan alert barang tidak masuk
-                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang'));
+                return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('sn' => 'Stock dengan SN ini belum keluar dari gudang2'));
               }
               ////////Batas cek status transaksi
 
@@ -288,9 +288,10 @@ class TbTransaksiController extends Controller
               ////////////////////////////////////
 
               //////Balik lagi ke view masukin sn dengan alert barang berhasil masuk
-              return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan'));
+              return View::make('Transaksi.sn_transaksi', $data)->withErrors(array('success'=> 'Barang Berhasil ditambahkan2'));
             }
             ////////Batas cek ada di tabel transaksi atau tidak
+
 
       //Kalau validator tidak berhasil
       }else{

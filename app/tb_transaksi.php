@@ -38,16 +38,16 @@ class tb_transaksi extends Model
 
     public static function Rules(){
         $rules= array(
-           'sn.*' => 'required|max:30'
+           'sn' => 'required|max:30'
         );
        return $rules;
     }
 
     public static $messages=array(
-        'sn.*.required'=>'Masukan SN',
-        'sn.*.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter'
+        'sn.required'=>'Masukan SN',
+        'sn.max' => 'Kode SN terlalu panjang. Maksimal 30 Karakter'
     );
 
-    
+
 
 }
