@@ -183,7 +183,8 @@ class dashboardController extends Controller
                               'tb_outlet.nama_outlet as nama_outlet',
                               'tb_transaksi.sn as sn',
                               'tb_transaksi.created_at as waktu_masuk',
-                              'tb_transaksi.keterangan as catatan')
+                              'tb_transaksi.keterangan as catatan',
+                              'tb_transaksi.status as status')
                     ->get();
 
                     // return $sisa_stock;
