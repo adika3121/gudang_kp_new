@@ -107,6 +107,7 @@
                     <th>Kode SN</th>
                     <th>Waktu Masuk</th>
                     <th>Catatan</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -115,6 +116,7 @@
                       <td>{{$trans->sn}}</td>
                       <td>{{$trans->waktu_masuk}}</td>
                       <td>{{$trans->catatan}}</td>
+                      <td>{{$status_jadi_masuk[$trans->status]}}</td>
                     </tr>
                   @endforeach
                 </tbody>

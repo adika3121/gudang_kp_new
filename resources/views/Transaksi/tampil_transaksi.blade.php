@@ -54,6 +54,7 @@
               <th>Waktu Masuk</th>
               <th>Catatan</th>
               <th>Ket</th>
+              <th>Status Barang</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +65,7 @@
                 <td>{{$tp_transaksi->tb_vendor['nama_vendor']}}</td>
                 <td>{{$tp_transaksi->created_at}}</td>
                 <td>{{$tp_transaksi->keterangan}}</td>
+                <td>{{$status_jadi[$tp_transaksi->status]}}</td>
                 <td><button class="on-default edit-row"
                       data-toggle="modal"
                       data-target="#editTransaksi"
